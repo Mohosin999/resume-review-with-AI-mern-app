@@ -6,7 +6,7 @@
   --color-primary: #22c55e;
   --color-secondary: #10b981;
   --color-accent: #14b8a6;
-  
+
   /* Dark Reader Fix - Prevent color inversion */
   --darkreader-background--bg-color: #0f172a;
   --darkreader-text--text-color: #f8fafc;
@@ -39,7 +39,11 @@ html {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* Dark Reader compatibility */
@@ -138,6 +142,10 @@ body {
 
   .label {
     @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5;
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 }
 

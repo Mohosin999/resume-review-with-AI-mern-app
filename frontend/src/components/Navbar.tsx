@@ -43,15 +43,18 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="fixed top-0 left-0 right-0 z-50 py-1 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-white/80 dark:border-gray-900/80">
+        <div className="section-container">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-cyan-500 rounded-lg flex items-center justify-center">
+              {/* <div className="w-8 h-8 bg-cyan-500 rounded-lg flex items-center justify-center">
+                <Flame className="w-5 h-5 text-white" />
+              </div> */}
+              <div className="w-8 h-8 bg-gradient-to-br from-green-500 via-emerald-500 to-green-600 rounded-xl flex items-center justify-center">
                 <Flame className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-900 dark:text-white">
-                CV<span className="text-cyan-500">Coach</span>
+                CV<span className="text-green-500">Coach</span>
               </span>
             </Link>
 
@@ -137,7 +140,9 @@ export default function Navbar() {
                             <p className="text-sm font-medium text-gray-900 dark:text-white">
                               {user.name}
                             </p>
-                            <p className="text-xs text-gray-500">{user.email}</p>
+                            <p className="text-xs text-gray-500">
+                              {user.email}
+                            </p>
                           </div>
                           <Link
                             to="/settings"
