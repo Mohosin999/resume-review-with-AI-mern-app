@@ -1,3 +1,6 @@
+/* ===================================
+API Configuration and Endpoints
+=================================== */
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { ApiResponse } from '../types';
 import { ResumeContent } from '../types';
@@ -23,7 +26,7 @@ api.interceptors.response.use(
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
     if (!originalRequest) return Promise.reject(error);
 
-    const isAuthRequest = originalRequest.url?.includes('/auth/login') || 
+    const isAuthRequest = originalRequest.url?.includes('/auth/login') ||
                           originalRequest.url?.includes('/auth/register') ||
                           originalRequest.url?.includes('/auth/refresh') ||
                           originalRequest.url?.includes('/auth/me');
@@ -69,22 +72,6 @@ export const resumeApi = {
   update: (id: string, data: any) => api.put(`/resumes/${id}`, data),
   delete: (id: string) => api.delete(`/resumes/${id}`),
   deleteAll: () => api.delete('/resumes/delete-all'),
-  generateSummary: (jobTitle: string, skills: string[], experience?: string) => 
-    api.post('/resumes/ai/generate-summary', { jobTitle, skills, experience }),
-  generateExperience: (jobTitle: string, company: string, yearsExperience?: number, skills?: string[]) =>
-    api.post('/resumes/ai/generate-experience', { jobTitle, company, yearsExperience, skills }),
-  generateProject: (projectName: string, technologies?: string[]) =>
-    api.post('/resumes/ai/generate-project', { projectName, technologies }),
-  generateSkills: (jobTitle: string) =>
-    api.post('/resumes/ai/generate-skills', { jobTitle }),
-  generateAchievements: (jobTitle: string, experience?: string) =>
-    api.post('/resumes/ai/generate-achievements', { jobTitle, experience }),
-  generateCertifications: (jobTitle: string) =>
-    api.post('/resumes/ai/generate-certifications', { jobTitle }),
-  generateFullResume: (data: { jobTitle: string; experience?: string; skills?: string[]; education?: string }) =>
-    api.post('/resumes/ai/generate-full', data),
-  improveContent: (section: string, content: string, jobTitle?: string) =>
-    api.post('/resumes/ai/improve', { section, content, jobTitle }),
 };
 
 export const analysisApi = {

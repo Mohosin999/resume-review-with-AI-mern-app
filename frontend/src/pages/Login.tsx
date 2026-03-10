@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Sparkles, Chrome, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 import { useAppDispatch } from '../hooks/redux';
 import { login, fetchUser } from '../store/slices/authSlice';
-import api from '../services/api';
+import api from '../api/api';
 
 export default function Login() {
   const dispatch = useAppDispatch();

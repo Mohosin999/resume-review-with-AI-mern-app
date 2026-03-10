@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { userApi } from '../services/api';
+import { userApi } from '../api/api';
 
 export const showToast = {
   success: (message: string) => toast.success(message),

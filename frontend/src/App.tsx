@@ -9,7 +9,7 @@ import Settings from './pages/Settings';
 import Builder from './pages/Builder';
 import SavedResumes from './pages/SavedResumes';
 import Plans from './pages/Plans';
-import LoadingSpinner from './components/LoadingSpinner';
+import { LoadingSpinner } from './components/ui';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAppSelector((state) => ({

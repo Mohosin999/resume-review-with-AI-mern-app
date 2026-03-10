@@ -3,8 +3,8 @@ import { useDropzone } from 'react-dropzone';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, File, X, CheckCircle, AlertCircle } from 'lucide-react';
 import { clsx } from 'clsx';
-import { resumeApi } from '../services/api';
-import { Resume, ResumeContent } from '../types';
+import { resumeApi } from '../../api/api';
+import { Resume, ResumeContent } from '../../types';
 import LoadingSpinner from './LoadingSpinner';
 
 interface FileUploadProps {

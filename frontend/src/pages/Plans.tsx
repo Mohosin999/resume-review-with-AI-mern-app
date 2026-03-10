@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import { fetchUser } from "../store/slices/authSlice";
 import { showUpgradePlan } from "../components/Toast";
-import BackButton from "../components/BackButton";
+import { BackButton } from "../components/ui";
 
 interface Plan {
   id: string;

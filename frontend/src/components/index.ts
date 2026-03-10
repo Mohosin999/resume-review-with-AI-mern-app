@@ -1,7 +1,14 @@
-export { ScoreCard } from './ScoreCard';
-export { SkillBadge, SkillList } from './SkillBadge';
-export { ProgressBar } from './ProgressBar';
+/* ===================================
+Components Export (Shared & UI)
+=================================== */
+// Re-export all UI components
+export * from './ui';
+
+// Re-export all shared components
+export * from './shared';
+
+// Shared complex components (not UI, not builder)
 export { AnalysisSection, SuggestionItem } from './AnalysisSection';
 export { JobDescriptionInput } from './JobDescriptionInput';
 export { AnalysisProgress } from './AnalysisProgress';
-export { ResultPanel } from './ResultPanel';
+export { default as ResultPanel } from './ResultPanel';
