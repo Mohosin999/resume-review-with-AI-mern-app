@@ -90,7 +90,7 @@ export default function Builder() {
   };
 
   const handleSave = async () => {
-    await builder.handleSaveResume(() => builder.fetchResumes(true));
+    await builder.handleSaveResume();
   };
 
   const renderSectionEditor = (section: Section) => {
@@ -119,7 +119,7 @@ export default function Builder() {
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="mt-6 mb-1"><BackButton /></div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <BuilderHeader savedResumes={builder.savedResumes} selectedResume={builder.selectedResume} onSelectResume={builder.handleSelectResume} onNewResume={builder.handleNewResume} onPreview={() => setShowPreviewModal(true)} />
+          <BuilderHeader saving={builder.saving} onNewResume={builder.handleNewResume} onPreview={() => setShowPreviewModal(true)} />
         </motion.div>
         <BuilderProgress sections={sectionStates} currentStep={currentStep} />
         <div className="max-w-4xl mx-auto">

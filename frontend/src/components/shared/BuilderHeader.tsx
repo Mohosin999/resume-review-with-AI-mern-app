@@ -2,24 +2,22 @@
 Builder Header Component
 =================================== */
 import { motion } from "framer-motion";
-import { Eye } from "lucide-react";
-import { Resume } from "../../types";
+import { Eye, History } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface BuilderHeaderProps {
-  savedResumes: Resume[];
-  selectedResume: Resume | null;
-  onSelectResume: (r: Resume) => void;
+  saving: boolean;
   onNewResume: () => void;
   onPreview: () => void;
 }
 
 export default function BuilderHeader({
-  savedResumes,
-  selectedResume,
-  onSelectResume,
+  saving,
   onNewResume,
   onPreview,
 }: BuilderHeaderProps) {
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
       <div>
@@ -29,23 +27,13 @@ export default function BuilderHeader({
         </p>
       </div>
       <div className="flex flex-wrap gap-2">
-        {savedResumes.length > 0 && (
-          <select
-            value={selectedResume?._id || ""}
-            onChange={(e) => {
-              const resume = savedResumes.find((r) => r._id === e.target.value);
-              if (resume) onSelectResume(resume);
-            }}
-            className="input w-full sm:w-40 text-sm"
-          >
-            <option value="">Load saved...</option>
-            {savedResumes.map((r) => (
-              <option key={r._id} value={r._id}>
-                {r.content.personalInfo.jobTitle || "No Job Title"}
-              </option>
-            ))}
-          </select>
-        )}
+        <button
+          onClick={() => navigate('/resume-build-history')}
+          className="btn-outline text-sm px-3 sm:px-4 flex items-center gap-2"
+        >
+          <History className="w-4 h-4" />
+          History
+        </button>
         <button onClick={onNewResume} className="btn-outline text-sm px-3 sm:px-4">
           New
         </button>

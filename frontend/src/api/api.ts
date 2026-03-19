@@ -96,18 +96,34 @@ export const jobApi = {
 };
 
 export const atsScoreApi = {
-  analyze: (data: { resumeId: string }) => api.post('/ats-score/analyze', data),
-  getAll: (page = 1, limit = 10) => api.get(`/ats-score?page=${page}&limit=${limit}`),
-  getById: (id: string) => api.get(`/ats-score/${id}`),
-  delete: (id: string) => api.delete(`/ats-score/${id}`),
+  analyze: (data: { resumeName: string; resumeContent: any }) => api.post('/ats-score-history/analyze', data),
+  getAll: (page = 1, limit = 3) => api.get(`/ats-score-history?page=${page}&limit=${limit}`),
+  getById: (id: string) => api.get(`/ats-score-history/${id}`),
+  delete: (id: string) => api.delete(`/ats-score-history/${id}`),
+  deleteAll: () => api.delete('/ats-score-history'),
 };
 
 export const jobMatchApi = {
-  analyze: (data: { resumeId: string; jobDescription: string; jobTitle?: string; company?: string }) =>
-    api.post('/job-match/analyze', data),
-  getAll: (page = 1, limit = 10) => api.get(`/job-match?page=${page}&limit=${limit}`),
-  getById: (id: string) => api.get(`/job-match/${id}`),
-  delete: (id: string) => api.delete(`/job-match/${id}`),
+  analyze: (data: { resumeName: string; resumeContent: any; jobDescription: string }) =>
+    api.post('/job-match-history/analyze', data),
+  getAll: (page = 1, limit = 3) => api.get(`/job-match-history?page=${page}&limit=${limit}`),
+  getById: (id: string) => api.get(`/job-match-history/${id}`),
+  delete: (id: string) => api.delete(`/job-match-history/${id}`),
+  deleteAll: () => api.delete('/job-match-history'),
+};
+
+export const resumeBuildHistoryApi = {
+  save: (data: { resumeContent: any; resumeName?: string }) => api.post('/resume-build-history', data),
+  getAll: (page = 1, limit = 3) => api.get(`/resume-build-history?page=${page}&limit=${limit}`),
+  getById: (id: string) => api.get(`/resume-build-history/${id}`),
+  delete: (id: string) => api.delete(`/resume-build-history/${id}`),
+  deleteAll: () => api.delete('/resume-build-history'),
+};
+
+export const resumeParserApi = {
+  parse: (formData: FormData) => api.post('/resume-parser/parse', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  }),
 };
 
 export const resumeBuilderApi = {

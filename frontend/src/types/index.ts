@@ -305,3 +305,60 @@ export interface AtsCheckResult {
   suggestions: string[];
   isAtsFriendly: boolean;
 }
+
+// ATS Score History Types
+export interface AtsScoreHistory {
+  _id: string;
+  userId: string;
+  title: string;
+  resumeName: string;
+  overallScore: number;
+  sectionScores: {
+    summary: { score: number; feedback: string };
+    experience: { score: number; feedback: string };
+    projects: { score: number; feedback: string };
+    skills: { score: number; feedback: string };
+    contactInfo: { score: number; feedback: string; hasContactInfo: boolean };
+  };
+  spellingGrammar: {
+    score: number;
+    errors: Array<{ type: string; message: string; suggestion: string }>;
+  };
+  atsFriendliness: number;
+  suggestions: string[];
+  resumeContent: ResumeContent;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Job Match History Types
+export interface JobMatchHistory {
+  _id: string;
+  userId: string;
+  title: string;
+  resumeName: string;
+  jobDescription: string;
+  matchPercentage: number;
+  breakdown: {
+    keywords: { score: number; matched: string[]; missing: string[] };
+    skills: { score: number; matched: string[]; missing: string[] };
+    education: { score: number; details: string };
+    experience: { score: number; yearsMatched: number; yearsRequired?: number };
+  };
+  missingSkills: string[];
+  missingKeywords: string[];
+  suggestions: string[];
+  resumeContent: ResumeContent;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Resume Build History Types
+export interface ResumeBuildHistory {
+  _id: string;
+  userId: string;
+  title: string;
+  resumeContent: ResumeContent;
+  createdAt: string;
+  updatedAt: string;
+}

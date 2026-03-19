@@ -1,8 +1,9 @@
-import { ReactNode } from 'react';
+import { ReactNode, ComponentType } from 'react';
 import { clsx } from 'clsx';
 
 interface EmptyStateProps {
-  icon?: ReactNode;
+  icon?: ComponentType<{ className?: string }>;
+  iconSize?: string;
   title: string;
   description?: string;
   action?: ReactNode;
@@ -10,7 +11,8 @@ interface EmptyStateProps {
 }
 
 export default function EmptyState({
-  icon,
+  icon: Icon,
+  iconSize = 'w-12 h-12',
   title,
   description,
   action,
@@ -23,9 +25,9 @@ export default function EmptyState({
         className
       )}
     >
-      {icon && (
+      {Icon && (
         <div className="mb-4 text-gray-300 dark:text-gray-600">
-          {icon}
+          <Icon className={iconSize} />
         </div>
       )}
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">

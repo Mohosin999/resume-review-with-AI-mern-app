@@ -1,24 +1,29 @@
 /* ===================================
 Navbar Component
 =================================== */
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Flame, FileText } from "lucide-react";
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import { logoutUser } from "../store/slices/authSlice";
 import ConfirmModal from "./ui/ConfirmModal";
+import HistoryDropdown from "./ui/HistoryDropdown";
 import {
   NavLinks, UpgradeButton, CreditsBadge, ProfileMenu,
   MobileMenuButton, MobileMenu, AuthButtons,
 } from "./shared";
 
-const NAV_LINKS = [
-  { path: "/dashboard", label: "Dashboard", icon: null as any },
-  { path: "/ats-score", label: "ATS Score", icon: null as any },
-  { path: "/job-match", label: "Job Match", icon: null as any },
-  { path: "/builder", label: "Builder", icon: FileText },
-  { path: "/my-resumes", label: "My Resumes", icon: FileText },
+interface NavLink {
+  path: string;
+  label: string;
+}
+
+const NAV_LINKS: NavLink[] = [
+  { path: "/dashboard", label: "Dashboard" },
+  { path: "/ats-score", label: "ATS Score" },
+  { path: "/job-match", label: "Job Match" },
+  { path: "/builder", label: "Builder" },
 ];
 
 export default function Navbar() {
@@ -50,6 +55,9 @@ export default function Navbar() {
               {user ? (
                 <>
                   <NavLinks navLinks={NAV_LINKS} />
+                  <div className="hidden md:flex">
+                    <HistoryDropdown />
+                  </div>
                   <UpgradeButton />
                   <CreditsBadge user={user} />
                   <ProfileMenu user={user} profileMenuOpen={profileMenuOpen} setProfileMenuOpen={setProfileMenuOpen} onLogout={() => setShowLogoutConfirm(true)} />

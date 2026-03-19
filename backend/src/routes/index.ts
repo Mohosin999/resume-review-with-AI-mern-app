@@ -1,30 +1,33 @@
 import authRoutes from './auth';
 import userRoutes from './users';
-import resumeRoutes from './resumes';
 import analysisRoutes from './analysis';
 import jobRoutes from './jobs';
-import atsScoreRoutes from './atsScore';
-import jobMatchRoutes from './jobMatch';
+import atsScoreHistoryRoutes from './atsScoreHistory';
+import jobMatchHistoryRoutes from './jobMatchHistory';
+import resumeBuildHistoryRoutes from './resumeBuildHistory';
 import resumeBuilderRoutes from './resumeBuilder';
+import resumeParserRoutes from './resumeParser';
 
 export {
   authRoutes,
   userRoutes,
-  resumeRoutes,
   analysisRoutes,
   jobRoutes,
-  atsScoreRoutes,
-  jobMatchRoutes,
+  atsScoreHistoryRoutes,
+  jobMatchHistoryRoutes,
+  resumeBuildHistoryRoutes,
   resumeBuilderRoutes,
+  resumeParserRoutes,
 };
 
 export const routes = [
   { path: '/api/auth', router: authRoutes },
   { path: '/api/users', router: userRoutes },
-  { path: '/api/resumes', router: resumeRoutes },
   { path: '/api/analysis', router: analysisRoutes },
   { path: '/api/jobs', router: jobRoutes },
-  { path: '/api/ats-score', router: atsScoreRoutes },
-  { path: '/api/job-match', router: jobMatchRoutes },
+  { path: '/api/ats-score-history', router: atsScoreHistoryRoutes },
+  { path: '/api/job-match-history', router: jobMatchHistoryRoutes },
+  { path: '/api/resume-build-history', router: resumeBuildHistoryRoutes },
   { path: '/api/resume-builder', router: resumeBuilderRoutes },
+  { path: '/api/resume-parser', router: resumeParserRoutes },
 ];

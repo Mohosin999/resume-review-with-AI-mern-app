@@ -1,23 +1,23 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useAppSelector } from './hooks/redux';
+import { useSelector } from 'react-redux';
+import { RootState } from './store';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 
-import History from './pages/History';
 import Settings from './pages/Settings';
 import Builder from './pages/Builder';
-import SavedResumes from './pages/SavedResumes';
 import Plans from './pages/Plans';
 import AtsScore from './pages/AtsScore';
 import JobMatch from './pages/JobMatch';
+import AtsScoreHistory from './pages/AtsScoreHistory';
+import JobMatchHistory from './pages/JobMatchHistory';
+import ResumeBuildHistory from './pages/ResumeBuildHistory';
 import { LoadingSpinner } from './components/ui';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAppSelector((state) => ({
-    user: state.auth.user,
-    loading: state.auth.loading,
-  }));
+  const user = useSelector((state: RootState) => state.auth.user);
+  const loading = useSelector((state: RootState) => state.auth.loading);
 
   if (loading) {
     return <LoadingSpinner fullScreen />;
@@ -27,10 +27,8 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
 }
 
 function PublicRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAppSelector((state) => ({
-    user: state.auth.user,
-    loading: state.auth.loading,
-  }));
+  const user = useSelector((state: RootState) => state.auth.user);
+  const loading = useSelector((state: RootState) => state.auth.loading);
 
   if (loading) {
     return <LoadingSpinner fullScreen />;
@@ -59,15 +57,6 @@ function App() {
           </PrivateRoute>
         }
       />
-
-      <Route
-        path="/history"
-        element={
-          <PrivateRoute>
-            <History />
-          </PrivateRoute>
-        }
-      />
       <Route
         path="/settings"
         element={
@@ -81,22 +70,6 @@ function App() {
         element={
           <PrivateRoute>
             <Builder />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/my-resumes"
-        element={
-          <PrivateRoute>
-            <SavedResumes />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/saved-resumes"
-        element={
-          <PrivateRoute>
-            <SavedResumes />
           </PrivateRoute>
         }
       />
@@ -121,6 +94,30 @@ function App() {
         element={
           <PrivateRoute>
             <JobMatch />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/ats-score-history"
+        element={
+          <PrivateRoute>
+            <AtsScoreHistory />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/job-match-history"
+        element={
+          <PrivateRoute>
+            <JobMatchHistory />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/resume-build-history"
+        element={
+          <PrivateRoute>
+            <ResumeBuildHistory />
           </PrivateRoute>
         }
       />

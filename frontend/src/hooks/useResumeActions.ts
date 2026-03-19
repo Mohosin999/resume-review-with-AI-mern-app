@@ -3,7 +3,7 @@ Custom Hook: useResumeActions
 =================================== */
 import { useState } from "react";
 import { Resume, ResumeContent } from "../types";
-import { resumeApi } from "../api/api";
+import { resumeBuildHistoryApi } from "../api/api";
 import { useAppDispatch } from "./redux";
 import { setUserCredits } from "../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -40,36 +40,22 @@ export function useResumeActions() {
     setContent(resume.content);
   };
 
-  const handleSaveResume = async (fetchResumes?: () => Promise<void>) => {
+  const handleSaveResume = async () => {
     setSaving(true);
     try {
-      if (selectedResume) {
-        await resumeApi.update(selectedResume._id, { content });
-        toast.success("Resume updated successfully");
-      } else {
-        const response = await resumeApi.createFromContent(content);
-        setSelectedResume(response.data.data);
-        const remainingCredits = response.data.remainingCredits;
-        if (remainingCredits !== undefined) {
-          dispatch(setUserCredits(remainingCredits));
-        }
-        toast.success("Resume saved successfully! 1 credit used.");
-      }
+      const response = await resumeBuildHistoryApi.save({
+        resumeContent: content,
+        resumeName: content.personalInfo?.fullName || 'Untitled Resume',
+      });
+      toast.success("Resume saved to history successfully!");
+      return response.data.data;
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Failed to save resume";
-      if (errorMessage.includes("Insufficient credits")) {
-        toast.error("Insufficient credits! Please upgrade your plan or add more credits.");
-        navigate("/plans");
-      } else {
-        toast.error(errorMessage);
-      }
-      return; // Don't fetch resumes if save failed
+      toast.error(errorMessage);
+      return null;
     } finally {
       setSaving(false);
     }
-    
-    // Fetch resumes after successful save (silently)
-    await fetchResumes?.();
   };
 
   const handleNewResume = () => {
