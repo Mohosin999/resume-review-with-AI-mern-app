@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { History, Search, Trash2, FileText, ChevronLeft, ChevronRight, Target } from "lucide-react";
 import { toast } from "react-toastify";
@@ -8,7 +8,6 @@ import { Analysis } from "../types";
 import { LoadingSpinner, BackButton, ConfirmModal } from "../components/ui";
 
 export default function HistoryPage() {
-  const navigate = useNavigate();
   const [analyses, setAnalyses] = useState<Analysis[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -100,7 +99,7 @@ const AnalysisList = ({ analyses, onDelete, totalPages, page, setPage }: { analy
   <>
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="space-y-4">
       {analyses.map((analysis) => (
-        <div key={analysis._id} className="card flex items-center justify-between hover:shadow-md transition-shadow cursor-pointer" onClick={() => window.location.href = `/analyze?analysis=${analysis._id}`}>
+        <div key={analysis._id} className="card flex items-center justify-between hover:shadow-md transition-shadow cursor-pointer" onClick={() => window.location.href = `/ats-score`}>
           <div className="flex items-center gap-4 flex-1">
             <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${analysis.score >= 70 ? "bg-green-100 dark:bg-green-900/30" : analysis.score >= 50 ? "bg-yellow-100 dark:bg-yellow-900/30" : "bg-red-100 dark:bg-red-900/30"}`}>
               <span className={`text-xl font-bold ${analysis.score >= 70 ? "text-green-600" : analysis.score >= 50 ? "text-yellow-600" : "text-red-600"}`}>{analysis.score}%</span>
@@ -134,6 +133,6 @@ const EmptyState = ({ searchTerm }: { searchTerm: string }) => (
     <History className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
     <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No Analyses Found</h3>
     <p className="text-gray-500 dark:text-gray-400 mb-4">{searchTerm ? "Try a different search term" : "Start by analyzing your first resume"}</p>
-    <a href="/analyze" className="btn-primary inline-flex items-center gap-2"><FileText className="w-4 h-4" />New Analysis</a>
+    <Link to="/ats-score" className="btn-primary inline-flex items-center gap-2"><FileText className="w-4 h-4" />Check ATS Score</Link>
   </motion.div>
 );

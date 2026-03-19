@@ -15,8 +15,8 @@ import {
 
 const NAV_LINKS = [
   { path: "/dashboard", label: "Dashboard", icon: null as any },
-  { path: "/analyze", label: "Analyze", icon: null as any },
-  { path: "/history", label: "History", icon: null as any },
+  { path: "/ats-score", label: "ATS Score", icon: null as any },
+  { path: "/job-match", label: "Job Match", icon: null as any },
   { path: "/builder", label: "Builder", icon: FileText },
   { path: "/my-resumes", label: "My Resumes", icon: FileText },
 ];

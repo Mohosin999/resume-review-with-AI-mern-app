@@ -230,3 +230,78 @@ export interface ApiResponse<T> {
     pages: number;
   };
 }
+
+// ATS Score Types
+export interface AtsScore {
+  _id: string;
+  userId: string;
+  resumeId: Resume | string;
+  overallScore: number;
+  sectionScores: {
+    summary: { score: number; feedback: string };
+    experience: { score: number; feedback: string };
+    projects: { score: number; feedback: string };
+    skills: { score: number; feedback: string };
+    contactInfo: { score: number; feedback: string; hasContactInfo: boolean };
+  };
+  spellingGrammar: {
+    score: number;
+    errors: Array<{ type: string; message: string; suggestion: string }>;
+  };
+  atsFriendliness: number;
+  suggestions: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Job Match Types
+export interface JobMatchResult {
+  _id: string;
+  userId: string;
+  resumeId: Resume | string;
+  jobDescription: string;
+  jobTitle?: string;
+  company?: string;
+  matchPercentage: number;
+  breakdown: {
+    keywords: { score: number; matched: string[]; missing: string[] };
+    skills: { score: number; matched: string[]; missing: string[] };
+    education: { score: number; details: string };
+    experience: { score: number; yearsMatched: number; yearsRequired?: number };
+  };
+  missingSkills: string[];
+  missingKeywords: string[];
+  suggestions: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Resume Builder Types
+export interface ResumeTemplate {
+  _id: string;
+  userId: string;
+  name: string;
+  isAtsFriendly: boolean;
+  content: ResumeContent;
+  isDraft: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AISectionSuggestion {
+  section: string;
+  content: string;
+  tips: string[];
+}
+
+export interface SectionImprovement {
+  improved: string;
+  changes: string[];
+}
+
+export interface AtsCheckResult {
+  atsScore: number;
+  issues: string[];
+  suggestions: string[];
+  isAtsFriendly: boolean;
+}

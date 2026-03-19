@@ -12,8 +12,8 @@ import { Resume } from "../types";
 import { exportToPdf } from "../utils/pdfExport";
 import { BackButton } from "../components/ui";
 import {
-  PersonalInfoEditor, SummaryEditor, ExperienceEditor, ProjectsEditor,
-  AchievementsEditor, CertificationsEditor, EducationEditor, SkillsEditor,
+  PersonalInfoEditor, SummaryEditorAI, ExperienceEditorAI, ProjectsEditorAI,
+  AchievementsEditor, CertificationsEditor, EducationEditor, SkillsEditorAI,
   BuilderHeader, BuilderProgress, BuilderSection, PreviewModal,
 } from "../components/shared";
 
@@ -97,13 +97,13 @@ export default function Builder() {
     const { content, setContent } = builder;
     switch (section.id) {
       case "personal": return <PersonalInfoEditor content={content} updateField={contentActions.updatePersonalInfo} />;
-      case "summary": return <SummaryEditor value={content.summary || ""} onChange={(val) => setContent({ ...content, summary: val })} />;
-      case "experience": return <ExperienceEditor experience={content.experience} onAdd={contentActions.addExperience} onUpdate={contentActions.updateExperience} onRemove={contentActions.removeExperience} />;
-      case "projects": return <ProjectsEditor projects={content.projects} onAdd={contentActions.addProject} onUpdate={contentActions.updateProject} onRemove={contentActions.removeProject} />;
+      case "summary": return <SummaryEditorAI value={content.summary || ""} onChange={(val) => setContent({ ...content, summary: val })} personalInfo={content.personalInfo} skills={content.skills} />;
+      case "experience": return <ExperienceEditorAI experience={content.experience} onAdd={contentActions.addExperience} onUpdate={contentActions.updateExperience} onRemove={contentActions.removeExperience} />;
+      case "projects": return <ProjectsEditorAI projects={content.projects} onAdd={contentActions.addProject} onUpdate={contentActions.updateProject} onRemove={contentActions.removeProject} />;
       case "achievements": return <AchievementsEditor achievements={content.achievements} onAdd={contentActions.addAchievement} onUpdate={contentActions.updateAchievement} onRemove={contentActions.removeAchievement} />;
       case "certifications": return <CertificationsEditor certifications={content.certifications} onAdd={contentActions.addCertification} onUpdate={contentActions.updateCertification} onRemove={contentActions.removeCertification} />;
       case "education": return <EducationEditor education={content.education} onAdd={contentActions.addEducation} onUpdate={contentActions.updateEducation} onRemove={contentActions.removeEducation} />;
-      case "skills": return <SkillsEditor skills={content.skills} onAdd={contentActions.addSkill} onRemove={contentActions.removeSkill} />;
+      case "skills": return <SkillsEditorAI skills={content.skills} onAdd={contentActions.addSkill} onRemove={contentActions.removeSkill} jobTitle={content.personalInfo.jobTitle} />;
       default: return null;
     }
   };

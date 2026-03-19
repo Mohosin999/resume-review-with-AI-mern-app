@@ -3,12 +3,16 @@ Shared Components Export
 =================================== */
 export { default as PersonalInfoEditor } from './PersonalInfoEditor';
 export { default as SummaryEditor } from './SummaryEditor';
+export { default as SummaryEditorAI } from './SummaryEditorAI';
 export { default as ExperienceEditor } from './ExperienceEditor';
+export { default as ExperienceEditorAI } from './ExperienceEditorAI';
 export { default as ProjectsEditor } from './ProjectsEditor';
+export { default as ProjectsEditorAI } from './ProjectsEditorAI';
 export { default as AchievementsEditor } from './AchievementsEditor';
 export { default as CertificationsEditor } from './CertificationsEditor';
 export { default as EducationEditor } from './EducationEditor';
 export { default as SkillsEditor } from './SkillsEditor';
+export { default as SkillsEditorAI } from './SkillsEditorAI';
 export { default as ResumePreview } from './ResumePreview';
 export { default as SectionCard } from './SectionCard';
 
@@ -34,8 +38,6 @@ export { default as OverallFeedback } from './OverallFeedback';
 export { default as AtsScoreInfo } from './AtsScoreInfo';
 export { default as SkillsAnalysis } from './SkillsAnalysis';
 export { default as JobMatchBreakdown } from './JobMatchBreakdown';
-export { default as Recommendations } from './Recommendations';
-export { default as Strengths } from './Strengths';
 export { default as MissingKeywords } from './MissingKeywords';
 
 // Navbar sub-components

@@ -1,6 +1,6 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { ResumeContent, AnalysisResult } from '../../types';
-import { env } from '../../config/env';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { ResumeContent, AnalysisResult } from "../../types";
+import { env } from "../../config/env";
 
 const COMPREHENSIVE_KEYWORDS = {
   programmingLanguages: [
@@ -16,20 +16,6 @@ const COMPREHENSIVE_KEYWORDS = {
     "php",
     "swift",
     "kotlin",
-    "scala",
-    "perl",
-    "r",
-    "matlab",
-    "sql",
-    "html",
-    "css",
-    "dart",
-    "elixir",
-    "haskell",
-    "clojure",
-    "lua",
-    "shell",
-    "bash",
   ],
   frameworks: [
     "react",
@@ -67,8 +53,6 @@ const COMPREHENSIVE_KEYWORDS = {
     "redux",
     "context api",
     "react query",
-    "axios",
-    "fetch",
     "graphql",
     "apollo",
   ],
@@ -78,23 +62,11 @@ const COMPREHENSIVE_KEYWORDS = {
     "mysql",
     "redis",
     "sqlite",
-    "elasticsearch",
     "dynamodb",
     "firebase",
     "supabase",
     "prisma",
     "mongoose",
-    "sequelize",
-    "typeorm",
-    "cassandra",
-    "mariadb",
-    "oracle",
-    "mssql",
-    "mongodb atlas",
-    "cosmos db",
-    "realm",
-    "couchdb",
-    "neo4j",
     "graphql",
   ],
   tools: [
@@ -141,7 +113,6 @@ const RECOMMENDED_KEYWORDS = [
   "unit testing",
   "integration testing",
   "agile",
-  "scrum",
   "github actions",
   "kubernetes",
   "aws",
@@ -154,41 +125,7 @@ const RECOMMENDED_KEYWORDS = [
   "system design",
   "performance optimization",
   "code review",
-  "tdd",
-  "bdd",
   "clean code",
-  "solid principles",
-  "design patterns",
-];
-
-const ATS_SECTIONS = [
-  { name: "summary", keywords: ["summary", "objective", "profile", "about"] },
-  {
-    name: "skills",
-    keywords: ["skills", "technical skills", "competencies", "technologies"],
-  },
-  {
-    name: "experience",
-    keywords: [
-      "experience",
-      "work experience",
-      "employment",
-      "work history",
-      "professional experience",
-    ],
-  },
-  {
-    name: "education",
-    keywords: ["education", "academic", "qualification", "degree"],
-  },
-  {
-    name: "projects",
-    keywords: ["projects", "portfolio", "personal projects", "side projects"],
-  },
-  {
-    name: "certifications",
-    keywords: ["certifications", "certificates", "licenses", "achievements"],
-  },
 ];
 
 const calculateKeywordMatchingScore = (
@@ -211,13 +148,13 @@ const calculateKeywordMatchingScore = (
     if (!keyword || keyword.length < 2) continue;
 
     const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    
+
     // Use more flexible matching with word boundaries and partial matches
     const variations = [
       new RegExp(`\\b${escaped}\\b`, "i"),
-      new RegExp(`\\b${escaped.replace(/\s+/g, '[- ]?')}\\b`, "i"),
-      new RegExp(`\\b${keyword.replace(/\.js$/i, 'js')}\\b`, "i"),
-      new RegExp(`\\b${keyword.replace(/js$/i, '.js')}\\b`, "i"),
+      new RegExp(`\\b${escaped.replace(/\s+/g, "[- ]?")}\\b`, "i"),
+      new RegExp(`\\b${keyword.replace(/\.js$/i, "js")}\\b`, "i"),
+      new RegExp(`\\b${keyword.replace(/js$/i, ".js")}\\b`, "i"),
     ];
 
     let keywordFound = false;
@@ -239,22 +176,23 @@ const calculateKeywordMatchingScore = (
   let score = 0;
   if (allKeywordsToCheck.length > 0) {
     const baseScore = (found.length / allKeywordsToCheck.length) * 100;
-    
+
     // Bonus for keyword density (multiple occurrences)
     let densityBonus = 0;
     for (const keyword of found) {
       const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      const occurrences = (resumeLower.match(new RegExp(escaped, "gi")) || []).length;
+      const occurrences = (resumeLower.match(new RegExp(escaped, "gi")) || [])
+        .length;
       if (occurrences > 1) {
         densityBonus += Math.min(5, (occurrences - 1) * 2);
       }
     }
-    
+
     score = Math.min(100, Math.round(baseScore + densityBonus));
   } else {
     score = 50;
   }
-  
+
   return { score, found, missing };
 };
 
@@ -262,15 +200,25 @@ const calculateSkillsMatchScore = (
   resumeSkills: string[],
   jdSkills: string[],
 ): { score: number; matched: string[]; missing: string[] } => {
-  const resumeSkillsLower = resumeSkills.map((s) => s.toLowerCase().trim()).filter(s => s.length > 0);
-  const jdSkillsLower = jdSkills.map((s) => s.toLowerCase().trim()).filter(s => s.length > 0);
+  const resumeSkillsLower = resumeSkills
+    .map((s) => s.toLowerCase().trim())
+    .filter((s) => s.length > 0);
+  const jdSkillsLower = jdSkills
+    .map((s) => s.toLowerCase().trim())
+    .filter((s) => s.length > 0);
 
   const matched: string[] = [];
   const missing: string[] = [];
 
   // Enhanced skill aliases for better matching
   const skillAliases: Record<string, string[]> = {
-    react: ["reactjs", "react.js", "reactjs/react", "react hooks", "react.js/react"],
+    react: [
+      "reactjs",
+      "react.js",
+      "reactjs/react",
+      "react hooks",
+      "react.js/react",
+    ],
     reactjs: ["react", "react.js"],
     "react.js": ["react", "reactjs"],
     "react native": ["reactnative", "react-native", "rn"],
@@ -286,7 +234,12 @@ const calculateSkillsMatchScore = (
     aws: ["amazon web services", "aws", "amazon ws", "aws cloud"],
     "rest api": ["restapi", "rest", "restful api", "restful", "rest apis"],
     restful: ["rest", "rest api", "restful api", "rest apis"],
-    microservices: ["microservice", "micro services", "micro-service", "microservice architecture"],
+    microservices: [
+      "microservice",
+      "micro services",
+      "micro-service",
+      "microservice architecture",
+    ],
     graphql: ["gql", "graphql", "graph ql", "graphql api"],
     "next.js": ["nextjs", "next.js", "next", "next.js/react"],
     nestjs: ["nestjs", "nest", "nest.js", "nestjs framework"],
@@ -298,12 +251,6 @@ const calculateSkillsMatchScore = (
     git: ["git", "git version control"],
     cicd: ["cicd", "ci/cd", "ci cd", "ci/cd pipeline"],
     "ci/cd": ["cicd", "ci/cd", "ci cd", "continuous integration"],
-    linux: ["linux", "ubuntu", "debian", "linux/unix"],
-    html: ["html", "html5", "html/css"],
-    css: ["css", "css3", "css/html"],
-    sass: ["sass", "scss", "sass/scss"],
-    tailwind: ["tailwind", "tailwind css", "tailwindcss"],
-    bootstrap: ["bootstrap", "bootstrap 4", "bootstrap 5"],
     jest: ["jest", "jest testing", "jsdom"],
     testing: ["testing", "unit testing", "integration testing", "e2e testing"],
   };
@@ -331,7 +278,7 @@ const calculateSkillsMatchScore = (
   for (let i = 0; i < normalizedJD.length; i++) {
     const jdSkill = normalizedJD[i];
     const originalJdSkill = jdSkills[i] || jdSkill;
-    
+
     // Check for exact match, partial match, or alias match
     const found = normalizedResume.some((rs) => {
       // Exact match
@@ -341,9 +288,9 @@ const calculateSkillsMatchScore = (
       // Check if they share common aliases
       const jdAliases = skillAliases[jdSkill] || [jdSkill];
       const rsAliases = skillAliases[rs] || [rs];
-      return jdAliases.some(a => rsAliases.includes(a));
+      return jdAliases.some((a) => rsAliases.includes(a));
     });
-    
+
     if (found) {
       matched.push(originalJdSkill);
     } else {
@@ -355,17 +302,19 @@ const calculateSkillsMatchScore = (
   let score = 0;
   if (jdSkills.length > 0) {
     const baseScore = (matched.length / jdSkills.length) * 100;
-    
+
     // Bonus for having additional relevant skills not in JD
-    const extraSkills = normalizedResume.filter(s => !normalizedJD.includes(s));
+    const extraSkills = normalizedResume.filter(
+      (s) => !normalizedJD.includes(s),
+    );
     const extraBonus = Math.min(10, extraSkills.length * 2);
-    
+
     score = Math.min(100, Math.round(baseScore + extraBonus));
   } else {
     // If no JD skills provided, score based on resume skills count
     score = Math.min(100, 50 + resumeSkills.length * 3);
   }
-  
+
   return { score, matched, missing };
 };
 
@@ -411,7 +360,7 @@ const calculateResumeSectionsScore = (
 
   // Calculate score based on the 4 critical sections
   const score = Math.round((found.length / 4) * 100);
-  
+
   return { score, found, missing };
 };
 
@@ -428,12 +377,13 @@ const calculateExperienceRelevanceScore = (
   const experienceDetails: string[] = [];
 
   for (const exp of resume.experience) {
-    const expText = `${exp.title} ${exp.company} ${exp.description}`.toLowerCase();
-    
+    const expText =
+      `${exp.title} ${exp.company} ${exp.description}`.toLowerCase();
+
     // Count how many JD keywords appear in this experience
     let keywordMatchCount = 0;
     const matchedKeywords: string[] = [];
-    
+
     for (const keyword of jdKeywords) {
       const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       const regex = new RegExp(`\\b${escaped}\\b`, "i");
@@ -444,34 +394,42 @@ const calculateExperienceRelevanceScore = (
     }
 
     // Calculate relevance for this experience entry
-    const entryRelevance = jdKeywords.length > 0 
-      ? (keywordMatchCount / jdKeywords.length) * 100 
-      : 50;
-    
+    const entryRelevance =
+      jdKeywords.length > 0
+        ? (keywordMatchCount / jdKeywords.length) * 100
+        : 50;
+
     totalRelevanceScore += entryRelevance;
-    
+
     if (keywordMatchCount > 0) {
-      experienceDetails.push(`${exp.title} at ${exp.company}: ${keywordMatchCount} matching keywords`);
+      experienceDetails.push(
+        `${exp.title} at ${exp.company}: ${keywordMatchCount} matching keywords`,
+      );
     }
   }
 
   // Average relevance across all experiences
-  const relevanceScore = Math.round(totalRelevanceScore / resume.experience.length);
+  const relevanceScore = Math.round(
+    totalRelevanceScore / resume.experience.length,
+  );
 
   // Additional scoring for years of experience
   let yearsOfExp = 0;
   const resumeText = JSON.stringify(resume).toLowerCase();
-  
-  const dateRangeMatches = resumeText.match(/(\d{4})\s*[-–to]+\s*(\d{4}|present|current)/gi) || [];
+
+  const dateRangeMatches =
+    resumeText.match(/(\d{4})\s*[-–to]+\s*(\d{4}|present|current)/gi) || [];
   if (dateRangeMatches.length > 0) {
     const years: number[] = [];
     for (const match of dateRangeMatches) {
       const yearsMatch = match.match(/(\d{4})/g);
       if (yearsMatch && yearsMatch.length >= 2) {
         const startYear = parseInt(yearsMatch[0]);
-        const endYear = yearsMatch[1].toLowerCase().includes('present') || yearsMatch[1].toLowerCase().includes('current')
-          ? new Date().getFullYear()
-          : parseInt(yearsMatch[1]);
+        const endYear =
+          yearsMatch[1].toLowerCase().includes("present") ||
+          yearsMatch[1].toLowerCase().includes("current")
+            ? new Date().getFullYear()
+            : parseInt(yearsMatch[1]);
         years.push(Math.max(0, endYear - startYear));
       }
     }
@@ -488,118 +446,12 @@ const calculateExperienceRelevanceScore = (
 
   const finalScore = Math.min(100, relevanceScore + experienceBonus);
 
-  const details = relevanceScore > 0
-    ? `${Math.round(relevanceScore)}% average relevance across ${resume.experience.length} role(s). ${yearsOfExp > 0 ? `${yearsOfExp} years of experience.` : ''}`
-    : "Experience content does not match job requirements";
+  const details =
+    relevanceScore > 0
+      ? `${Math.round(relevanceScore)}% average relevance across ${resume.experience.length} role(s). ${yearsOfExp > 0 ? `${yearsOfExp} years of experience.` : ""}`
+      : "Experience content does not match job requirements";
 
   return { score: finalScore, details };
-};
-
-const calculateFormattingScore = (
-  resumeText: string,
-): { score: number; details: string } => {
-  let score = 100;
-  const issues: string[] = [];
-
-  const hasTables =
-    resumeText.includes("|") && resumeText.match(/\|.*\|/g)?.length > 3;
-  const hasMultipleColumns = (resumeText.match(/={50,}/g) || []).length > 2;
-  const hasSpecialChars = (resumeText.match(/[^\x00-\x7F]/g) || []).length > 10;
-
-  if (hasTables) {
-    score -= 20;
-    issues.push("tables");
-  }
-
-  if (hasMultipleColumns) {
-    score -= 15;
-    issues.push("multiple columns");
-  }
-
-  if (hasSpecialChars) {
-    score -= 10;
-    issues.push("special characters");
-  }
-
-  const details =
-    issues.length === 0
-      ? "Resume uses ATS-friendly formatting (no tables, columns, or special characters)"
-      : `Avoid using: ${issues.join(", ")}`;
-
-  return { score: Math.max(0, score), details };
-};
-
-const calculateAchievementsScore = (
-  resumeText: string,
-): { score: number; details: string } => {
-  const percentageRegex = /(\d+(\.\d+)?)%/g;
-  const numberRegex = /\b\d+\+?\b/g;
-  const metricKeywords = [
-    "increased",
-    "decreased",
-    "improved",
-    "reduced",
-    "saved",
-    "achieved",
-    "delivered",
-    "managed",
-    "led",
-    "increased by",
-    "reduced by",
-    "improved by",
-  ];
-
-  const percentages = resumeText.match(percentageRegex) || [];
-  const numbers = resumeText.match(numberRegex) || [];
-  const hasMetricKeywords = metricKeywords.some((keyword) =>
-    resumeText.toLowerCase().includes(keyword),
-  );
-
-  let score = 0;
-  if (percentages.length > 0) score += 40;
-  if (numbers.length > 5) score += 30;
-  if (hasMetricKeywords) score += 30;
-
-  const details =
-    percentages.length > 0
-      ? `Found ${percentages.length} quantified achievements with percentages`
-      : numbers.length > 5
-        ? `Found ${numbers.length} numerical achievements`
-        : "Add quantifiable achievements (percentages, numbers, metrics)";
-
-  return { score: Math.min(100, score), details };
-};
-
-const calculateGrammarScore = (
-  resumeText: string,
-): { score: number; details: string } => {
-  const sentences = resumeText
-    .split(/[.!?]+/)
-    .filter((s) => s.trim().length > 0);
-
-  const capitalizationErrors = (resumeText.match(/[a-z][A-Z]/g) || []).length;
-  const doubleSpaces = (resumeText.match(/  +/g) || []).length;
-
-  let score = 100;
-
-  if (capitalizationErrors > 5) score -= 20;
-  if (doubleSpaces > 3) score -= 10;
-
-  const avgWordsPerSentence =
-    sentences.length > 0
-      ? resumeText.split(/\s+/).length / sentences.length
-      : 0;
-
-  if (avgWordsPerSentence > 30) {
-    score -= 15;
-  }
-
-  const details =
-    score >= 80
-      ? "Resume is well-written and easy to read"
-      : "Consider simplifying sentences and checking for errors";
-
-  return { score: Math.max(0, score), details };
 };
 
 const calculateJobMatchingScore = (
@@ -805,7 +657,8 @@ const calculateJobMatchingScore = (
 
   let yearsExp = 0;
   if (resume.experience && resume.experience.length > 0) {
-    const yearMatches = resumeText.match(/(\d+)\+?\s*(years?|yrs?|experience)/gi) || [];
+    const yearMatches =
+      resumeText.match(/(\d+)\+?\s*(years?|yrs?|experience)/gi) || [];
     if (yearMatches.length > 0) {
       yearsExp = Math.max(
         ...yearMatches.map((m) => {
@@ -814,18 +667,21 @@ const calculateJobMatchingScore = (
         }),
       );
     }
-    
+
     if (yearsExp === 0) {
-      const dateRangeMatches = resumeText.match(/(\d{4})\s*[-–to]+\s*(\d{4}|present|current)/gi) || [];
+      const dateRangeMatches =
+        resumeText.match(/(\d{4})\s*[-–to]+\s*(\d{4}|present|current)/gi) || [];
       if (dateRangeMatches.length > 0) {
         const years: number[] = [];
         for (const match of dateRangeMatches) {
           const yearsMatch = match.match(/(\d{4})/g);
           if (yearsMatch && yearsMatch.length >= 2) {
             const startYear = parseInt(yearsMatch[0]);
-            const endYear = yearsMatch[1].toLowerCase().includes('present') || yearsMatch[1].toLowerCase().includes('current') 
-              ? new Date().getFullYear() 
-              : parseInt(yearsMatch[1]);
+            const endYear =
+              yearsMatch[1].toLowerCase().includes("present") ||
+              yearsMatch[1].toLowerCase().includes("current")
+                ? new Date().getFullYear()
+                : parseInt(yearsMatch[1]);
             years.push(endYear - startYear);
           }
         }
@@ -836,7 +692,8 @@ const calculateJobMatchingScore = (
     }
   }
 
-  const jdYearsMatch = jdText.match(/(\d+)\+?\s*(years?|yrs?|experience)/gi) || [];
+  const jdYearsMatch =
+    jdText.match(/(\d+)\+?\s*(years?|yrs?|experience)/gi) || [];
   let jdYears = 0;
   if (jdYearsMatch.length > 0) {
     jdYears = Math.max(
@@ -846,7 +703,7 @@ const calculateJobMatchingScore = (
       }),
     );
   }
-  
+
   if (jdYears === 0) {
     const jdNumMatch = jdText.match(/(\d+)\s*\+\s*years/gi) || [];
     if (jdNumMatch.length > 0) {
@@ -942,7 +799,7 @@ export const analyzeResume = async (
   const apiKey = env.geminiApiKey;
 
   if (!apiKey) {
-    console.warn('GEMINI_API_KEY not set, using fallback analysis');
+    console.warn("GEMINI_API_KEY not set, using fallback analysis");
     return fallbackAnalysis(resume, jobDescription);
   }
 
@@ -1068,11 +925,15 @@ export const analyzeResume = async (
     }
 
     if (!existingSections.experience) {
-      suggestions.push("Add relevant work experience to demonstrate your skills");
+      suggestions.push(
+        "Add relevant work experience to demonstrate your skills",
+      );
     }
 
     if (!existingSections.skills || resume.skills.length < 3) {
-      suggestions.push("Expand your technical skills section with relevant technologies");
+      suggestions.push(
+        "Expand your technical skills section with relevant technologies",
+      );
     }
 
     if (experienceRelevance.score < 50) {
@@ -1082,7 +943,11 @@ export const analyzeResume = async (
     }
 
     const strengths: string[] = [];
-    if (existingSections.summary && resume.summary && resume.summary.length > 30)
+    if (
+      existingSections.summary &&
+      resume.summary &&
+      resume.summary.length > 30
+    )
       strengths.push("Professional summary included");
     if (existingSections.skills && resume.skills.length > 5)
       strengths.push(
@@ -1100,14 +965,12 @@ export const analyzeResume = async (
     const weaknesses: string[] = [];
     if (!existingSections.summary)
       weaknesses.push("Missing professional summary");
-    if (!existingSections.projects) 
-      weaknesses.push("No projects section");
+    if (!existingSections.projects) weaknesses.push("No projects section");
     if (!existingSections.experience)
       weaknesses.push("No work experience listed");
-    if (keywordMatching.score < 50) 
+    if (keywordMatching.score < 50)
       weaknesses.push("Low keyword match with job description");
-    if (skillsMatch.score < 50) 
-      weaknesses.push("Skills gap identified");
+    if (skillsMatch.score < 50) weaknesses.push("Skills gap identified");
 
     const jobMatchingScoreFinal = Math.max(jobMatchingScore, 30);
 
@@ -1117,11 +980,7 @@ export const analyzeResume = async (
     const bonusForGoodMatch = hasGoodMatch ? 10 : 0;
 
     const overallScore = jobDescription
-      ? Math.min(
-          100,
-          Math.round(jobMatchingScoreFinal) +
-            bonusForGoodMatch,
-        )
+      ? Math.min(100, Math.round(jobMatchingScoreFinal) + bonusForGoodMatch)
       : jobMatchingScoreFinal;
 
     return {
@@ -1434,168 +1293,6 @@ const categorizeMissingKeywords = (
   return missing;
 };
 
-const validateAndNormalizeResult = (
-  result: any,
-  resume: ResumeContent,
-  jobDescription: string,
-): AnalysisResult => {
-  const resumeSkills = extractSkillsFromResume(resume);
-  const existingSections = {
-    experience:
-      resume.experience &&
-      resume.experience.length > 0 &&
-      resume.experience.some((e) => e.company || e.title),
-    education:
-      resume.education &&
-      resume.education.length > 0 &&
-      resume.education.some((e) => e.institution || e.degree),
-    skills: resume.skills && resume.skills.length > 0,
-    summary: !!(resume.summary && resume.summary.length > 10),
-    projects: !!(resume.projects && resume.projects.length > 0),
-    certifications: !!(
-      resume.certifications && resume.certifications.length > 0
-    ),
-  };
-
-  let missingKeywords = result.missingKeywords;
-  if (!missingKeywords) {
-    missingKeywords = categorizeMissingKeywords(resumeSkills, resume);
-  }
-
-  const howToUseKeywords = result.howToUseKeywords || [
-    `Add Docker inside the "Projects" section by describing containerized deployment`,
-    `Mention CI/CD inside your experience or project deployment workflow`,
-    `Use REST API in project descriptions`,
-    `Add microservices experience if you've worked with distributed systems`,
-    `Include testing experience in your project or work history`,
-  ];
-
-  const resumeImprovements = result.resumeImprovements || [
-    "Improve bullet point structure - use action verbs at the start",
-    "Add measurable impact - include numbers and percentages where possible",
-    "Improve project descriptions with specific technologies used",
-    "Ensure consistent formatting throughout the resume",
-    "Add quantifiable achievements in experience section",
-  ];
-
-  let jobMatch = result.jobMatch;
-  if (jobDescription && jobDescription.trim()) {
-    if (!jobMatch) {
-      const jdLower = jobDescription.toLowerCase();
-      const matchedSkills = resumeSkills.filter((skill) =>
-        jdLower.includes(skill.toLowerCase()),
-      );
-      const missingJDKeywords = resumeSkills.filter(
-        (skill) => !jdLower.includes(skill.toLowerCase()),
-      );
-
-      const matchScore =
-        resumeSkills.length > 0
-          ? Math.round(
-              (matchedSkills.length /
-                Math.max(
-                  matchedSkills.length + missingJDKeywords.length,
-                  resumeSkills.length,
-                )) *
-                100,
-            )
-          : 0;
-
-      jobMatch = {
-        score: matchScore,
-        missingKeywords: missingJDKeywords.slice(0, 10),
-        suggestions: [
-          "Add missing keywords to your skills section",
-          "Incorporate job requirements in your project descriptions",
-          "Tailor your summary to match the job description",
-        ],
-      };
-    }
-  } else {
-    jobMatch = undefined;
-  }
-
-  const defaultResult = fallbackAnalysis(resume, jobDescription);
-
-  return {
-    score:
-      typeof result.score === "number"
-        ? Math.min(100, Math.max(0, result.score))
-        : defaultResult.score,
-    feedback: {
-      overall: result.feedback?.overall || defaultResult.feedback.overall,
-      strengths: Array.isArray(result.feedback?.strengths)
-        ? result.feedback.strengths
-        : defaultResult.feedback.strengths,
-      weaknesses: Array.isArray(result.feedback?.weaknesses)
-        ? result.feedback.weaknesses
-        : defaultResult.feedback.weaknesses,
-      suggestions: Array.isArray(result.feedback?.suggestions)
-        ? result.feedback.suggestions
-        : defaultResult.feedback.suggestions,
-    },
-    sectionScores: {
-      skills: {
-        score:
-          result.sectionScores?.skills?.score ??
-          defaultResult.sectionScores.skills.score,
-        matched: Array.isArray(result.sectionScores?.skills?.matched)
-          ? result.sectionScores.skills.matched
-          : resumeSkills,
-        missing: Array.isArray(result.sectionScores?.skills?.missing)
-          ? result.sectionScores.skills.missing
-          : defaultResult.sectionScores.skills.missing,
-      },
-      experience: {
-        score:
-          result.sectionScores?.experience?.score ??
-          defaultResult.sectionScores.experience.score,
-        details:
-          result.sectionScores?.experience?.details ||
-          defaultResult.sectionScores.experience.details,
-      },
-      education: {
-        score:
-          result.sectionScores?.education?.score ??
-          defaultResult.sectionScores.education.score,
-        details:
-          result.sectionScores?.education?.details ||
-          defaultResult.sectionScores.education.details,
-      },
-      format: {
-        score:
-          result.sectionScores?.format?.score ??
-          defaultResult.sectionScores.format.score,
-        details:
-          result.sectionScores?.format?.details ||
-          defaultResult.sectionScores.format.details,
-      },
-    },
-    keywords: {
-      found: Array.isArray(result.keywords?.found)
-        ? result.keywords.found
-        : resumeSkills,
-      missing: Array.isArray(result.keywords?.missing)
-        ? result.keywords.missing
-        : defaultResult.keywords.missing,
-      density:
-        typeof result.keywords?.density === "object"
-          ? result.keywords.density
-          : {},
-    },
-    missingKeywords,
-    recommendedKeywords: Array.isArray(result.recommendedKeywords)
-      ? result.recommendedKeywords
-      : RECOMMENDED_KEYWORDS,
-    howToUseKeywords,
-    resumeImprovements,
-    jobMatch,
-    existingSections,
-    jobMatchingScore: 0,
-    jobMatchingBreakdown: defaultResult.jobMatchingBreakdown,
-  };
-};
-
 const fallbackAnalysis = (
   resume: ResumeContent,
   jobDescription: string,
@@ -1613,13 +1310,20 @@ const fallbackAnalysis = (
     .slice(0, 10);
 
   // Calculate scores using new criteria
-  const keywordMatchingScore = jobKeywords.length > 0
-    ? Math.round((matchedSkills.length / jobKeywords.length) * 100)
-    : 50;
-  
-  const skillsScore = resumeSkills.length > 0
-    ? Math.min(100, Math.round((matchedSkills.length / Math.max(matchedSkills.length, 1)) * 100))
-    : 50;
+  const keywordMatchingScore =
+    jobKeywords.length > 0
+      ? Math.round((matchedSkills.length / jobKeywords.length) * 100)
+      : 50;
+
+  const skillsScore =
+    resumeSkills.length > 0
+      ? Math.min(
+          100,
+          Math.round(
+            (matchedSkills.length / Math.max(matchedSkills.length, 1)) * 100,
+          ),
+        )
+      : 50;
 
   // Section scores based on 4 critical sections
   const hasSummary = resume.summary && resume.summary.length > 20;
@@ -1627,14 +1331,19 @@ const fallbackAnalysis = (
   const hasExperience = resume.experience && resume.experience.length > 0;
   const hasProjects = resume.projects && resume.projects.length > 0;
   const sectionsScore = Math.round(
-    ((hasSummary ? 1 : 0) + (hasSkills ? 1 : 0) + (hasExperience ? 1 : 0) + (hasProjects ? 1 : 0)) / 4 * 100
+    (((hasSummary ? 1 : 0) +
+      (hasSkills ? 1 : 0) +
+      (hasExperience ? 1 : 0) +
+      (hasProjects ? 1 : 0)) /
+      4) *
+      100,
   );
 
   const experienceScore = resume.experience?.length > 0 ? 70 : 40;
 
   // Overall score based on keywords and skills
   const overallScore = Math.round(
-    (keywordMatchingScore + skillsScore + sectionsScore + experienceScore) / 4
+    (keywordMatchingScore + skillsScore + sectionsScore + experienceScore) / 4,
   );
 
   const existingSections = {
@@ -1685,7 +1394,8 @@ const fallbackAnalysis = (
   if (!existingSections.projects) suggestions.push("Add a projects section");
   if (!existingSections.experience) suggestions.push("Add work experience");
   if (resume.skills.length < 5) suggestions.push("Expand your skills section");
-  if (keywordMatchingScore < 50) suggestions.push("Add more keywords from job description");
+  if (keywordMatchingScore < 50)
+    suggestions.push("Add more keywords from job description");
 
   return {
     score: overallScore,

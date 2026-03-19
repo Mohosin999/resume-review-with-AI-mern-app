@@ -7,7 +7,7 @@ import { Analysis } from "../types";
 import ResultToggle, { ResultView } from "./ResultToggle";
 import ATSScoreBreakdown from "./ATSScoreBreakdown";
 import JobMatchBreakdownEnhanced from "./JobMatchBreakdownEnhanced";
-import { OverallFeedback, SkillsAnalysis, Strengths, MissingKeywords } from "./shared";
+import { OverallFeedback, SkillsAnalysis, MissingKeywords } from "./shared";
 
 interface ResultPanelProps {
   analysis: Analysis;
@@ -118,7 +118,6 @@ export default function ResultPanel({ analysis }: ResultPanelProps) {
       {/* Common Sections - Always shown */}
       <OverallFeedback analysis={analysis} />
       <SkillsAnalysis analysis={analysis} />
-      {analysis.feedback?.strengths?.length > 0 && <Strengths strengths={analysis.feedback.strengths} />}
       {analysis.keywords?.missing?.length > 0 && <MissingKeywords keywords={analysis.keywords.missing} />}
     </motion.div>
   );

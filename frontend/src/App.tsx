@@ -3,12 +3,14 @@ import { useAppSelector } from './hooks/redux';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import Analyze from './pages/Analyze';
+
 import History from './pages/History';
 import Settings from './pages/Settings';
 import Builder from './pages/Builder';
 import SavedResumes from './pages/SavedResumes';
 import Plans from './pages/Plans';
+import AtsScore from './pages/AtsScore';
+import JobMatch from './pages/JobMatch';
 import { LoadingSpinner } from './components/ui';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
@@ -57,14 +59,7 @@ function App() {
           </PrivateRoute>
         }
       />
-      <Route
-        path="/analyze"
-        element={
-          <PrivateRoute>
-            <Analyze />
-          </PrivateRoute>
-        }
-      />
+
       <Route
         path="/history"
         element={
@@ -110,6 +105,22 @@ function App() {
         element={
           <PrivateRoute>
             <Plans />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/ats-score"
+        element={
+          <PrivateRoute>
+            <AtsScore />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/job-match"
+        element={
+          <PrivateRoute>
+            <JobMatch />
           </PrivateRoute>
         }
       />

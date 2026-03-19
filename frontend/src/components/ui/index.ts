@@ -13,3 +13,7 @@ export { default as FileUpload } from './FileUpload';
 export { default as FormField } from './FormField';
 export { default as Pagination } from './Pagination';
 export { default as BackButton } from './BackButton';
+export { default as SectionScoreCard } from './SectionScoreCard';
+export { default as MatchBreakdown } from './MatchBreakdown';
+export { default as AIGenerateButton } from './AIGenerateButton';
+export { default as SuggestionList } from './SuggestionList';

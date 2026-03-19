@@ -95,4 +95,30 @@ export const jobApi = {
   delete: (id: string) => api.delete(`/jobs/${id}`),
 };
 
+export const atsScoreApi = {
+  analyze: (data: { resumeId: string }) => api.post('/ats-score/analyze', data),
+  getAll: (page = 1, limit = 10) => api.get(`/ats-score?page=${page}&limit=${limit}`),
+  getById: (id: string) => api.get(`/ats-score/${id}`),
+  delete: (id: string) => api.delete(`/ats-score/${id}`),
+};
+
+export const jobMatchApi = {
+  analyze: (data: { resumeId: string; jobDescription: string; jobTitle?: string; company?: string }) =>
+    api.post('/job-match/analyze', data),
+  getAll: (page = 1, limit = 10) => api.get(`/job-match?page=${page}&limit=${limit}`),
+  getById: (id: string) => api.get(`/job-match/${id}`),
+  delete: (id: string) => api.delete(`/job-match/${id}`),
+};
+
+export const resumeBuilderApi = {
+  createTemplate: (data: { name?: string }) => api.post('/resume-builder/templates', data),
+  getTemplates: (page = 1, limit = 10) => api.get(`/resume-builder/templates?page=${page}&limit=${limit}`),
+  getTemplate: (id: string) => api.get(`/resume-builder/templates/${id}`),
+  updateTemplate: (id: string, data: any) => api.put(`/resume-builder/templates/${id}`, data),
+  deleteTemplate: (id: string) => api.delete(`/resume-builder/templates/${id}`),
+  generateSection: (data: { section: string; context?: any }) => api.post('/resume-builder/generate-section', data),
+  improveSection: (data: { section: string; content: string }) => api.post('/resume-builder/improve-section', data),
+  checkAts: (data: { content: any }) => api.post('/resume-builder/check-ats', data),
+};
+
 export default api;
