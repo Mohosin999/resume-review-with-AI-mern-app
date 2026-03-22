@@ -29,10 +29,10 @@ export default function BuilderProgress({ sections, currentStep }: BuilderProgre
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                       isActive
-                        ? "bg-blue-600 text-white scale-110 shadow-lg shadow-blue-500/50"
+                        ? "bg-gradient-to-br from-cyan-400 to-cyan-600 text-white scale-110 shadow-lg shadow-cyan-500/50 ring-2 ring-cyan-400/30"
                         : isCompleted || isPast
-                        ? "bg-green-600 text-white"
-                        : "bg-gray-700 text-gray-400"
+                        ? "bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/30"
+                        : "bg-gray-800 text-gray-500 border border-gray-700"
                     }`}
                   >
                     {isCompleted || isPast ? (
@@ -45,14 +45,14 @@ export default function BuilderProgress({ sections, currentStep }: BuilderProgre
                   </div>
                   <span
                     className={`text-xs mt-2 text-center truncate w-full ${
-                      isActive ? "text-white font-medium" : "text-gray-400"
+                      isActive ? "text-cyan-400 font-semibold" : "text-gray-500"
                     }`}
                   >
                     {section.title.split(" ")[0]}
                   </span>
                 </div>
                 {index < sections.length - 1 && (
-                  <div className={`flex-1 h-0.5 mx-2 ${isPast ? "bg-green-600" : "bg-gray-700"}`} />
+                  <div className={`flex-1 h-0.5 mx-2 ${isPast ? "bg-gradient-to-r from-emerald-500 to-emerald-600" : "bg-gray-800"}`} />
                 )}
               </div>
             );

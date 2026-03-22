@@ -73,7 +73,7 @@ const atsScoreHistorySchema = new Schema<IAtsScoreHistory>(
       score: { type: Number, required: true, min: 0, max: 100 },
       errors: [
         {
-          type: { type: String, enum: ['spelling', 'grammar', 'punctuation'] },
+          type: { type: String, enum: ['spelling', 'grammar', 'punctuation', 'formatting', 'redundancy', 'content/formatting', 'grammar/punctuation'] },
           message: { type: String, required: true },
           suggestion: { type: String, required: true },
         },

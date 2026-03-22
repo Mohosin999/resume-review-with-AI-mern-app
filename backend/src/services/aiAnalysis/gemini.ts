@@ -65,7 +65,7 @@ Provide your analysis in the following JSON format ONLY (no additional text):
   "spellingGrammar": {
     "score": number (0-100),
     "errors": [
-      { "type": "spelling|grammar|punctuation", "message": string, "suggestion": string }
+      { "type": "spelling" | "grammar" | "punctuation" | "formatting" | "redundancy" | "content/formatting" | "grammar/punctuation", "message": string, "suggestion": string }
     ]
   },
   "atsFriendliness": number (0-100),

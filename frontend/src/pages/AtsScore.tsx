@@ -120,7 +120,7 @@ export default function AtsScorePage() {
                   <div className="flex items-center gap-2 text-green-400">
                     <CheckCircle className="w-5 h-5" />
                     <span className="font-medium">
-                      Selected: {resumeContent.personalInfo?.fullName || resumeName}
+                      Selected: {resumeName}
                     </span>
                   </div>
                 </div>

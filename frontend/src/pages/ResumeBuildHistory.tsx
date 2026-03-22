@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Trash2, Calendar, FileText, Eye } from "lucide-react";
 import { toast } from "react-toastify";
 import { resumeBuildHistoryApi } from "../api/api";
-import { ResumeBuildHistory } from "../types";
+import { ResumeBuildHistory, Resume } from "../types";
 import { LoadingSpinner, Pagination } from "../components/ui";
 import ConfirmModal from "../components/ui/ConfirmModal";
 import ResumePreview from "../components/shared/ResumePreview";
@@ -63,7 +63,24 @@ export default function ResumeBuildHistoryPage() {
   };
 
   const handleLoadToBuilder = (item: ResumeBuildHistory) => {
-    navigate('/builder', { state: { resumeContent: item.resumeContent } });
+    // Create a resume object from the history item
+    const resume: Resume = {
+      _id: item._id,
+      userId: '',
+      content: item.resumeContent,
+      metadata: {
+        filename: item.title,
+        originalName: item.title,
+        size: 0,
+        type: 'builder',
+      },
+      tags: [],
+      isActive: true,
+      createdAt: item.createdAt,
+      updatedAt: item.updatedAt,
+      sourceType: 'builder',
+    };
+    navigate('/builder', { state: { resume } });
   };
 
   return (
@@ -163,7 +180,7 @@ export default function ResumeBuildHistoryPage() {
                           {item.resumeContent.skills.length} Skills
                         </span>
                       )}
-                      {item.resumeContent?.projects?.length > 0 && (
+                      {item.resumeContent?.projects && item.resumeContent.projects.length > 0 && (
                         <span className="px-3 py-1 bg-orange-500/20 border border-orange-500/30 text-orange-400 rounded-full text-xs">
                           {item.resumeContent.projects.length} Projects
                         </span>

@@ -1,7 +1,6 @@
 /* ===================================
 Resume Personal Info Component
 =================================== */
-import { MapPin, Phone, Mail, Link as LinkIcon } from "lucide-react";
 import { ResumeContent } from "../../types";
 
 interface ResumePersonalInfoProps {
@@ -10,44 +9,67 @@ interface ResumePersonalInfoProps {
 }
 
 export default function ResumePersonalInfo({ content, forPdf = false }: ResumePersonalInfoProps) {
-  const textColor = forPdf ? "text-gray-700" : "text-gray-700 dark:text-gray-300";
-  const borderColor = forPdf ? "border-gray-300" : "border-gray-300 dark:border-gray-600";
+  // Format phone number with (+880) prefix
+  const formatPhoneNumber = (phone: string) => {
+    const cleanNumber = phone.replace(/^(\+880|880)/, '');
+    return `(+880) ${cleanNumber}`;
+  };
+
+  // Format LinkedIn URL - just show the path
+  const formatLinkedIn = (linkedIn: string) => {
+    const clean = linkedIn.replace(/^https?:\/\//, '').replace(/^www\./, '');
+    return clean.startsWith('linkedin.com/in/') ? clean : `linkedin.com/in/${linkedIn}`;
+  };
+
+  // Build location string (comma after city, then spaces)
+  const locationParts = [
+    content.personalInfo.address?.city,
+    content.personalInfo.address?.division,
+    content.personalInfo.address?.zipCode,
+  ].filter(Boolean);
+  const locationString =
+    locationParts.length > 0
+      ? locationParts[0] +
+        (locationParts.length > 1 ? ", " : "") +
+        locationParts.slice(1).join(" ")
+      : "";
 
   return (
-    <div className={`border-b ${borderColor} pb-3 mb-4`}>
-      <h1 className={`text-2xl font-bold ${forPdf ? "text-black" : "text-gray-900 dark:text-white"} uppercase tracking-wide`}>
-        {content.personalInfo.fullName || "MOHOSIN HASAN AKASH"}
-      </h1>
-      {content.personalInfo.jobTitle && (
-        <p className={`text-sm ${forPdf ? "text-gray-700" : textColor} font-medium mt-1`}>
-          {content.personalInfo.jobTitle}
-        </p>
-      )}
-      <div className={`mt-2 text-xs ${forPdf ? "text-gray-600" : "text-gray-600 dark:text-gray-400"} flex flex-wrap gap-x-4 gap-y-1`}>
-        {content.personalInfo.address?.city && (
-          <div className="flex items-center gap-1">
-            <MapPin className="w-3 h-3" />
-            <span>{[content.personalInfo.address.city, content.personalInfo.address.division, content.personalInfo.address.zipCode].filter(Boolean).join(" ")}</span>
+    <div className="px-6 pt-6 pb-6">
+      <div className="flex justify-between items-start">
+        {/* Left Side - Name and Title */}
+        <div className="min-w-[220px]">
+          <h1 className="text-2xl font-bold text-[#222222] uppercase tracking-wide leading-tight">
+            {content.personalInfo.fullName || "MOHOSIN HASAN AKASH"}
+          </h1>
+          {content.personalInfo.jobTitle && (
+            <p className="text-base font-medium text-[#222222] mt-1 leading-tight">
+              {content.personalInfo.jobTitle}
+            </p>
+          )}
+        </div>
+
+        {/* Right Side - Contact Info */}
+        <div className="mt-auto items-end text-right min-w-[200px]">
+          {/* First Line: Location • Phone */}
+          <div className="text-xs text-[#222222] leading-snug">
+            <span>
+              {[
+                locationString || "",
+                content.personalInfo.whatsapp ? formatPhoneNumber(content.personalInfo.whatsapp) : "",
+              ].filter(Boolean).join(" • ")}
+            </span>
           </div>
-        )}
-        {content.personalInfo.whatsapp && (
-          <div className="flex items-center gap-1">
-            <Phone className="w-3 h-3" />
-            <span>{content.personalInfo.whatsapp}</span>
+          {/* Second Line: Email • LinkedIn */}
+          <div className="text-xs text-[#222222] leading-snug mt-0.5">
+            <span>
+              {[
+                content.personalInfo.email || "",
+                content.personalInfo.linkedIn ? formatLinkedIn(content.personalInfo.linkedIn) : "",
+              ].filter(Boolean).join(" • ")}
+            </span>
           </div>
-        )}
-        {content.personalInfo.email && (
-          <div className="flex items-center gap-1">
-            <Mail className="w-3 h-3" />
-            <span>{content.personalInfo.email}</span>
-          </div>
-        )}
-        {content.personalInfo.linkedIn && (
-          <div className="flex items-center gap-1">
-            <LinkIcon className="w-3 h-3" />
-            <span>{content.personalInfo.linkedIn}</span>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

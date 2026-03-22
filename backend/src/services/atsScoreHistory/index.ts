@@ -9,7 +9,15 @@ export const createAtsScoreHistory = async (
 ) => {
   const analysis = await analyzeWithGemini(resumeContent);
 
-  const title = `${resumeContent.personalInfo?.fullName || 'Resume'} – ATS Score v${Date.now().toString(36).slice(-4)}`;
+  if (!analysis.sectionScores.contactInfo.hasContactInfo) {
+    analysis.sectionScores.contactInfo.hasContactInfo = Boolean(
+      resumeContent.personalInfo?.email ||
+      resumeContent.personalInfo?.phone ||
+      resumeContent.personalInfo?.linkedIn
+    );
+  }
+
+  const title = `${resumeName || 'Resume'} – ATS Score v${Date.now().toString(36).slice(-4)}`;
 
   const atsScoreHistory = await AtsScoreHistory.create({
     userId,
