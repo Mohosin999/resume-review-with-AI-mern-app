@@ -10,6 +10,7 @@ interface ConfirmModalProps {
   onConfirm: () => void;
   onCancel: () => void;
   type?: 'danger' | 'warning' | 'info';
+  confirmClassName?: string;
 }
 
 export default function ConfirmModal({
@@ -20,7 +21,8 @@ export default function ConfirmModal({
   cancelText = 'Cancel',
   onConfirm,
   onCancel,
-  type = 'danger'
+  type = 'danger',
+  confirmClassName,
 }: ConfirmModalProps) {
   const typeStyles = {
     danger: {
@@ -80,7 +82,7 @@ export default function ConfirmModal({
               </button>
               <button
                 onClick={onConfirm}
-                className={`flex-1 px-4 py-3 rounded-xl font-medium text-white ${styles.btn} transition-colors`}
+                className={`flex-1 px-4 py-3 rounded-xl font-medium text-white ${confirmClassName || styles.btn} transition-colors`}
               >
                 {confirmText}
               </button>

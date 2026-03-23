@@ -3,20 +3,29 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FileText, TrendingUp, Zap, Plus, ChevronRight, Target, CheckCircle, FileCheck } from "lucide-react";
 import { useAppSelector } from "../hooks/redux";
-import { resumeApi } from "../api/api";
-import { Resume } from "../types";
+import { atsScoreApi, jobMatchApi, resumeBuildHistoryApi } from "../api/api";
 import { LoadingSpinner, BackButton } from "../components/ui";
 
 export default function Dashboard() {
   const { user } = useAppSelector((state) => state.auth);
-  const [recentResumes, setRecentResumes] = useState<Resume[]>([]);
+  const [recentBuilds, setRecentBuilds] = useState<any[]>([]);
+  const [totalResumes, setTotalResumes] = useState(0);
+  const [totalAtsHistory, setTotalAtsHistory] = useState(0);
+  const [totalJobMatchHistory, setTotalJobMatchHistory] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resumesRes = await resumeApi.getAll(1, 5);
-        setRecentResumes(resumesRes.data.data || []);
+        const [buildRes, atsRes, jobMatchRes] = await Promise.all([
+          resumeBuildHistoryApi.getAll(1, 5),
+          atsScoreApi.getAll(1, 1),
+          jobMatchApi.getAll(1, 1),
+        ]);
+        setRecentBuilds(buildRes.data.data || []);
+        setTotalResumes(buildRes.data.pagination?.total || 0);
+        setTotalAtsHistory(atsRes.data.pagination?.total || 0);
+        setTotalJobMatchHistory(jobMatchRes.data.pagination?.total || 0);
       } catch (error) { console.error("Error fetching dashboard data:", error); }
       finally { setLoading(false); }
     };
@@ -62,10 +71,15 @@ export default function Dashboard() {
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
           <div className="lg:col-span-2">
-            <RecentResumes resumes={recentResumes} />
+            <RecentBuilds builds={recentBuilds} />
           </div>
           <div>
-            <QuickStats credits={user?.subscription.credits || 0} resumesCount={recentResumes.length} />
+            <QuickStats 
+              credits={user?.subscription.credits || 0} 
+              totalResumes={totalResumes}
+              totalAtsHistory={totalAtsHistory}
+              totalJobMatchHistory={totalJobMatchHistory}
+            />
           </div>
         </div>
       </div>
@@ -115,31 +129,35 @@ const FeaturesGrid = ({ features }: { features: any[] }) => (
   </div>
 );
 
-const RecentResumes = ({ resumes }: { resumes: Resume[] }) => (
+const RecentBuilds = ({ builds }: { builds: any[] }) => (
   <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="card">
     <div className="flex items-center justify-between mb-6">
       <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Resumes</h2>
-      <Link to="/my-resumes" className="text-sm text-primary hover:underline flex items-center gap-1">View all<ChevronRight className="w-4 h-4" /></Link>
+      <Link to="/resume-build-history" className="text-sm text-primary hover:underline flex items-center gap-1">View all<ChevronRight className="w-4 h-4" /></Link>
     </div>
-    {resumes.length > 0 ? (
+    {builds.length > 0 ? (
       <div className="space-y-4">
-        {resumes.map((resume) => (
-          <div key={resume._id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+        {builds.map((item) => (
+          <Link 
+            key={item._id} 
+            to={`/builder/${item._id}`}
+            className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600/50 transition-colors"
+          >
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              <div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                <FileText className="w-5 h-5 text-green-600 dark:text-green-400" />
               </div>
               <div>
-                <p className="font-medium text-gray-900 dark:text-white">{resume.content.personalInfo.fullName || resume.metadata?.originalName || "Resume"}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{resume.metadata?.filename || "Untitled"}</p>
+                <p className="font-medium text-gray-900 dark:text-white">{item.resumeContent?.personalInfo?.fullName || item.title || "Resume"}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{item.resumeContent?.personalInfo?.jobTitle || "Untitled"}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              {resume.content.personalInfo.jobTitle && (
-                <span className="text-xs text-gray-500 dark:text-gray-400">{resume.content.personalInfo.jobTitle}</span>
-              )}
+              <span className="text-xs text-gray-500 dark:text-gray-400">
+                {new Date(item.createdAt).toLocaleDateString()}
+              </span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     ) : (
@@ -152,7 +170,7 @@ const RecentResumes = ({ resumes }: { resumes: Resume[] }) => (
   </motion.div>
 );
 
-const QuickStats = ({ credits, resumesCount }: { credits: number; resumesCount: number }) => (
+const QuickStats = ({ credits, totalResumes, totalAtsHistory, totalJobMatchHistory }: { credits: number; totalResumes: number; totalAtsHistory: number; totalJobMatchHistory: number }) => (
   <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="card">
     <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Your Stats</h2>
     <div className="space-y-4">
@@ -170,12 +188,36 @@ const QuickStats = ({ credits, resumesCount }: { credits: number; resumesCount: 
       
       <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
         <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+            <FileCheck className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">ATS Analyses</p>
+            <p className="font-semibold text-gray-900 dark:text-white">{totalAtsHistory}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+            <Target className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Job Matches</p>
+            <p className="font-semibold text-gray-900 dark:text-white">{totalJobMatchHistory}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+        <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
             <FileText className="w-5 h-5 text-green-600 dark:text-green-400" />
           </div>
           <div>
             <p className="text-sm text-gray-500 dark:text-gray-400">Total Resumes</p>
-            <p className="font-semibold text-gray-900 dark:text-white">{resumesCount}</p>
+            <p className="font-semibold text-gray-900 dark:text-white">{totalResumes}</p>
           </div>
         </div>
       </div>

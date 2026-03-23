@@ -28,7 +28,7 @@ export default function AtsScoreHistoryPage() {
       setTotalPages(response.data.pagination?.totalPages || 1);
       setPage(pageNum);
     } catch (error) {
-      toast.error("Failed to load history");
+      // Silent fail - don't show toast on history page load
     } finally {
       setLoading(false);
     }
@@ -91,8 +91,12 @@ export default function AtsScoreHistoryPage() {
           className="mb-8 flex items-center justify-between"
         >
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">ATS Score History</h1>
-            <p className="text-gray-400">View all your past ATS score analyses</p>
+            <h1 className="text-3xl font-bold text-white mb-2">
+              ATS Score History
+            </h1>
+            <p className="text-gray-400">
+              View all your past ATS score analyses
+            </p>
           </div>
           {history.length > 0 && (
             <button
@@ -114,10 +118,15 @@ export default function AtsScoreHistoryPage() {
             <div className="w-16 h-16 rounded-2xl bg-purple-500/20 flex items-center justify-center mb-4">
               <FileText className="w-8 h-8 text-purple-400" />
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">No ATS Score History</h3>
-            <p className="text-gray-400 mb-6 max-w-md">Your ATS score analyses will appear here once you analyze your first resume.</p>
+            <h3 className="text-xl font-semibold text-white mb-2">
+              No ATS Score History
+            </h3>
+            <p className="text-gray-400 mb-6 max-w-md">
+              Your ATS score analyses will appear here once you analyze your
+              first resume.
+            </p>
             <button
-              onClick={() => navigate('/ats-score')}
+              onClick={() => navigate("/ats-score")}
               className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium rounded-xl transition-all flex items-center gap-2"
             >
               <FileText className="w-5 h-5" />
@@ -136,12 +145,10 @@ export default function AtsScoreHistoryPage() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-white mb-1">{item.title}</h3>
+                    <h3 className="text-lg font-semibold text-white mb-1">
+                      {item.resumeName}
+                    </h3>
                     <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                      <span className="flex items-center gap-1">
-                        <FileText className="w-4 h-4" />
-                        {item.resumeName}
-                      </span>
                       <span className="flex items-center gap-1">
                         <Calendar className="w-4 h-4" />
                         {new Date(item.createdAt).toLocaleDateString()}
@@ -149,21 +156,35 @@ export default function AtsScoreHistoryPage() {
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <div className={`p-3 rounded-lg border ${getScoreBg(item.overallScore)}`}>
+                      <div
+                        className={`p-3 rounded-lg border ${getScoreBg(item.overallScore)}`}
+                      >
                         <p className="text-xs text-gray-400 mb-1">Overall</p>
-                        <p className={`text-xl font-bold ${getScoreColor(item.overallScore)}`}>
+                        <p
+                          className={`text-xl font-bold ${getScoreColor(item.overallScore)}`}
+                        >
                           {item.overallScore}%
                         </p>
                       </div>
-                      <div className={`p-3 rounded-lg border ${getScoreBg(item.atsFriendliness)}`}>
-                        <p className="text-xs text-gray-400 mb-1">ATS Friendly</p>
-                        <p className={`text-xl font-bold ${getScoreColor(item.atsFriendliness)}`}>
+                      <div
+                        className={`p-3 rounded-lg border ${getScoreBg(item.atsFriendliness)}`}
+                      >
+                        <p className="text-xs text-gray-400 mb-1">
+                          ATS Friendly
+                        </p>
+                        <p
+                          className={`text-xl font-bold ${getScoreColor(item.atsFriendliness)}`}
+                        >
                           {item.atsFriendliness}%
                         </p>
                       </div>
-                      <div className={`p-3 rounded-lg border ${getScoreBg(item.spellingGrammar.score)}`}>
+                      <div
+                        className={`p-3 rounded-lg border ${getScoreBg(item.spellingGrammar.score)}`}
+                      >
                         <p className="text-xs text-gray-400 mb-1">Grammar</p>
-                        <p className={`text-xl font-bold ${getScoreColor(item.spellingGrammar.score)}`}>
+                        <p
+                          className={`text-xl font-bold ${getScoreColor(item.spellingGrammar.score)}`}
+                        >
                           {item.spellingGrammar.score}%
                         </p>
                       </div>
@@ -173,6 +194,15 @@ export default function AtsScoreHistoryPage() {
                           {item.spellingGrammar.errors.length}
                         </p>
                       </div>
+                    </div>
+
+                    <div className="mt-4 flex gap-3">
+                      <button
+                        onClick={() => navigate(`/ats-score/${item._id}`)}
+                        className="px-4 py-2 bg-green-500/20 border border-green-500/30 text-green-400 rounded-lg hover:bg-green-500/30 transition-colors"
+                      >
+                        View Details
+                      </button>
                     </div>
                   </div>
 

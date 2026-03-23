@@ -116,6 +116,7 @@ export const resumeBuildHistoryApi = {
   save: (data: { resumeContent: any; resumeName?: string }) => api.post('/resume-build-history', data),
   getAll: (page = 1, limit = 3) => api.get(`/resume-build-history?page=${page}&limit=${limit}`),
   getById: (id: string) => api.get(`/resume-build-history/${id}`),
+  update: (id: string, data: { resumeContent: any }) => api.put(`/resume-build-history/${id}`, data),
   delete: (id: string) => api.delete(`/resume-build-history/${id}`),
   deleteAll: () => api.delete('/resume-build-history'),
 };

@@ -74,6 +74,14 @@ function App() {
         }
       />
       <Route
+        path="/builder/:id"
+        element={
+          <PrivateRoute>
+            <Builder />
+          </PrivateRoute>
+        }
+      />
+      <Route
         path="/plans"
         element={
           <PrivateRoute>
@@ -90,7 +98,23 @@ function App() {
         }
       />
       <Route
+        path="/ats-score/:id"
+        element={
+          <PrivateRoute>
+            <AtsScore />
+          </PrivateRoute>
+        }
+      />
+      <Route
         path="/job-match"
+        element={
+          <PrivateRoute>
+            <JobMatch />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/job-match/:id"
         element={
           <PrivateRoute>
             <JobMatch />

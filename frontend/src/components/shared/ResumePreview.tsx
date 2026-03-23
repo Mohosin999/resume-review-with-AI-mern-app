@@ -42,7 +42,7 @@ export default function ResumePreview({ content, forPdf = false }: ResumePreview
       {content.projects && content.projects.length > 0 && <ResumeProjects projects={content.projects} forPdf={forPdf} formatDescription={formatDescription} />}
       {content.achievements && content.achievements.length > 0 && <ResumeAchievements achievements={content.achievements} forPdf={forPdf} />}
       {content.education.length > 0 && <ResumeEducation education={content.education} forPdf={forPdf} />}
-      {content.skills.length > 0 && <ResumeSkills content={content} forPdf={forPdf} />}
+      {(content.technicalSkills?.length > 0 || content.softSkills?.length > 0) && <ResumeSkills content={content} forPdf={forPdf} />}
     </div>
   );
 }

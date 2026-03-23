@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Trash2, Calendar, FileText } from "lucide-react";
 import { toast } from "react-toastify";
 import { resumeBuildHistoryApi } from "../api/api";
-import { ResumeBuildHistory, Resume } from "../types";
+import { ResumeBuildHistory } from "../types";
 import { LoadingSpinner, Pagination } from "../components/ui";
 import ConfirmModal from "../components/ui/ConfirmModal";
 
@@ -61,26 +61,7 @@ export default function ResumeBuildHistoryPage() {
   };
 
   const handleLoadToBuilder = (item: ResumeBuildHistory) => {
-    const jobTitle = item.resumeContent?.personalInfo?.jobTitle || "resume";
-    const resumeTitle = `${jobTitle.toLowerCase()} resume`;
-
-    const resume: Resume = {
-      _id: item._id,
-      userId: "",
-      content: item.resumeContent,
-      metadata: {
-        filename: resumeTitle,
-        originalName: resumeTitle,
-        size: 0,
-        type: "builder",
-      },
-      tags: [],
-      isActive: true,
-      createdAt: item.createdAt,
-      updatedAt: item.updatedAt,
-      sourceType: "builder",
-    };
-    navigate("/builder", { state: { resume } });
+    navigate(`/builder/${item._id}`);
   };
 
   return (
@@ -159,11 +140,6 @@ export default function ResumeBuildHistoryPage() {
                       Resume
                     </h3>
                     <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                      <span className="flex items-center gap-1">
-                        <FileText className="w-4 h-4" />
-                        {item.resumeContent?.personalInfo?.fullName ||
-                          "Untitled"}
-                      </span>
                       {item.resumeContent?.personalInfo?.jobTitle && (
                         <span className="text-gray-300">
                           {item.resumeContent.personalInfo.jobTitle}
@@ -186,9 +162,12 @@ export default function ResumeBuildHistoryPage() {
                           {item.resumeContent.education.length} Education
                         </span>
                       )}
-                      {item.resumeContent?.skills?.length > 0 && (
+                      {(item.resumeContent?.technicalSkills?.length > 0 ||
+                        item.resumeContent?.softSkills?.length > 0) && (
                         <span className="px-3 py-1 bg-green-500/20 border border-green-500/30 text-green-400 rounded-full text-xs">
-                          {item.resumeContent.skills.length} Skills
+                          {(item.resumeContent.technicalSkills?.length || 0) +
+                            (item.resumeContent.softSkills?.length || 0)}{" "}
+                          Skills
                         </span>
                       )}
                       {item.resumeContent?.projects &&
@@ -204,7 +183,7 @@ export default function ResumeBuildHistoryPage() {
                         onClick={() => handleLoadToBuilder(item)}
                         className="px-4 py-2 bg-green-500/20 border border-green-500/30 text-green-400 rounded-lg hover:bg-green-500/30 transition-colors"
                       >
-                        Load to Builder
+                        Edit Resume
                       </button>
                     </div>
                   </div>

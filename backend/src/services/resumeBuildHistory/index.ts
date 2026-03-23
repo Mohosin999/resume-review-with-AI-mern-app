@@ -68,3 +68,23 @@ export const deleteAllResumeBuildHistory = async (userId: string) => {
   await ResumeBuildHistory.deleteMany({ userId });
   return { success: true };
 };
+
+export const updateResumeBuildHistory = async (
+  userId: string,
+  historyId: string,
+  resumeContent: ResumeContent
+) => {
+  const title = `${resumeContent.personalInfo?.fullName || 'Resume'} – Resume Builder v${Date.now().toString(36).slice(-4)}`;
+
+  const build = await ResumeBuildHistory.findOneAndUpdate(
+    { _id: historyId, userId },
+    { title, resumeContent, updatedAt: new Date() },
+    { new: true }
+  );
+
+  if (!build) {
+    throw new Error('Resume Build history not found');
+  }
+
+  return build;
+};

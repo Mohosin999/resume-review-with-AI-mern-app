@@ -24,7 +24,8 @@ const defaultContent: ResumeContent = {
   projects: [],
   achievements: [],
   education: [],
-  skills: [],
+  technicalSkills: [],
+  softSkills: [],
 };
 
 export function useResumeActions() {
@@ -42,11 +43,19 @@ export function useResumeActions() {
   const handleSaveResume = async () => {
     setSaving(true);
     try {
-      const response = await resumeBuildHistoryApi.save({
-        resumeContent: content,
-        resumeName: content.personalInfo?.fullName || 'Untitled Resume',
-      });
-      toast.success("Resume saved to history successfully!");
+      let response;
+      if (selectedResume?._id) {
+        response = await resumeBuildHistoryApi.update(selectedResume._id, {
+          resumeContent: content,
+        });
+        toast.success("Resume updated successfully!");
+      } else {
+        response = await resumeBuildHistoryApi.save({
+          resumeContent: content,
+          resumeName: content.personalInfo?.fullName || 'Untitled Resume',
+        });
+        toast.success("Resume saved to history successfully!");
+      }
       return response.data.data;
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Failed to save resume";

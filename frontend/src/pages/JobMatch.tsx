@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FileText, Briefcase, CheckCircle, Upload } from 'lucide-react';
 import { toast } from 'react-toastify';
@@ -9,12 +9,42 @@ import { JobMatchHistory, ResumeContent } from '../types';
 
 export default function JobMatchPage() {
   const navigate = useNavigate();
+  const { id: analysisId } = useParams<{ id: string }>();
   const [resumeName, setResumeName] = useState('');
   const [resumeContent, setResumeContent] = useState<ResumeContent | null>(null);
   const [jobDescription, setJobDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [result, setResult] = useState<JobMatchHistory | null>(null);
+
+  useEffect(() => {
+    if (analysisId) {
+      loadAnalysis(analysisId);
+    } else {
+      setResult(null);
+      setResumeName('');
+      setResumeContent(null);
+      setJobDescription('');
+    }
+  }, [analysisId]);
+
+  const loadAnalysis = async (id: string) => {
+    setLoading(true);
+    try {
+      const response = await jobMatchApi.getById(id);
+      if (response.data.data) {
+        setResult(response.data.data);
+        setResumeName(response.data.data.resumeName);
+        setResumeContent(response.data.data.resumeContent);
+        setJobDescription(response.data.data.jobDescription || '');
+      }
+    } catch (error) {
+      toast.error('Failed to load analysis');
+      navigate('/job-match');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleFileUpload = async (file: File) => {
     try {
@@ -24,7 +54,6 @@ export default function JobMatchPage() {
       const response = await resumeParserApi.parse(formData);
       setResumeName(response.data.data.resumeName);
       setResumeContent(response.data.data.resumeContent);
-      toast.success('Resume uploaded successfully');
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Failed to upload resume');
     } finally {

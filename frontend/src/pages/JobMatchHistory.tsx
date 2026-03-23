@@ -28,7 +28,7 @@ export default function JobMatchHistoryPage() {
       setTotalPages(response.data.pagination?.totalPages || 1);
       setPage(pageNum);
     } catch (error) {
-      toast.error("Failed to load history");
+      // Silent fail - don't show toast on history page load
     } finally {
       setLoading(false);
     }
@@ -91,8 +91,12 @@ export default function JobMatchHistoryPage() {
           className="mb-8 flex items-center justify-between"
         >
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">Job Match History</h1>
-            <p className="text-gray-400">View all your past job match analyses</p>
+            <h1 className="text-3xl font-bold text-white mb-2">
+              Job Match History
+            </h1>
+            <p className="text-gray-400">
+              View all your past job match analyses
+            </p>
           </div>
           {history.length > 0 && (
             <button
@@ -114,10 +118,15 @@ export default function JobMatchHistoryPage() {
             <div className="w-16 h-16 rounded-2xl bg-green-500/20 flex items-center justify-center mb-4">
               <Briefcase className="w-8 h-8 text-green-400" />
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">No Job Match History</h3>
-            <p className="text-gray-400 mb-6 max-w-md">Your job match analyses will appear here once you compare your resume against a job description.</p>
+            <h3 className="text-xl font-semibold text-white mb-2">
+              No Job Match History
+            </h3>
+            <p className="text-gray-400 mb-6 max-w-md">
+              Your job match analyses will appear here once you compare your
+              resume against a job description.
+            </p>
             <button
-              onClick={() => navigate('/job-match')}
+              onClick={() => navigate("/job-match")}
               className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium rounded-xl transition-all flex items-center gap-2"
             >
               <Briefcase className="w-5 h-5" />
@@ -136,12 +145,10 @@ export default function JobMatchHistoryPage() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-white mb-1">{item.title}</h3>
+                    <h3 className="text-lg font-semibold text-white mb-1">
+                      {item.resumeName}
+                    </h3>
                     <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                      <span className="flex items-center gap-1">
-                        <FileText className="w-4 h-4" />
-                        {item.resumeName}
-                      </span>
                       <span className="flex items-center gap-1">
                         <Calendar className="w-4 h-4" />
                         {new Date(item.createdAt).toLocaleDateString()}
@@ -149,30 +156,52 @@ export default function JobMatchHistoryPage() {
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <div className={`p-3 rounded-lg border ${getScoreBg(item.matchPercentage)}`}>
+                      <div
+                        className={`p-3 rounded-lg border ${getScoreBg(item.matchPercentage)}`}
+                      >
                         <p className="text-xs text-gray-400 mb-1">Match</p>
-                        <p className={`text-xl font-bold ${getScoreColor(item.matchPercentage)}`}>
+                        <p
+                          className={`text-xl font-bold ${getScoreColor(item.matchPercentage)}`}
+                        >
                           {item.matchPercentage}%
                         </p>
                       </div>
-                      <div className={`p-3 rounded-lg border ${getScoreBg(item.breakdown.keywords.score)}`}>
+                      <div
+                        className={`p-3 rounded-lg border ${getScoreBg(item.breakdown.keywords.score)}`}
+                      >
                         <p className="text-xs text-gray-400 mb-1">Keywords</p>
-                        <p className={`text-xl font-bold ${getScoreColor(item.breakdown.keywords.score)}`}>
+                        <p
+                          className={`text-xl font-bold ${getScoreColor(item.breakdown.keywords.score)}`}
+                        >
                           {item.breakdown.keywords.score}%
                         </p>
                       </div>
-                      <div className={`p-3 rounded-lg border ${getScoreBg(item.breakdown.skills.score)}`}>
+                      <div
+                        className={`p-3 rounded-lg border ${getScoreBg(item.breakdown.skills.score)}`}
+                      >
                         <p className="text-xs text-gray-400 mb-1">Skills</p>
-                        <p className={`text-xl font-bold ${getScoreColor(item.breakdown.skills.score)}`}>
+                        <p
+                          className={`text-xl font-bold ${getScoreColor(item.breakdown.skills.score)}`}
+                        >
                           {item.breakdown.skills.score}%
                         </p>
                       </div>
                       <div className="p-3 rounded-lg border bg-gray-700/50 border-gray-600/50">
                         <p className="text-xs text-gray-400 mb-1">Missing</p>
                         <p className="text-xl font-bold text-white">
-                          {item.missingSkills.length + item.missingKeywords.length}
+                          {item.missingSkills.length +
+                            item.missingKeywords.length}
                         </p>
                       </div>
+                    </div>
+
+                    <div className="mt-4 flex gap-3">
+                      <button
+                        onClick={() => navigate(`/job-match/${item._id}`)}
+                        className="px-4 py-2 bg-green-500/20 border border-green-500/30 text-green-400 rounded-lg hover:bg-green-500/30 transition-colors"
+                      >
+                        View Details
+                      </button>
                     </div>
                   </div>
 

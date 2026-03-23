@@ -1,8 +1,8 @@
 /* ===================================
 Builder Page - Redesigned with Two-Panel Layout
 =================================== */
-import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   User,
@@ -22,6 +22,7 @@ import { useResumeBuilder, useResumeContent } from "../hooks/useResumeBuilder";
 import { Resume, ResumeContent } from "../types";
 import { exportToPdf } from "../utils/pdfExport";
 import { BackButton } from "../components/ui";
+import { resumeBuildHistoryApi } from "../api/api";
 import {
   PersonalInfoEditor,
   SummaryEditorAI,
@@ -31,6 +32,57 @@ import {
   EducationEditor,
   SkillsEditorAI,
 } from "../components/shared";
+
+const STORAGE_KEY = "resume_builder_state";
+
+interface BuilderState {
+  content: ResumeContent;
+  currentStep: number;
+  resumeId: string | null;
+}
+
+const defaultContent: ResumeContent = {
+  personalInfo: {
+    fullName: "",
+    jobTitle: "",
+    email: "",
+    whatsapp: "",
+    address: { city: "", division: "", zipCode: "" },
+    linkedIn: "",
+    socialLinks: { github: "", portfolio: "", website: "" },
+  },
+  summary: "",
+  experience: [],
+  projects: [],
+  achievements: [],
+  education: [],
+  technicalSkills: [],
+  softSkills: [],
+};
+
+const saveToStorage = (state: BuilderState) => {
+  try {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {
+    console.error("Failed to save to sessionStorage:", e);
+  }
+};
+
+const loadFromStorage = (): BuilderState | null => {
+  try {
+    const stored = sessionStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      return JSON.parse(stored);
+    }
+  } catch (e) {
+    console.error("Failed to load from sessionStorage:", e);
+  }
+  return null;
+};
+
+const clearStorage = () => {
+  sessionStorage.removeItem(STORAGE_KEY);
+};
 
 interface Section {
   id: string;
@@ -73,20 +125,63 @@ export default function Builder() {
   const { user } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
   const location = useLocation();
+  const { id: resumeId } = useParams<{ id: string }>();
 
   const builder = useResumeBuilder();
   const contentActions = useResumeContent(builder.content, builder.setContent);
   const [currentStep, setCurrentStep] = useState(0);
   const [sectionStates, setSectionStates] = useState<Section[]>(SECTIONS);
+  const [loadingResume, setLoadingResume] = useState(false);
+
+  const loadResumeById = useCallback(async (id: string) => {
+    setLoadingResume(true);
+    try {
+      const response = await resumeBuildHistoryApi.getById(id);
+      const resume = response.data.data;
+      if (resume) {
+        builder.setSelectedResume(resume as Resume);
+        builder.setContent(resume.resumeContent);
+        saveToStorage({
+          content: resume.resumeContent,
+          currentStep: 0,
+          resumeId: id,
+        });
+      }
+    } catch (error) {
+      toast.error("Failed to load resume");
+      navigate("/builder");
+    } finally {
+      setLoadingResume(false);
+    }
+  }, [navigate]);
 
   useEffect(() => {
-    const passedResume = location.state?.resume as Resume | undefined;
-    if (passedResume) {
-      builder.setSelectedResume(passedResume);
-      builder.setContent(passedResume.content);
-      window.history.replaceState({}, document.title);
+    if (resumeId) {
+      loadResumeById(resumeId);
+    } else {
+      const passedResume = location.state?.resume as Resume | undefined;
+      if (passedResume) {
+        builder.setSelectedResume(passedResume);
+        builder.setContent(passedResume.content);
+        window.history.replaceState({}, document.title);
+      } else {
+        clearStorage();
+        builder.setContent(defaultContent);
+        builder.setSelectedResume(null as any);
+        setCurrentStep(0);
+      }
     }
-  }, [location.state]);
+  }, [resumeId, location.state]);
+
+  useEffect(() => {
+    if (builder.content || currentStep > 0) {
+      saveToStorage({
+        content: builder.content,
+        currentStep,
+        resumeId: builder.selectedResume?._id || null,
+      });
+    }
+  }, [builder.content, currentStep, builder.selectedResume?._id]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -110,7 +205,7 @@ export default function Builder() {
       case "education":
         return content.education.length > 0;
       case "skills":
-        return content.skills.length > 0;
+        return content.technicalSkills.length > 0 || content.softSkills.length > 0;
       default:
         return false;
     }
@@ -140,7 +235,18 @@ export default function Builder() {
   };
 
   const handleSave = async () => {
-    await builder.handleSaveResume();
+    const result = await builder.handleSaveResume();
+    if (result?._id) {
+      const newId = result._id;
+      if (!builder.selectedResume?._id) {
+        builder.setSelectedResume({ _id: newId } as Resume);
+      }
+      saveToStorage({
+        content: builder.content,
+        currentStep,
+        resumeId: newId,
+      });
+    }
   };
 
   const renderSectionEditor = (section: Section) => {
@@ -159,7 +265,7 @@ export default function Builder() {
             value={content.summary || ""}
             onChange={(val) => setContent({ ...content, summary: val })}
             personalInfo={content.personalInfo}
-            skills={content.skills}
+            skills={[...(content.technicalSkills || []), ...(content.softSkills || [])]}
           />
         );
       case "experience":
@@ -559,7 +665,7 @@ function ResumePreview({ content, forPdf = false }: ResumePreviewProps) {
     (content.projects && content.projects.length > 0) ||
     (content.achievements && content.achievements.length > 0) ||
     content.education?.length > 0 ||
-    content.skills?.length > 0;
+    (content.technicalSkills?.length > 0 || content.softSkills?.length > 0);
 
   return (
     <div className="text-gray-900 font-sans w-full">
@@ -601,7 +707,7 @@ function ResumePreview({ content, forPdf = false }: ResumePreviewProps) {
       )}
 
       {/* Skills */}
-      {content.skills.length > 0 && (
+      {(content.technicalSkills?.length > 0 || content.softSkills?.length > 0) && (
         <SkillsPreview content={content} forPdf={forPdf} />
       )}
 

@@ -6,6 +6,7 @@ import {
   getResumeBuildHistoryById,
   deleteResumeBuildHistory,
   deleteAllResumeBuildHistory,
+  updateResumeBuildHistory,
 } from '../../services/resumeBuildHistory';
 
 export const saveResumeBuild = async (req: AuthRequest, res: Response) => {
@@ -119,6 +120,37 @@ export const deleteAllResumeBuildsController = async (
     res.status(500).json({
       success: false,
       message: error.message || 'Failed to delete Resume Builds',
+    });
+  }
+};
+
+export const updateResumeBuildController = async (req: AuthRequest, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { resumeContent } = req.body;
+
+    if (!resumeContent) {
+      return res.status(400).json({
+        success: false,
+        message: 'Resume content is required',
+      });
+    }
+
+    const build = await updateResumeBuildHistory(
+      req.user._id.toString(),
+      id,
+      resumeContent
+    );
+
+    res.json({
+      success: true,
+      data: build,
+    });
+  } catch (error: any) {
+    console.error('Update resume build error:', error);
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Failed to update resume build',
     });
   }
 };

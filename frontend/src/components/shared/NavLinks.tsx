@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 interface NavLink {
   path: string;
   label: string;
-  icon: React.ElementType;
+  icon?: React.ElementType;
 }
 
 export default function NavLinks({ navLinks }: { navLinks: NavLink[] }) {
