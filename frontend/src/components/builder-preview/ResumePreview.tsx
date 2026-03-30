@@ -40,7 +40,7 @@ export function ResumePreview({ content, forPdf = false }: ResumePreviewProps) {
     }
     const lines = desc.split("\n").filter((line) => line.trim());
     return (
-      <ul className="list-outside list-disc pl-6 space-y-0.5 text-[10px] marker:font-normal text-black">
+      <ul className="list-outside list-disc pl-4 lg:pl-6 space-y-0 lg:space-y-0.5 text-[8px] lg:text-[10px] marker:font-normal text-black">
         {lines.map((line, i) => {
           const cleanLine = line.replace(/^[•\-\*]\s*/, "").trim();
           if (!cleanLine) return null;

@@ -12,7 +12,6 @@ import {
   Save,
   ChevronLeft,
   ChevronRight,
-  Eye,
 } from "lucide-react";
 import { toast } from "react-toastify";
 import { useAppSelector } from "../hooks/redux";
@@ -353,12 +352,12 @@ export default function Builder() {
         </div>
 
         {/* Two-Panel Layout */}
-        <div className="flex flex-col xl:flex-row items-start justify-center gap-6">
-          {/* Left Panel - Form Wizard (48% width) */}
+        <div className="flex flex-col lg:flex-row items-start justify-center gap-6">
+          {/* Left Panel - Form Wizard */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="xl:w-[48%] flex-shrink-0"
+            className="w-full lg:w-[48%] flex-shrink-0"
           >
             <div className="bg-gray-900/80 backdrop-blur-sm rounded-2xl shadow-2xl shadow-emerald-500/10 border border-emerald-500/20 overflow-hidden">
               {/* Progress Stepper - Green Gradient */}
@@ -569,13 +568,13 @@ export default function Builder() {
             </div>
           </motion.div>
 
-          {/* Right Panel - Live Resume Preview (52% width) */}
+          {/* Right Panel - Live Resume Preview */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="xl:w-[52%] flex-shrink-0"
+            className="w-full lg:w-[52%] flex-shrink-0"
           >
-            <div className="bg-gray-900/80 backdrop-blur-sm rounded-2xl shadow-2xl shadow-emerald-500/10 border border-emerald-500/20 overflow-hidden sticky top-24">
+            <div className="bg-gray-900/80 backdrop-blur-sm rounded-2xl shadow-2xl shadow-emerald-500/10 border border-emerald-500/20 overflow-hidden lg:sticky lg:top-24">
               {/* Preview Header */}
               <div className="bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 p-4 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTAgNDBMODAgME0wIDBMODAgNDAiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30" />
@@ -622,7 +621,7 @@ export default function Builder() {
                 <div
                   className="bg-white min-h-[800px] w-full"
                   id="resume-preview-content"
-                  style={{ padding: "24px" }}
+                  style={{ padding: "12px" }}
                 >
                   {/* Resume Personal Info */}
                   <ResumePreview content={builder.content} forPdf={true} />

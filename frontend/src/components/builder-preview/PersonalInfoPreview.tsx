@@ -34,25 +34,25 @@ export function PersonalInfoPreview({
       : "";
 
   return (
-    <div className="px-6 pt-6 pb-6">
-      <div className="flex justify-between items-start">
+    <div className="px-2 lg:px-6 pt-4 lg:pt-6 pb-4 lg:pb-6">
+      <div className="flex justify-between items-start gap-2">
         {/* Left Side - Name and Title */}
-        <div className="min-w-[220px]">
-          <h1 className="text-base font-bold text-black uppercase tracking-wide leading-tight">
-            {content.personalInfo.fullName || "Your Name"}
+        <div className="min-w-0 flex-1">
+          <h1 className="text-base font-bold text-black uppercase tracking-wide leading-tight truncate">
+            {content.personalInfo.fullName || ""}
           </h1>
           {content.personalInfo.jobTitle && (
-            <p className="text-xs font-medium text-black mt-1 leading-tight">
+            <p className="text-xs font-medium text-black mt-0.5 leading-tight truncate">
               {content.personalInfo.jobTitle}
             </p>
           )}
         </div>
 
         {/* Right Side - Contact Info */}
-        <div className="mt-auto items-end text-right min-w-[200px]">
+        <div className="mt-auto items-end text-right min-w-0">
           {/* First Line: Location • Phone */}
-          <div className="text-[10px] text-black leading-snug">
-            <span>
+          <div className="text-[9px] lg:text-[10px] text-black leading-snug">
+            <span className="truncate block">
               {[
                 locationString || "",
                 content.personalInfo.whatsapp
@@ -64,11 +64,11 @@ export function PersonalInfoPreview({
             </span>
           </div>
           {/* Second Line: Email • LinkedIn */}
-          <div className="text-[10px] text-black leading-snug mt-0.5 flex items-center justify-end gap-1 flex-wrap">
+          <div className="text-[9px] lg:text-[10px] text-black leading-snug mt-0.5 flex items-center justify-end gap-1 flex-wrap">
             {content.personalInfo.email && (
               <a
                 href={`mailto:${content.personalInfo.email}`}
-                className="text-black"
+                className="text-black truncate max-w-[120px] lg:max-w-none"
                 style={{ color: "#000000" }}
               >
                 {content.personalInfo.email}
@@ -86,7 +86,7 @@ export function PersonalInfoPreview({
                 }
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-black"
+                className="text-black truncate max-w-[100px] lg:max-w-none"
                 style={{ color: "#000000" }}
               >
                 {formatLinkedIn(content.personalInfo.linkedIn)}
