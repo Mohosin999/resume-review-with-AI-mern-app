@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FileText, TrendingUp, Zap, Plus, ChevronRight, Target, CheckCircle, FileCheck } from "lucide-react";
+import {
+  FileText,
+  Zap,
+  Plus,
+  ChevronRight,
+  Target,
+  FileCheck,
+} from "lucide-react";
 import { useAppSelector } from "../hooks/redux";
 import { atsScoreApi, jobMatchApi, resumeBuildHistoryApi } from "../api/api";
 import { LoadingSpinner, BackButton } from "../components/ui";
@@ -26,8 +33,11 @@ export default function Dashboard() {
         setTotalResumes(buildRes.data.pagination?.total || 0);
         setTotalAtsHistory(atsRes.data.pagination?.total || 0);
         setTotalJobMatchHistory(jobMatchRes.data.pagination?.total || 0);
-      } catch (error) { console.error("Error fetching dashboard data:", error); }
-      finally { setLoading(false); }
+      } catch (error) {
+        console.error("Error fetching dashboard data:", error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchData();
   }, []);
@@ -37,17 +47,19 @@ export default function Dashboard() {
   const features = [
     {
       title: "ATS Score Check",
-      description: "Analyze your resume for ATS compatibility and get detailed feedback",
+      description:
+        "Analyze your resume for ATS compatibility and get detailed feedback",
       icon: FileCheck,
-      color: "bg-blue-500",
+      color: "bg-amber-600",
       link: "/ats-score",
       stats: "Check how ATS systems read your resume",
     },
     {
       title: "Job Match Analysis",
-      description: "Compare your resume against job descriptions to see how well you match",
+      description:
+        "Compare your resume against job descriptions to see how well you match",
       icon: Target,
-      color: "bg-purple-500",
+      color: "bg-teal-600",
       link: "/job-match",
       stats: "See your match percentage with any job",
     },
@@ -55,27 +67,29 @@ export default function Dashboard() {
       title: "Resume Builder",
       description: "Build professional resumes with AI-powered suggestions",
       icon: FileText,
-      color: "bg-green-500",
+      color: "bg-lime-600",
       link: "/builder",
       stats: "Create resume from scratch",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20 pb-12">
+    <div className="min-h-screen bg-gray-900 pt-20 pb-12 text-">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mt-6 mb-1"><BackButton /></div>
+        <div className="mt-6 mb-1">
+          <BackButton />
+        </div>
         <WelcomeHeader user={user} credits={user?.subscription.credits || 0} />
-        
+
         <FeaturesGrid features={features} />
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
           <div className="lg:col-span-2">
             <RecentBuilds builds={recentBuilds} />
           </div>
           <div>
-            <QuickStats 
-              credits={user?.subscription.credits || 0} 
+            <QuickStats
+              credits={user?.subscription.credits || 0}
               totalResumes={totalResumes}
               totalAtsHistory={totalAtsHistory}
               totalJobMatchHistory={totalJobMatchHistory}
@@ -88,12 +102,21 @@ export default function Dashboard() {
 }
 
 const WelcomeHeader = ({ user, credits }: { user: any; credits: number }) => (
-  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome back, {user?.name?.split(" ")[0] || "User"}!</h1>
-    <p className="text-gray-600 dark:text-gray-400 mt-1">Manage your resumes and check your job application readiness</p>
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="mb-8"
+  >
+    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+      Welcome back, {user?.name?.split(" ")[0] || "User"}!
+    </h1>
+    <p className="text-gray-600 dark:text-gray-400 mt-1">
+      Manage your resumes and check your job application readiness
+    </p>
     {credits > 0 && (
       <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full text-primary text-sm">
-        <Zap className="w-4 h-4" /><span>{credits} credits remaining</span>
+        <Zap className="w-4 h-4" />
+        <span>{credits} credits remaining</span>
       </div>
     )}
   </motion.div>
@@ -112,13 +135,17 @@ const FeaturesGrid = ({ features }: { features: any[] }) => (
           to={feature.link}
           className="card block h-full hover:shadow-lg transition-shadow group"
         >
-          <div className={`w-12 h-12 ${feature.color} rounded-xl flex items-center justify-center mb-4`}>
+          <div
+            className={`w-12 h-12 ${feature.color} rounded-xl flex items-center justify-center mb-4`}
+          >
             <feature.icon className="w-6 h-6 text-white" />
           </div>
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
             {feature.title}
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 mb-3">{feature.description}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 mb-3">
+            {feature.description}
+          </p>
           <div className="flex items-center gap-1 text-sm text-primary font-medium">
             <span>{feature.stats}</span>
             <ChevronRight className="w-4 h-4" />
@@ -130,16 +157,29 @@ const FeaturesGrid = ({ features }: { features: any[] }) => (
 );
 
 const RecentBuilds = ({ builds }: { builds: any[] }) => (
-  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="card">
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.2 }}
+    className="card"
+  >
     <div className="flex items-center justify-between mb-6">
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Resumes</h2>
-      <Link to="/resume-build-history" className="text-sm text-primary hover:underline flex items-center gap-1">View all<ChevronRight className="w-4 h-4" /></Link>
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+        Recent Resumes
+      </h2>
+      <Link
+        to="/resume-build-history"
+        className="text-sm text-primary hover:underline flex items-center gap-1"
+      >
+        View all
+        <ChevronRight className="w-4 h-4" />
+      </Link>
     </div>
     {builds.length > 0 ? (
       <div className="space-y-4">
         {builds.map((item) => (
-          <Link 
-            key={item._id} 
+          <Link
+            key={item._id}
             to={`/builder/${item._id}`}
             className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600/50 transition-colors"
           >
@@ -148,8 +188,14 @@ const RecentBuilds = ({ builds }: { builds: any[] }) => (
                 <FileText className="w-5 h-5 text-green-600 dark:text-green-400" />
               </div>
               <div>
-                <p className="font-medium text-gray-900 dark:text-white">{item.resumeContent?.personalInfo?.fullName || item.title || "Resume"}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{item.resumeContent?.personalInfo?.jobTitle || "Untitled"}</p>
+                <p className="font-medium text-gray-900 dark:text-white">
+                  {item.resumeContent?.personalInfo?.fullName ||
+                    item.title ||
+                    "Resume"}
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {item.resumeContent?.personalInfo?.jobTitle || "Untitled"}
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -164,15 +210,38 @@ const RecentBuilds = ({ builds }: { builds: any[] }) => (
       <div className="text-center py-8">
         <FileText className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
         <p className="text-gray-500 dark:text-gray-400">No resumes yet</p>
-        <Link to="/builder" className="mt-4 inline-flex items-center justify-center px-4 py-2 font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 text-white hover:from-emerald-700 hover:to-emerald-500 shadow-lg shadow-emerald-700/30 items-center gap-2"><Plus className="w-4 h-4" />Create Resume</Link>
+        <Link
+          to="/builder"
+          className="mt-4 inline-flex items-center justify-center px-4 py-2 font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 text-white hover:from-emerald-700 hover:to-emerald-500 shadow-lg shadow-emerald-700/30 gap-2"
+        >
+          <Plus className="w-4 h-4" />
+          Create Resume
+        </Link>
       </div>
     )}
   </motion.div>
 );
 
-const QuickStats = ({ credits, totalResumes, totalAtsHistory, totalJobMatchHistory }: { credits: number; totalResumes: number; totalAtsHistory: number; totalJobMatchHistory: number }) => (
-  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="card">
-    <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Your Stats</h2>
+const QuickStats = ({
+  credits,
+  totalResumes,
+  totalAtsHistory,
+  totalJobMatchHistory,
+}: {
+  credits: number;
+  totalResumes: number;
+  totalAtsHistory: number;
+  totalJobMatchHistory: number;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.3 }}
+    className="card"
+  >
+    <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
+      Your Stats
+    </h2>
     <div className="space-y-4">
       <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
         <div className="flex items-center gap-3">
@@ -180,20 +249,28 @@ const QuickStats = ({ credits, totalResumes, totalAtsHistory, totalJobMatchHisto
             <Zap className="w-5 h-5 text-amber-600 dark:text-amber-400" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Available Credits</p>
-            <p className="font-semibold text-gray-900 dark:text-white">{credits}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Available Credits
+            </p>
+            <p className="font-semibold text-gray-900 dark:text-white">
+              {credits}
+            </p>
           </div>
         </div>
       </div>
-      
+
       <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
             <FileCheck className="w-5 h-5 text-blue-600 dark:text-blue-400" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">ATS Analyses</p>
-            <p className="font-semibold text-gray-900 dark:text-white">{totalAtsHistory}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              ATS Analyses
+            </p>
+            <p className="font-semibold text-gray-900 dark:text-white">
+              {totalAtsHistory}
+            </p>
           </div>
         </div>
       </div>
@@ -204,8 +281,12 @@ const QuickStats = ({ credits, totalResumes, totalAtsHistory, totalJobMatchHisto
             <Target className="w-5 h-5 text-purple-600 dark:text-purple-400" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Job Matches</p>
-            <p className="font-semibold text-gray-900 dark:text-white">{totalJobMatchHistory}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Job Matches
+            </p>
+            <p className="font-semibold text-gray-900 dark:text-white">
+              {totalJobMatchHistory}
+            </p>
           </div>
         </div>
       </div>
@@ -216,8 +297,12 @@ const QuickStats = ({ credits, totalResumes, totalAtsHistory, totalJobMatchHisto
             <FileText className="w-5 h-5 text-green-600 dark:text-green-400" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Total Resumes</p>
-            <p className="font-semibold text-gray-900 dark:text-white">{totalResumes}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Total Resumes
+            </p>
+            <p className="font-semibold text-gray-900 dark:text-white">
+              {totalResumes}
+            </p>
           </div>
         </div>
       </div>
@@ -225,9 +310,18 @@ const QuickStats = ({ credits, totalResumes, totalAtsHistory, totalJobMatchHisto
 
     {credits < 5 && (
       <div className="mt-6 p-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg">
-        <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Need More Credits?</h3>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Get more credits to analyze more resumes.</p>
-        <Link to="/plans" className="w-full inline-flex items-center justify-center px-4 py-2 font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 bg-orange-500 text-white hover:bg-orange-600 text-sm text-center">Upgrade Plan</Link>
+        <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+          Need More Credits?
+        </h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+          Get more credits to analyze more resumes.
+        </p>
+        <Link
+          to="/plans"
+          className="w-full inline-flex items-center justify-center px-4 py-2 font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 bg-orange-500 text-white hover:bg-orange-600 text-sm text-center"
+        >
+          Upgrade Plan
+        </Link>
       </div>
     )}
   </motion.div>

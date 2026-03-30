@@ -1,17 +1,25 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FileText, Upload, CheckCircle, XCircle } from 'lucide-react';
-import { toast } from 'react-toastify';
-import { atsScoreApi, resumeParserApi } from '../api/api';
-import { BackButton, ScoreCard, SectionScoreCard, SuggestionList, LoadingSpinner } from '../components/ui';
-import { AtsScoreHistory, ResumeContent } from '../types';
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import { FileText, Upload, CheckCircle, XCircle } from "lucide-react";
+import { toast } from "react-toastify";
+import { atsScoreApi, resumeParserApi } from "../api/api";
+import {
+  BackButton,
+  ScoreCard,
+  SectionScoreCard,
+  SuggestionList,
+  LoadingSpinner,
+} from "../components/ui";
+import { AtsScoreHistory, ResumeContent } from "../types";
 
 export default function AtsScorePage() {
   const navigate = useNavigate();
   const { id: analysisId } = useParams<{ id: string }>();
-  const [resumeName, setResumeName] = useState('');
-  const [resumeContent, setResumeContent] = useState<ResumeContent | null>(null);
+  const [resumeName, setResumeName] = useState("");
+  const [resumeContent, setResumeContent] = useState<ResumeContent | null>(
+    null,
+  );
   const [loading, setLoading] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [result, setResult] = useState<AtsScoreHistory | null>(null);
@@ -21,7 +29,7 @@ export default function AtsScorePage() {
       loadAnalysis(analysisId);
     } else {
       setResult(null);
-      setResumeName('');
+      setResumeName("");
       setResumeContent(null);
     }
   }, [analysisId]);
@@ -36,8 +44,8 @@ export default function AtsScorePage() {
         setResumeContent(response.data.data.resumeContent);
       }
     } catch (error) {
-      toast.error('Failed to load analysis');
-      navigate('/ats-score');
+      toast.error("Failed to load analysis");
+      navigate("/ats-score");
     } finally {
       setLoading(false);
     }
@@ -47,12 +55,12 @@ export default function AtsScorePage() {
     try {
       setLoading(true);
       const formData = new FormData();
-      formData.append('resume', file);
+      formData.append("resume", file);
       const response = await resumeParserApi.parse(formData);
       setResumeName(response.data.data.resumeName);
       setResumeContent(response.data.data.resumeContent);
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to upload resume');
+      toast.error(error.response?.data?.message || "Failed to upload resume");
     } finally {
       setLoading(false);
     }
@@ -60,20 +68,20 @@ export default function AtsScorePage() {
 
   const handleAnalyze = async () => {
     if (!resumeContent) {
-      toast.error('Please upload a resume');
+      toast.error("Please upload a resume");
       return;
     }
 
     try {
       setAnalyzing(true);
-      const response = await atsScoreApi.analyze({ 
-        resumeName, 
-        resumeContent 
+      const response = await atsScoreApi.analyze({
+        resumeName,
+        resumeContent,
       });
       setResult(response.data.data);
-      toast.success('ATS analysis completed');
+      toast.success("ATS analysis completed");
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to analyze resume');
+      toast.error(error.response?.data?.message || "Failed to analyze resume");
     } finally {
       setAnalyzing(false);
     }
@@ -81,7 +89,7 @@ export default function AtsScorePage() {
 
   const handleReset = () => {
     setResult(null);
-    setResumeName('');
+    setResumeName("");
     setResumeContent(null);
   };
 
@@ -97,9 +105,12 @@ export default function AtsScorePage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-3xl font-bold text-white mb-2">ATS Score Check</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">
+            ATS Score Check
+          </h1>
           <p className="text-gray-400">
-            Analyze your resume for ATS (Applicant Tracking System) compatibility
+            Analyze your resume for ATS (Applicant Tracking System)
+            compatibility
           </p>
         </motion.div>
 
@@ -124,9 +135,12 @@ export default function AtsScorePage() {
                       <>
                         <Upload className="w-8 h-8 text-gray-400 mb-2" />
                         <p className="text-sm text-gray-400">
-                          <span className="font-semibold">Click to upload</span> or drag and drop
+                          <span className="font-semibold">Click to upload</span>{" "}
+                          or drag and drop
                         </p>
-                        <p className="text-xs text-gray-500">PDF, DOCX (MAX. 10MB)</p>
+                        <p className="text-xs text-gray-500">
+                          PDF, DOCX (MAX. 10MB)
+                        </p>
                       </>
                     )}
                   </div>
@@ -146,9 +160,7 @@ export default function AtsScorePage() {
                 <div className="mt-4 p-4 bg-green-900/20 border border-green-500/30 rounded-lg">
                   <div className="flex items-center gap-2 text-green-400">
                     <CheckCircle className="w-5 h-5" />
-                    <span className="font-medium">
-                      Selected: {resumeName}
-                    </span>
+                    <span className="font-medium">Selected: {resumeName}</span>
                   </div>
                 </div>
               )}
@@ -156,14 +168,14 @@ export default function AtsScorePage() {
               <button
                 onClick={handleAnalyze}
                 disabled={!resumeContent || analyzing}
-                className="w-full mt-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:from-gray-600 disabled:to-gray-600 text-white font-semibold py-3 px-4 rounded-lg transition-all disabled:cursor-not-allowed"
+                className="w-full mt-4 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white font-semibold py-3 px-4 rounded-lg transition-all disabled:cursor-not-allowed"
               >
                 {analyzing ? (
                   <span className="flex items-center justify-center gap-2">
                     <LoadingSpinner /> Analyzing...
                   </span>
                 ) : (
-                  'Analyze ATS Score'
+                  "Analyze ATS Score"
                 )}
               </button>
             </motion.div>
@@ -184,15 +196,25 @@ export default function AtsScorePage() {
                 />
               </div>
               <div className="md:col-span-2 bg-gray-800 rounded-lg p-6">
-                <h2 className="text-xl font-semibold text-white mb-4">Summary</h2>
+                <h2 className="text-xl font-semibold text-white mb-4">
+                  Summary
+                </h2>
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div className="bg-gray-700/50 rounded-lg p-4">
-                    <p className="text-gray-400 text-sm mb-1">ATS Friendliness</p>
-                    <p className="text-2xl font-bold text-white">{result.atsFriendliness}%</p>
+                    <p className="text-gray-400 text-sm mb-1">
+                      ATS Friendliness
+                    </p>
+                    <p className="text-2xl font-bold text-white">
+                      {result.atsFriendliness}%
+                    </p>
                   </div>
                   <div className="bg-gray-700/50 rounded-lg p-4">
-                    <p className="text-gray-400 text-sm mb-1">Spelling & Grammar</p>
-                    <p className="text-2xl font-bold text-white">{result.spellingGrammar.score}%</p>
+                    <p className="text-gray-400 text-sm mb-1">
+                      Spelling & Grammar
+                    </p>
+                    <p className="text-2xl font-bold text-white">
+                      {result.spellingGrammar.score}%
+                    </p>
                   </div>
                 </div>
                 <button
@@ -209,7 +231,9 @@ export default function AtsScorePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <h2 className="text-xl font-semibold text-white mb-4">Section Breakdown</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">
+                Section Breakdown
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <SectionScoreCard
                   sectionName="Summary"
@@ -235,7 +259,9 @@ export default function AtsScorePage() {
                   sectionName="Contact Info"
                   score={result.sectionScores.contactInfo.score}
                   feedback={result.sectionScores.contactInfo.feedback}
-                  hasContactInfo={result.sectionScores.contactInfo.hasContactInfo}
+                  hasContactInfo={
+                    result.sectionScores.contactInfo.hasContactInfo
+                  }
                 />
               </div>
             </motion.div>
@@ -246,15 +272,22 @@ export default function AtsScorePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                <h2 className="text-xl font-semibold text-white mb-4">Spelling & Grammar Errors</h2>
+                <h2 className="text-xl font-semibold text-white mb-4">
+                  Spelling & Grammar Errors
+                </h2>
                 <div className="bg-gray-800 rounded-lg p-6">
                   <div className="space-y-3">
                     {result.spellingGrammar.errors.map((error, idx) => (
-                      <div key={idx} className="bg-red-900/20 border border-red-500/30 rounded-lg p-4">
+                      <div
+                        key={idx}
+                        className="bg-red-900/20 border border-red-500/30 rounded-lg p-4"
+                      >
                         <div className="flex items-start gap-3">
                           <XCircle className="w-5 h-5 text-red-500 mt-0.5" />
                           <div>
-                            <p className="text-red-400 font-medium">{error.message}</p>
+                            <p className="text-red-400 font-medium">
+                              {error.message}
+                            </p>
                             <p className="text-sm text-gray-400 mt-1">
                               Suggestion: {error.suggestion}
                             </p>
@@ -272,8 +305,13 @@ export default function AtsScorePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <h2 className="text-xl font-semibold text-white mb-4">Improvement Suggestions</h2>
-              <SuggestionList suggestions={result.suggestions} title="AI Suggestions" />
+              <h2 className="text-xl font-semibold text-white mb-4">
+                Improvement Suggestions
+              </h2>
+              <SuggestionList
+                suggestions={result.suggestions}
+                title="AI Suggestions"
+              />
             </motion.div>
           </div>
         )}

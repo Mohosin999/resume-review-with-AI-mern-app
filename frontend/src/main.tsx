@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
 import { store, AppDispatch } from './store';
 import { fetchUser, tokenRefresh } from './store/slices/authSlice';
-import { syncSystemTheme } from './store/slices/themeSlice';
 import './index.css';
 import Navbar from './components/Navbar';
 
@@ -17,22 +16,11 @@ function InitializeApp() {
   useEffect(() => {
     dispatch(fetchUser());
 
-    // Refresh access token every 10 minutes (before 15 min expiry)
-    // This ensures user stays logged in without interruption
     const interval = setInterval(() => {
       dispatch(tokenRefresh());
-    }, 10 * 60 * 1000); // 10 minutes
+    }, 10 * 60 * 1000);
 
     return () => clearInterval(interval);
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (store.getState().theme.theme === 'system') {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const handler = () => dispatch(syncSystemTheme());
-      mediaQuery.addEventListener('change', handler);
-      return () => mediaQuery.removeEventListener('change', handler);
-    }
   }, [dispatch]);
 
   return null;

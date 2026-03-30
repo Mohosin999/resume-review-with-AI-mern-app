@@ -62,7 +62,7 @@ export default function SummaryEditor({
           type="button"
           onClick={handleAIGenerate}
           disabled={generating}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 hover:from-emerald-700 hover:to-emerald-500 disabled:from-gray-600 disabled:to-gray-600 text-white text-sm rounded-lg transition-all disabled:cursor-not-allowed"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 disabled:from-gray-600 disabled:to-gray-600 text-white text-sm rounded-lg transition-all disabled:cursor-not-allowed"
         >
           {generating ? (
             <Loader2 className="w-4 h-4 animate-spin" />

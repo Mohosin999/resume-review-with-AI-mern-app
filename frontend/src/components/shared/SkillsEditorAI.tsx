@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Sparkles, Loader2, Plus, X } from 'lucide-react';
-import { toast } from 'react-toastify';
-import { resumeBuilderApi } from '../../api/api';
-import { AISectionSuggestion } from '../../types';
+import { useState } from "react";
+import { Sparkles, Loader2, Plus, X } from "lucide-react";
+import { toast } from "react-toastify";
+import { resumeBuilderApi } from "../../api/api";
+import { AISectionSuggestion } from "../../types";
 
 interface SkillsEditorProps {
   technicalSkills: string[];
@@ -23,26 +23,26 @@ export default function SkillsEditorAI({
   onRemoveSoftSkill,
   jobTitle,
 }: SkillsEditorProps) {
-  const [newTechnicalSkill, setNewTechnicalSkill] = useState('');
-  const [newSoftSkill, setNewSoftSkill] = useState('');
+  const [newTechnicalSkill, setNewTechnicalSkill] = useState("");
+  const [newSoftSkill, setNewSoftSkill] = useState("");
   const [generating, setGenerating] = useState(false);
 
   const handleAddTechnicalSkill = () => {
     if (newTechnicalSkill.trim()) {
       onAddTechnicalSkill(newTechnicalSkill.trim());
-      setNewTechnicalSkill('');
+      setNewTechnicalSkill("");
     }
   };
 
   const handleAddSoftSkill = () => {
     if (newSoftSkill.trim()) {
       onAddSoftSkill(newSoftSkill.trim());
-      setNewSoftSkill('');
+      setNewSoftSkill("");
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent, handler: () => void) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
       handler();
     }
@@ -52,7 +52,7 @@ export default function SkillsEditorAI({
     try {
       setGenerating(true);
       const response = await resumeBuilderApi.generateSection({
-        section: 'Technical Skills',
+        section: "Technical Skills",
         context: {
           jobTitle,
         },
@@ -70,9 +70,11 @@ export default function SkillsEditorAI({
         }
       });
 
-      toast.success(`${Math.min(5, suggestedSkills.length)} technical skills added!`);
+      toast.success(
+        `${Math.min(5, suggestedSkills.length)} technical skills added!`,
+      );
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to suggest skills');
+      toast.error(error.response?.data?.message || "Failed to suggest skills");
     } finally {
       setGenerating(false);
     }
@@ -83,19 +85,21 @@ export default function SkillsEditorAI({
       {/* Technical Skills Section */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-gray-300">Technical Skills</label>
+          <label className="text-sm font-medium text-gray-300">
+            Technical Skills
+          </label>
           <button
             type="button"
             onClick={handleAISuggest}
             disabled={generating}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:from-gray-600 disabled:to-gray-600 text-white text-sm rounded-lg transition-all disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 disabled:from-gray-600 disabled:to-gray-600 text-white text-sm rounded-lg transition-all disabled:cursor-not-allowed"
           >
             {generating ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
               <Sparkles className="w-4 h-4" />
             )}
-            {generating ? 'Generating...' : 'AI Suggest'}
+            {generating ? "Generating..." : "AI Suggest"}
           </button>
         </div>
 
@@ -111,7 +115,7 @@ export default function SkillsEditorAI({
           <button
             type="button"
             onClick={handleAddTechnicalSkill}
-            className="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors"
+            className="px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
           >
             <Plus className="w-4 h-4" />
           </button>
@@ -159,7 +163,7 @@ export default function SkillsEditorAI({
           <button
             type="button"
             onClick={handleAddSoftSkill}
-            className="px-3 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg transition-colors"
+            className="px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
           >
             <Plus className="w-4 h-4" />
           </button>
@@ -188,7 +192,8 @@ export default function SkillsEditorAI({
         )}
 
         <p className="text-xs text-gray-400">
-          Tip: Add interpersonal skills like communication, teamwork, problem-solving
+          Tip: Add interpersonal skills like communication, teamwork,
+          problem-solving
         </p>
       </div>
     </div>

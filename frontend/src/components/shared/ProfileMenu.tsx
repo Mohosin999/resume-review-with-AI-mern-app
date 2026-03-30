@@ -16,12 +16,20 @@ interface ProfileMenuProps {
   onLogout: () => void;
 }
 
-export default function ProfileMenu({ user, profileMenuOpen, setProfileMenuOpen, onLogout }: ProfileMenuProps) {
+export default function ProfileMenu({
+  user,
+  profileMenuOpen,
+  setProfileMenuOpen,
+  onLogout,
+}: ProfileMenuProps) {
   const profileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target as Node)) {
+      if (
+        profileMenuRef.current &&
+        !profileMenuRef.current.contains(event.target as Node)
+      ) {
         setProfileMenuOpen(false);
       }
     };
@@ -35,8 +43,11 @@ export default function ProfileMenu({ user, profileMenuOpen, setProfileMenuOpen,
 
   return (
     <div className="relative" ref={profileMenuRef}>
-      <button onClick={() => setProfileMenuOpen(!profileMenuOpen)} className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white font-medium">
+      <button
+        onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+        className="flex items-center gap-2"
+      >
+        <div className="w-8 h-8 rounded-full bg-green-600 hover:bg-green-700 flex items-center justify-center text-white font-medium">
           {user.name?.charAt(0).toUpperCase() || "U"}
         </div>
       </button>
@@ -49,8 +60,15 @@ export default function ProfileMenu({ user, profileMenuOpen, setProfileMenuOpen,
             className="absolute right-0 mt-2 w-64 bg-gray-800 rounded-lg shadow-lg border border-gray-700 py-1 z-50"
           >
             <div className="px-4 py-3 border-b border-gray-700">
-              <p className="text-sm font-semibold text-white truncate">{user.name}</p>
-              <p className="text-xs text-gray-400 truncate mt-1" title={user.email}>{user.email}</p>
+              <p className="text-sm font-semibold text-white truncate">
+                {user.name}
+              </p>
+              <p
+                className="text-xs text-gray-400 truncate mt-1"
+                title={user.email}
+              >
+                {user.email}
+              </p>
             </div>
             <Link
               to="/settings"
@@ -60,7 +78,10 @@ export default function ProfileMenu({ user, profileMenuOpen, setProfileMenuOpen,
               <Settings className="w-4 h-4" /> <span>Settings</span>
             </Link>
             <button
-              onClick={() => { setProfileMenuOpen(false); onLogout(); }}
+              onClick={() => {
+                setProfileMenuOpen(false);
+                onLogout();
+              }}
               className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
             >
               <LogOut className="w-4 h-4" /> <span>Logout</span>

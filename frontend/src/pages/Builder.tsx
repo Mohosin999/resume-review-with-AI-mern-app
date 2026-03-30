@@ -341,7 +341,7 @@ export default function Builder() {
   const isLastStep = currentStep === sectionStates.length - 1;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-emerald-950 pt-20 pb-12 relative">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-gray-950 dark:via-gray-900 dark:to-emerald-950 pt-20 pb-12 relative">
       {/* Ambient emerald glow effect */}
       <div className="fixed top-20 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
       <div className="fixed bottom-0 right-0 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -359,10 +359,9 @@ export default function Builder() {
             animate={{ opacity: 1, x: 0 }}
             className="w-full lg:w-[48%] flex-shrink-0"
           >
-            <div className="bg-gray-900/80 backdrop-blur-sm rounded-2xl shadow-2xl shadow-emerald-500/10 border border-emerald-500/20 overflow-hidden">
+            <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-2xl shadow-2xl shadow-emerald-500/10 border border-emerald-500/20 overflow-hidden">
               {/* Progress Stepper - Green Gradient */}
-              <div className="bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 p-4 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTAgNDBMODAgME0wIDBMODAgNDAiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30" />
+              <div className="bg-cyan-900 p-4 relative overflow-hidden">
                 <div className="relative z-10">
                   <div className="flex items-center justify-between mb-2 lg:mb-3">
                     <p className="text-emerald-100 text-xs">
@@ -541,7 +540,7 @@ export default function Builder() {
                       whileTap={{ scale: 0.98 }}
                       onClick={handleSave}
                       disabled={builder.saving}
-                      className="flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 text-white rounded-lg hover:shadow-lg hover:shadow-emerald-700/30 transition-all font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center justify-center gap-2 px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg hover:shadow-lg transition-all font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <Save className="w-4 h-4" /> Save
                     </motion.button>
@@ -550,7 +549,7 @@ export default function Builder() {
                       whileTap={{ scale: 0.98 }}
                       onClick={isLastStep ? handleExportPDF : goToNextStep}
                       disabled={builder.saving}
-                      className="flex items-center justify-center gap-2 px-6 py-2.5 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 text-white rounded-lg hover:shadow-lg hover:shadow-emerald-700/30 transition-all font-medium text-sm"
+                      className="flex items-center justify-center gap-2 px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg hover:shadow-lg transition-all font-medium text-sm"
                     >
                       {isLastStep ? (
                         <>
@@ -576,8 +575,7 @@ export default function Builder() {
           >
             <div className="bg-gray-900/80 backdrop-blur-sm rounded-2xl shadow-2xl shadow-emerald-500/10 border border-emerald-500/20 overflow-hidden lg:sticky lg:top-24">
               {/* Preview Header */}
-              <div className="bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 p-4 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTAgNDBMODAgME0wIDBMODAgNDAiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30" />
+              <div className="bg-cyan-900 p-4 relative overflow-hidden">
                 <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg">
@@ -592,11 +590,9 @@ export default function Builder() {
                       </p>
                     </div>
                   </div>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                  <button
                     onClick={handleExportPDF}
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 hover:shadow-lg hover:shadow-emerald-700/30 rounded-lg text-white transition-all text-sm font-medium"
+                    className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-white transition-all text-sm font-medium"
                   >
                     <svg
                       className="w-4 h-4"
@@ -612,7 +608,7 @@ export default function Builder() {
                       />
                     </svg>
                     Export PDF
-                  </motion.button>
+                  </button>
                 </div>
               </div>
 

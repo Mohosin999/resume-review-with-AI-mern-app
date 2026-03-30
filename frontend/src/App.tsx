@@ -14,6 +14,7 @@ import AtsScoreHistory from './pages/AtsScoreHistory';
 import JobMatchHistory from './pages/JobMatchHistory';
 import ResumeBuildHistory from './pages/ResumeBuildHistory';
 import { LoadingSpinner } from './components/ui';
+import ThemeWrapper from './components/ThemeWrapper';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -39,114 +40,116 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route
-        path="/login"
-        element={
-          <PublicRoute>
-            <Login />
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/dashboard"
-        element={
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/settings"
-        element={
-          <PrivateRoute>
-            <Settings />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/builder"
-        element={
-          <PrivateRoute>
-            <Builder />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/builder/:id"
-        element={
-          <PrivateRoute>
-            <Builder />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/plans"
-        element={
-          <PrivateRoute>
-            <Plans />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/ats-score"
-        element={
-          <PrivateRoute>
-            <AtsScore />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/ats-score/:id"
-        element={
-          <PrivateRoute>
-            <AtsScore />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/job-match"
-        element={
-          <PrivateRoute>
-            <JobMatch />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/job-match/:id"
-        element={
-          <PrivateRoute>
-            <JobMatch />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/ats-score-history"
-        element={
-          <PrivateRoute>
-            <AtsScoreHistory />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/job-match-history"
-        element={
-          <PrivateRoute>
-            <JobMatchHistory />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/resume-build-history"
-        element={
-          <PrivateRoute>
-            <ResumeBuildHistory />
-          </PrivateRoute>
-        }
-      />
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
+    <ThemeWrapper>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <PrivateRoute>
+              <Settings />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/builder"
+          element={
+            <PrivateRoute>
+              <Builder />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/builder/:id"
+          element={
+            <PrivateRoute>
+              <Builder />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/plans"
+          element={
+            <PrivateRoute>
+              <Plans />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/ats-score"
+          element={
+            <PrivateRoute>
+              <AtsScore />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/ats-score/:id"
+          element={
+            <PrivateRoute>
+              <AtsScore />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/job-match"
+          element={
+            <PrivateRoute>
+              <JobMatch />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/job-match/:id"
+          element={
+            <PrivateRoute>
+              <JobMatch />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/ats-score-history"
+          element={
+            <PrivateRoute>
+              <AtsScoreHistory />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/job-match-history"
+          element={
+            <PrivateRoute>
+              <JobMatchHistory />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/resume-build-history"
+          element={
+            <PrivateRoute>
+              <ResumeBuildHistory />
+            </PrivateRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </ThemeWrapper>
   );
 }
 

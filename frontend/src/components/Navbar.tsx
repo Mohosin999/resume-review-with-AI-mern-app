@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Flame, FileText } from "lucide-react";
+import { Flame } from "lucide-react";
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import { logoutUser } from "../store/slices/authSlice";
@@ -48,7 +48,7 @@ export default function Navbar() {
         <div className="section-container">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-green-500 via-emerald-500 to-green-600 rounded-xl flex items-center justify-center">
+              <div className="w-8 h-8 bg-green-600 rounded-xl flex items-center justify-center">
                 <Flame className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-white">

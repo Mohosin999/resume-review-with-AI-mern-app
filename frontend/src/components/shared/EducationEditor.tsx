@@ -33,9 +33,6 @@ export default function EducationEditor({
             </button>
           </div>
           <div className="flex flex-col items-start justify-start gap-3">
-            {/* <input type="text" value={edu.institution} onChange={(e) => onUpdate(index, 'institution', e.target.value)} className="input" placeholder="School / University Name" />
-            <input type="text" value={edu.degree} onChange={(e) => onUpdate(index, 'degree', e.target.value)} className="input" placeholder="Degree" />
-            <input type="text" value={edu.date} onChange={(e) => onUpdate(index, 'date', e.target.value)} className="input" placeholder="Date / Duration" /> */}
             <div className="w-full">
               <input
                 type="text"
@@ -66,7 +63,7 @@ export default function EducationEditor({
       ))}
       <button
         onClick={onAdd}
-        className="w-full inline-flex items-center justify-center px-4 py-2 font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 border-2 border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/20 hover:text-emerald-300"
+        className="w-full inline-flex items-center justify-center px-4 py-2 font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 border-2 border-green-500/50 text-green-400 hover:bg-green-500/20 hover:text-green-300"
       >
         <Plus className="w-4 h-4" /> Add Education
       </button>

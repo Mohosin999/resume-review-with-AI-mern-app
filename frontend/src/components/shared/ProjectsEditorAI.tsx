@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Sparkles, Loader2, Trash2 } from 'lucide-react';
-import { toast } from 'react-toastify';
-import { resumeBuilderApi } from '../../api/api';
-import { AISectionSuggestion, Project } from '../../types';
+import { useState } from "react";
+import { Sparkles, Loader2, Trash2 } from "lucide-react";
+import { toast } from "react-toastify";
+import { resumeBuilderApi } from "../../api/api";
+import { AISectionSuggestion, Project } from "../../types";
 
 interface ProjectsEditorProps {
   projects: Project[] | undefined;
@@ -21,16 +21,18 @@ export default function ProjectsEditor({
 
   const handleAIGenerate = async (index: number) => {
     const project = projects[index];
-    
+
     if (!project.name?.trim()) {
-      toast.error('Please provide a Project Name first to generate description.');
+      toast.error(
+        "Please provide a Project Name first to generate description.",
+      );
       return;
     }
 
     try {
       setGeneratingIndex(index);
       const response = await resumeBuilderApi.generateSection({
-        section: 'Project Description',
+        section: "Project Description",
         context: {
           jobTitle: project.name,
           skills: project.technologies,
@@ -38,10 +40,12 @@ export default function ProjectsEditor({
       });
 
       const suggestion = response.data.data as AISectionSuggestion;
-      onUpdate(index, 'description', suggestion.content);
-      toast.success('Project description generated!');
+      onUpdate(index, "description", suggestion.content);
+      toast.success("Project description generated!");
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to generate description');
+      toast.error(
+        error.response?.data?.message || "Failed to generate description",
+      );
     } finally {
       setGeneratingIndex(null);
     }
@@ -54,7 +58,7 @@ export default function ProjectsEditor({
         <button
           type="button"
           onClick={onAdd}
-          className="px-3 py-1.5 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 hover:from-emerald-700 hover:to-emerald-500 text-white text-sm rounded-lg transition-all"
+          className="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-sm rounded-lg transition-all"
         >
           + Add Project
         </button>
@@ -65,7 +69,10 @@ export default function ProjectsEditor({
       ) : (
         <>
           {projects.map((project, index) => (
-            <div key={index} className="bg-gray-700/50 rounded-lg p-4 space-y-3">
+            <div
+              key={index}
+              className="bg-gray-700/50 rounded-lg p-4 space-y-3"
+            >
               <div className="flex items-center justify-between">
                 <h4 className="font-medium text-white">Project {index + 1}</h4>
                 <button
@@ -82,7 +89,7 @@ export default function ProjectsEditor({
                 <input
                   type="text"
                   value={project.name}
-                  onChange={(e) => onUpdate(index, 'name', e.target.value)}
+                  onChange={(e) => onUpdate(index, "name", e.target.value)}
                   className="input w-full text-sm"
                   placeholder="e.g., E-commerce Platform"
                 />
@@ -95,21 +102,25 @@ export default function ProjectsEditor({
                     type="button"
                     onClick={() => handleAIGenerate(index)}
                     disabled={generatingIndex === index}
-                    className="inline-flex items-center gap-1 px-2 py-1 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 hover:from-emerald-700 hover:to-emerald-500 disabled:from-gray-600 disabled:to-gray-600 text-white text-xs rounded transition-all disabled:cursor-not-allowed"
+                    className="inline-flex items-center gap-1 px-2 py-1 bg-purple-600 hover:bg-purple-700 disabled:from-gray-600 disabled:to-gray-600 text-white text-xs rounded transition-all disabled:cursor-not-allowed"
                   >
                     {generatingIndex === index ? (
                       <Loader2 className="w-3 h-3 animate-spin" />
                     ) : (
                       <Sparkles className="w-3 h-3" />
                     )}
-                    {generatingIndex === index ? 'Generating...' : 'AI Generate'}
+                    {generatingIndex === index
+                      ? "Generating..."
+                      : "AI Generate"}
                   </button>
                 </div>
                 <textarea
                   value={project.description}
-                  onChange={(e) => onUpdate(index, 'description', e.target.value)}
+                  onChange={(e) =>
+                    onUpdate(index, "description", e.target.value)
+                  }
                   className="input w-full text-sm"
-                  style={{ minHeight: '200px', height: 'auto' }}
+                  style={{ minHeight: "200px", height: "auto" }}
                   placeholder="Describe the project, your role, and technologies used..."
                 />
               </div>
