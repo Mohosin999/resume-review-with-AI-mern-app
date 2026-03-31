@@ -115,7 +115,7 @@ export default function SkillsEditorAI({
           <button
             type="button"
             onClick={handleAddTechnicalSkill}
-            className="px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+            className="px-3 py-2 gradient-btn-sm text-white rounded-lg transition-colors"
           >
             <Plus className="w-4 h-4" />
           </button>

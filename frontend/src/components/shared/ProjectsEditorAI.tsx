@@ -58,7 +58,7 @@ export default function ProjectsEditor({
         <button
           type="button"
           onClick={onAdd}
-          className="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-sm rounded-lg transition-all"
+          className="px-3 py-1.5 gradient-btn-sm text-white rounded-lg transition-all"
         >
           + Add Project
         </button>

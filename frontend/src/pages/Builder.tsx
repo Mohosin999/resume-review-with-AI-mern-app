@@ -553,7 +553,7 @@ export default function Builder() {
                       whileTap={{ scale: 0.98 }}
                       onClick={handleSave}
                       disabled={builder.saving}
-                      className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg hover:shadow-lg transition-all font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 gradient-btn font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <Save className="w-4 h-4" /> Save
                     </motion.button>
@@ -562,7 +562,7 @@ export default function Builder() {
                       whileTap={{ scale: 0.98 }}
                       onClick={isLastStep ? handleExportPDF : goToNextStep}
                       disabled={builder.saving}
-                      className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg hover:shadow-lg transition-all font-medium text-sm"
+                      className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-2.5 gradient-btn font-medium text-sm"
                     >
                       {isLastStep ? (
                         <>
@@ -605,7 +605,7 @@ export default function Builder() {
                   </div>
                   <button
                     onClick={handleExportPDF}
-                    className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-white transition-all text-sm font-medium"
+                    className="flex items-center gap-2 px-4 py-2 gradient-btn rounded-lg text-white transition-all text-sm font-medium"
                   >
                     <svg
                       className="w-4 h-4"

@@ -195,7 +195,7 @@ export default function Plans() {
                   disabled={loading === plan.id}
                   className={`w-full py-3 rounded-xl font-medium transition-colors ${
                     plan.popular
-                      ? "bg-primary text-white hover:bg-primary/90"
+                      ? "gradient-btn"
                       : "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
                   }`}
                 >

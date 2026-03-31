@@ -21,14 +21,14 @@ export default function HeroCards() {
             </div>
             <div>
               <h3 className="text-xl font-bold text-white">AI Analysis</h3>
-              <p className="text-sm text-gray-400">Real-time scoring</p>
+              <p className="text-sm text-gray-300">Real-time scoring</p>
             </div>
           </div>
           <div className="space-y-4">
             {[{ label: "ATS Score", value: "92%" }, { label: "Match Rate", value: "88%" }].map((item) => (
               <div key={item.label}>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-400">{item.label}</span>
+                  <span className="text-sm text-gray-300">{item.label}</span>
                   <span className="text-lg font-bold text-green-400">{item.value}</span>
                 </div>
                 <div className="h-3 bg-gray-700 rounded-full overflow-hidden">

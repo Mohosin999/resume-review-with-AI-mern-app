@@ -25,7 +25,7 @@ export default function HowItWorksSection({ activeTab, setActiveTab, steps }: Ho
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.4 }}
           className="text-center mb-12"
         >
           <motion.div
@@ -44,7 +44,7 @@ export default function HowItWorksSection({ activeTab, setActiveTab, steps }: Ho
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.15 }}
             className="inline-flex bg-gray-800 rounded-xl p-1 border border-gray-700"
           >
             <button
@@ -52,7 +52,7 @@ export default function HowItWorksSection({ activeTab, setActiveTab, steps }: Ho
               className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 ${
                 activeTab === "analysis"
                   ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg"
-                  : "text-gray-400 hover:text-white"
+                  : "text-gray-300 hover:text-white"
               }`}
             >
               Resume Analysis
@@ -99,13 +99,13 @@ export default function HowItWorksSection({ activeTab, setActiveTab, steps }: Ho
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ type: "spring", delay: index * 0.2 }}
+                  transition={{ type: "spring", delay: index * 0.1 }}
                   className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-green-500 via-emerald-500 to-green-600 rounded-3xl flex items-center justify-center shadow-xl shadow-green-500/30 group-hover:scale-110 transition-transform duration-300"
                 >
                   <span className="text-4xl font-bold text-white">{step.number}</span>
                 </motion.div>
                 <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
-                <p className="text-gray-400 leading-relaxed text-sm">{step.description}</p>
+                <p className="text-gray-300 leading-relaxed text-sm">{step.description}</p>
               </div>
               {index < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-12 -right-4">

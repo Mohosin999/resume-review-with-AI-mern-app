@@ -18,3 +18,4 @@ export { default as MatchBreakdown } from './MatchBreakdown';
 export { default as AIGenerateButton } from './AIGenerateButton';
 export { default as SuggestionList } from './SuggestionList';
 export { default as HistoryDropdown } from './HistoryDropdown';
+export { default as GoToTop } from './GoToTop';

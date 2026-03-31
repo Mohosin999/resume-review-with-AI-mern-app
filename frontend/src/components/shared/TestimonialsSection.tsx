@@ -39,7 +39,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
           <h2 className="text-4xl sm:text-5xl font-bold text-white">
             Loved by <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Thousands</span>
           </h2>
-          <p className="mt-4 text-xl text-gray-400">See what our users have to say</p>
+          <p className="mt-4 text-xl text-gray-300">See what our users have to say</p>
         </motion.div>
         <motion.div
           variants={staggerContainer}
@@ -75,7 +75,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
                 </div>
                 <div>
                   <p className="font-bold text-white">{testimonial.name}</p>
-                  <p className="text-sm text-gray-400">{testimonial.role}</p>
+                  <p className="text-sm text-gray-300">{testimonial.role}</p>
                 </div>
               </div>
             </motion.div>

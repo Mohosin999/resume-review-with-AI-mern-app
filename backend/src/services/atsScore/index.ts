@@ -3,6 +3,18 @@ import { Resume } from '../../models/Resume';
 import { analyzeAtsScore as analyzeWithGemini } from '../aiAnalysis/gemini';
 import { ResumeContent } from '../../types';
 
+const validErrorTypes = ['spelling', 'grammar', 'punctuation', 'formatting', 'redundancy'];
+
+const sanitizeSpellingGrammar = (spellingGrammar: any) => {
+  return {
+    ...spellingGrammar,
+    errors: spellingGrammar.errors.map((error: any) => ({
+      ...error,
+      type: validErrorTypes.includes(error.type) ? error.type : 'formatting',
+    })),
+  };
+};
+
 export const calculateAtsScore = async (
   userId: string,
   resumeId: string
@@ -19,13 +31,16 @@ export const calculateAtsScore = async (
   // Analyze with Gemini AI
   const analysis = await analyzeWithGemini(resume.content);
 
+  // Sanitize spelling grammar errors to match allowed enum values
+  const sanitizedSpellingGrammar = sanitizeSpellingGrammar(analysis.spellingGrammar);
+
   // Save the analysis result
   const atsScore = await AtsScore.create({
     userId,
     resumeId,
     overallScore: analysis.overallScore,
     sectionScores: analysis.sectionScores,
-    spellingGrammar: analysis.spellingGrammar,
+    spellingGrammar: sanitizedSpellingGrammar,
     atsFriendliness: analysis.atsFriendliness,
     suggestions: analysis.suggestions,
   });

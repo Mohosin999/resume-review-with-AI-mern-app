@@ -212,7 +212,7 @@ const RecentBuilds = ({ builds }: { builds: any[] }) => (
         <p className="text-gray-500 dark:text-gray-400">No resumes yet</p>
         <Link
           to="/builder"
-          className="mt-4 inline-flex items-center justify-center px-4 py-2 font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 text-white hover:from-emerald-700 hover:to-emerald-500 shadow-lg shadow-emerald-700/30 gap-2"
+          className="mt-4 gradient-btn gap-2"
         >
           <Plus className="w-4 h-4" />
           Create Resume

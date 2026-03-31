@@ -12,9 +12,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variants = {
-      primary: 'bg-primary text-white hover:bg-primary/90 focus:ring-primary',
+      primary: 'bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 text-white hover:from-emerald-700 hover:to-emerald-500 shadow-lg shadow-emerald-700/30 focus:ring-emerald-500',
       secondary: 'bg-secondary text-white hover:bg-secondary/90 focus:ring-secondary',
-      outline: 'border-2 border-primary text-primary hover:bg-primary/10 focus:ring-primary',
+      outline: 'border-2 border-emerald-600 text-emerald-400 hover:bg-emerald-600/20 hover:text-emerald-300 focus:ring-emerald-500',
       ghost: 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:ring-gray-300',
       danger: 'bg-red-500 text-white hover:bg-red-600 focus:ring-red-500',
     };

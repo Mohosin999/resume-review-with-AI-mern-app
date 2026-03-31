@@ -168,7 +168,7 @@ export default function AtsScorePage() {
               <button
                 onClick={handleAnalyze}
                 disabled={!resumeContent || analyzing}
-                className="w-full mt-4 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white font-semibold py-3 px-4 rounded-lg transition-all disabled:cursor-not-allowed"
+                className="w-full mt-4 h-12 gradient-btn disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {analyzing ? (
                   <span className="flex items-center justify-center gap-2">

@@ -127,7 +127,7 @@ export default function JobMatchHistoryPage() {
             </p>
             <button
               onClick={() => navigate("/job-match")}
-              className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-all flex items-center gap-2"
+              className="px-6 py-3 gradient-btn font-medium rounded-xl transition-all flex items-center gap-2"
             >
               <Briefcase className="w-5 h-5" />
               Analyze Your First Job Match

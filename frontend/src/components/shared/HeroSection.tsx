@@ -69,14 +69,14 @@ export default function HeroSection({ user, onLogout }: HeroSectionProps) {
             >
               <Link
                 to="/login"
-                className="group inline-flex items-center justify-center px-8 py-4 font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 text-white hover:from-emerald-700 hover:to-emerald-500 shadow-xl shadow-emerald-700/40 hover:shadow-emerald-700/60 text-lg gap-2"
+                className="group gradient-btn-lg text-lg gap-2"
               >
                 Start Free Analysis{" "}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 to="/login"
-                className="group text-lg px-8 py-4 border-2 border-emerald-700 text-emerald-400 rounded-lg hover:bg-emerald-900/30 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
+                className="group text-lg px-8 py-4 gradient-btn-outline flex items-center justify-center gap-2 font-semibold"
               >
                 <Play className="w-5 h-5" /> Watch Demo
               </Link>
@@ -102,7 +102,7 @@ export default function HeroSection({ user, onLogout }: HeroSectionProps) {
               </div>
               <div className="text-sm">
                 <p className="font-bold text-white">10,000+</p>
-                <p className="text-gray-400">Happy Users</p>
+                <p className="text-gray-300">Happy Users</p>
               </div>
             </motion.div>
             <motion.div
@@ -121,7 +121,7 @@ export default function HeroSection({ user, onLogout }: HeroSectionProps) {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 1.3 + 0.1 }}
-                  className="flex items-center gap-2 text-sm text-gray-400"
+                  className="flex items-center gap-2 text-sm text-gray-300"
                 >
                   <item.icon className="w-4 h-4 text-green-500" /> {item.text}
                 </motion.div>

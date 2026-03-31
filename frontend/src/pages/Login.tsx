@@ -53,7 +53,7 @@ export default function Login() {
       >
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Welcome to CVCoach
+            Welcome to CV<span className="text-primary">Coach</span>
           </h1>
           <p className="mt-2 text-gray-600 dark:text-gray-400">
             {isRegister
@@ -150,10 +150,13 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full inline-flex items-center justify-center px-4 py-3 font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 bg-green-600 hover:bg-green-700 shadow-lg shadow-emerald-700/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full gradient-btn-lg"
               >
                 {loading ? (
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span className="flex items-center justify-center gap-2">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />{" "}
+                    Loading...
+                  </span>
                 ) : isRegister ? (
                   "Create Account"
                 ) : (

@@ -14,7 +14,7 @@ const Footer = () => {
                 CVCoach
               </span>
             </div>
-            <p className="text-gray-400 leading-relaxed max-w-md">
+            <p className="text-gray-300 leading-relaxed max-w-md">
               AI-powered resume analysis and generation platform helping job
               seekers land their dream careers with optimized, ATS-friendly
               resumes.
@@ -31,7 +31,7 @@ const Footer = () => {
                   <li key={item}>
                     <a
                       href="#"
-                      className="text-gray-400 hover:text-green-400 transition-colors"
+                      className="text-gray-300 hover:text-green-400 transition-colors"
                     >
                       {item}
                     </a>
@@ -49,7 +49,7 @@ const Footer = () => {
                   <li key={item}>
                     <a
                       href="#"
-                      className="text-gray-400 hover:text-green-400 transition-colors"
+                      className="text-gray-300 hover:text-green-400 transition-colors"
                     >
                       {item}
                     </a>
@@ -69,7 +69,7 @@ const Footer = () => {
               <a
                 key={social}
                 href="#"
-                className="text-gray-400 hover:text-green-400 transition-colors text-sm"
+                className="text-gray-300 hover:text-green-400 transition-colors text-sm"
               >
                 {social}
               </a>

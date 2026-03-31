@@ -110,7 +110,7 @@ export default function BuilderSection({
               whileTap={{ scale: 0.98 }}
               onClick={isLastStep ? onExportPDF : onNext}
               disabled={saving}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 text-white rounded-lg hover:from-emerald-700 hover:to-emerald-500 transition-all font-medium shadow-lg shadow-emerald-700/30 text-sm sm:text-base"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 gradient-btn font-medium shadow-lg text-sm sm:text-base"
             >
               {isLastStep ? (
                 <>

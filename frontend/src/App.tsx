@@ -14,6 +14,7 @@ import AtsScoreHistory from './pages/AtsScoreHistory';
 import JobMatchHistory from './pages/JobMatchHistory';
 import ResumeBuildHistory from './pages/ResumeBuildHistory';
 import { LoadingSpinner } from './components/ui';
+import GoToTop from './components/ui/GoToTop';
 import ThemeWrapper from './components/ThemeWrapper';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
@@ -149,6 +150,7 @@ function App() {
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+      <GoToTop />
     </ThemeWrapper>
   );
 }

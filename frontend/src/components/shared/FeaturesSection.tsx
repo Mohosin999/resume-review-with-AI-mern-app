@@ -38,7 +38,7 @@ export default function FeaturesSection({ features }: FeaturesSectionProps) {
           <h2 className="text-4xl sm:text-5xl font-bold text-white">
             Why Choose <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">CVCoach?</span>
           </h2>
-          <p className="mt-4 text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto">
             Everything you need to analyze, create, and optimize your resume for success
           </p>
         </motion.div>
@@ -62,7 +62,7 @@ export default function FeaturesSection({ features }: FeaturesSectionProps) {
                   <feature.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3 text-center">{feature.title}</h3>
-                <p className="text-gray-400 text-center leading-relaxed">{feature.description}</p>
+                <p className="text-gray-300 text-center leading-relaxed">{feature.description}</p>
               </div>
             </motion.div>
           ))}

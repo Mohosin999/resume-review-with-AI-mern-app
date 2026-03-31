@@ -72,14 +72,14 @@ Provide your analysis in the following JSON format ONLY (no additional text):
   "suggestions": [string]
 }
 
-Evaluation criteria:
-1. Contact Info: Check for email, phone, LinkedIn, location
-2. Summary: Should be 30-100 words, professional, highlight key achievements
-3. Experience: Clear job titles, companies, dates, quantified achievements
-4. Projects: Relevant technical projects with descriptions
-5. Skills: Technical skills clearly listed, relevant to target roles
-6. Spelling/Grammar: Check for any errors
-7. ATS Friendliness: Standard sections, no tables/images, proper headings, keyword-rich
+IMPORTANT: For the spellingGrammar.errors[].type field, ONLY use these exact values:
+- "spelling"
+- "grammar"
+- "punctuation"
+- "formatting"
+- "redundancy"
+
+Do NOT use "content/formatting" or "grammar/punctuation" - these will cause validation errors.
 
 Return ONLY valid JSON.
 `;

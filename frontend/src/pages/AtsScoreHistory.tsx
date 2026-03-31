@@ -61,13 +61,13 @@ export default function AtsScoreHistoryPage() {
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return "text-green-400";
+    if (score >= 80) return "text-violet-400";
     if (score >= 60) return "text-yellow-400";
     return "text-red-400";
   };
 
   const getScoreBg = (score: number) => {
-    if (score >= 80) return "bg-green-500/20 border-green-500/30";
+    if (score >= 80) return "bg-violet-500/20 border-violet-500/30";
     if (score >= 60) return "bg-yellow-500/20 border-yellow-500/30";
     return "bg-red-500/20 border-red-500/30";
   };
@@ -115,8 +115,8 @@ export default function AtsScoreHistoryPage() {
           </div>
         ) : history.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-center py-16">
-            <div className="w-16 h-16 rounded-2xl bg-green-500/20 flex items-center justify-center mb-4">
-              <FileText className="w-8 h-8 text-green-400" />
+            <div className="w-16 h-16 rounded-2xl bg-violet-500/20 flex items-center justify-center mb-4">
+              <FileText className="w-8 h-8 text-violet-400" />
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">
               No ATS Score History
@@ -127,7 +127,7 @@ export default function AtsScoreHistoryPage() {
             </p>
             <button
               onClick={() => navigate("/ats-score")}
-              className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-all flex items-center gap-2"
+              className="px-6 py-3 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-medium rounded-xl transition-all flex items-center gap-2"
             >
               <FileText className="w-5 h-5" />
               Analyze Your First Resume
@@ -199,7 +199,7 @@ export default function AtsScoreHistoryPage() {
                     <div className="mt-4 flex gap-3">
                       <button
                         onClick={() => navigate(`/ats-score/${item._id}`)}
-                        className="px-4 py-2 bg-green-500/20 border border-green-500/30 text-green-400 rounded-lg hover:bg-green-500/30 transition-colors"
+                        className="px-4 py-2 bg-violet-500/20 border border-violet-500/30 text-violet-400 rounded-lg hover:bg-violet-500/30 transition-colors"
                       >
                         View Details
                       </button>
