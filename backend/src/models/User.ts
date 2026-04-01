@@ -12,7 +12,7 @@ export interface IUser extends Document {
     notifications: boolean;
   };
   subscription: {
-    plan: "free" | "pro";
+    plan: "free" | "pro" | "enterprise";
     credits: number;
     expiresAt?: Date;
   };
@@ -62,7 +62,7 @@ const userSchema = new Schema<IUser>(
     subscription: {
       plan: {
         type: String,
-        enum: ["free", "pro"],
+        enum: ["free", "pro", "enterprise"],
         default: "free",
       },
       credits: {

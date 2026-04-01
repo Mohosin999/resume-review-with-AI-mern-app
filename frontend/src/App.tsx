@@ -12,6 +12,8 @@ import JobMatch from "./pages/JobMatch";
 import AtsScoreHistory from "./pages/AtsScoreHistory";
 import JobMatchHistory from "./pages/JobMatchHistory";
 import ResumeBuildHistory from "./pages/ResumeBuildHistory";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentCancel from "./pages/PaymentCancel";
 import LoadingSpinner from "./components/ui/LoadingSpinner";
 import GoToTop from "./components/ui/GoToTop";
 import ThemeWrapper from "./components/ThemeWrapper";
@@ -146,6 +148,22 @@ function App() {
           element={
             <PrivateRoute>
               <ResumeBuildHistory />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/payment/success"
+          element={
+            <PrivateRoute>
+              <PaymentSuccess />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/payment/cancel"
+          element={
+            <PrivateRoute>
+              <PaymentCancel />
             </PrivateRoute>
           }
         />

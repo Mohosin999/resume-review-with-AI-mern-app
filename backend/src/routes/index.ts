@@ -7,6 +7,7 @@ import jobMatchHistoryRoutes from './jobMatchHistory';
 import resumeBuildHistoryRoutes from './resumeBuildHistory';
 import resumeBuilderRoutes from './resumeBuilder';
 import resumeParserRoutes from './resumeParser';
+import paymentRoutes from './payment';
 
 export {
   authRoutes,
@@ -18,6 +19,7 @@ export {
   resumeBuildHistoryRoutes,
   resumeBuilderRoutes,
   resumeParserRoutes,
+  paymentRoutes,
 };
 
 export const routes = [
@@ -30,4 +32,5 @@ export const routes = [
   { path: '/api/resume-build-history', router: resumeBuildHistoryRoutes },
   { path: '/api/resume-builder', router: resumeBuilderRoutes },
   { path: '/api/resume-parser', router: resumeParserRoutes },
+  { path: '/api/payment', router: paymentRoutes },
 ];

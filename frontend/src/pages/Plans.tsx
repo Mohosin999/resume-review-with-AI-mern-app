@@ -15,6 +15,8 @@ import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import { fetchUser } from "../store/slices/authSlice";
 import { showUpgradePlan } from "../components/ui/Toast";
 import BackButton from "../components/ui/BackButton";
+import { createCheckoutSession } from "../services/payment";
+import { getStripe } from "../lib/stripe";
 
 interface Plan {
   id: string;
@@ -77,12 +79,34 @@ export default function Plans() {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState<string | null>(null);
 
-  const handleSelectPlan = (planId: string) => {
+  const handleSelectPlan = async (planId: string) => {
     if (planId === "free") {
       navigate("/dashboard");
       return;
     }
-    showUpgradePlan();
+
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    setLoading(planId);
+    try {
+      const { url } = await createCheckoutSession(planId);
+      
+      // Redirect to Stripe Checkout
+      const stripe = await getStripe();
+      if (stripe) {
+        window.location.href = url;
+      } else {
+        toast.error("Failed to initialize Stripe");
+        setLoading(null);
+      }
+    } catch (error: any) {
+      console.error("Checkout error:", error);
+      toast.error(error.response?.data?.message || "Failed to start checkout");
+      setLoading(null);
+    }
   };
 
   const handleBuyCredits = async (credits: number, price: number) => {
@@ -197,9 +221,18 @@ export default function Plans() {
                     plan.popular
                       ? "gradient-btn"
                       : "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  }`}
+                  } disabled:opacity-50 disabled:cursor-not-allowed`}
                 >
-                  {plan.price === 0 ? "Current Plan" : "Coming Soon"}
+                  {loading === plan.id ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                      Processing...
+                    </span>
+                  ) : plan.price === 0 ? (
+                    "Current Plan"
+                  ) : (
+                    `Upgrade to ${plan.name}`
+                  )}
                 </button>
               </div>
             </motion.div>
