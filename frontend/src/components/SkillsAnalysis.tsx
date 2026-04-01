@@ -2,8 +2,8 @@
 Skills Analysis Component
 =================================== */
 import { Zap, CheckCircle, AlertCircle } from "lucide-react";
-import { Analysis } from "../../types";
-import { SkillList } from "../../components/ui";
+import { Analysis } from "../types";
+import { SkillList } from "./ui/SkillBadge";
 
 export default function SkillsAnalysis({ analysis }: { analysis: Analysis }) {
   return (

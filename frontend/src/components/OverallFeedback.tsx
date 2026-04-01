@@ -2,7 +2,7 @@
 Overall Feedback Component
 =================================== */
 import { TrendingUp } from "lucide-react";
-import { Analysis } from "../../types";
+import { Analysis } from "../types";
 
 export default function OverallFeedback({ analysis }: { analysis: Analysis }) {
   return (

@@ -1,13 +1,11 @@
 import { ResumeContent } from "../../types";
-import {
-  ResumePersonalInfo,
-  ResumeSummary,
-  ResumeExperience,
-  ResumeProjects,
-  ResumeAchievements,
-  ResumeEducation,
-  ResumeSkills,
-} from "../../components/shared";
+import ResumePersonalInfo from "./ResumePersonalInfo";
+import ResumeSummary from "./ResumeSummary";
+import ResumeExperience from "./ResumeExperience";
+import ResumeProjects from "./ResumeProjects";
+import ResumeAchievements from "./ResumeAchievements";
+import ResumeEducation from "./ResumeEducation";
+import ResumeSkills from "./ResumeSkills";
 
 interface ResumePreviewProps {
   content: ResumeContent;
@@ -20,14 +18,16 @@ const formatDescription = (desc: string, forPdf?: boolean): React.ReactNode => {
     return (
       <div
         className="ql-editor"
-        style={{ padding: 0, color: forPdf ? '#374151' : undefined }}
+        style={{ padding: 0, color: forPdf ? "#374151" : undefined }}
         dangerouslySetInnerHTML={{ __html: desc }}
       />
     );
   }
   const lines = desc.split("\n").filter((line) => line.trim());
   return (
-    <ul className={`list-outside list-disc pl-4 space-y-0.5 text-sm ${forPdf ? 'text-gray-900' : 'text-gray-900 dark:text-gray-100'}`}>
+    <ul
+      className={`list-outside list-disc pl-4 space-y-0.5 text-sm ${forPdf ? "text-gray-900" : "text-gray-900 dark:text-gray-100"}`}
+    >
       {lines.map((line, i) => {
         const cleanLine = line.replace(/^[•\-\*]\s*/, "").trim();
         if (!cleanLine) return null;
@@ -42,7 +42,9 @@ export default function ResumePreview({
   forPdf = false,
 }: ResumePreviewProps) {
   const bgColor = forPdf ? "bg-white" : "bg-white dark:bg-gray-800";
-  const textColor = forPdf ? "text-gray-900" : "text-gray-900 dark:text-gray-100 text-sm font-sans";
+  const textColor = forPdf
+    ? "text-gray-900"
+    : "text-gray-900 dark:text-gray-100 text-sm font-sans";
 
   return (
     <div

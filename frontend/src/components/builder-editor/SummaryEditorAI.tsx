@@ -14,7 +14,7 @@ interface SummaryEditorProps {
   skills?: string[];
 }
 
-export default function SummaryEditor({
+export default function SummaryEditorAI({
   value,
   onChange,
   personalInfo,

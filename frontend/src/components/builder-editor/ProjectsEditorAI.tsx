@@ -11,7 +11,7 @@ interface ProjectsEditorProps {
   onRemove: (index: number) => void;
 }
 
-export default function ProjectsEditor({
+export default function ProjectsEditorAI({
   projects = [],
   onAdd,
   onUpdate,

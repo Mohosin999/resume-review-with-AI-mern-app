@@ -2,7 +2,7 @@
 Missing Keywords Component
 =================================== */
 import { AlertCircle } from "lucide-react";
-import { SkillList } from "../../components/ui";
+import { SkillList } from "./ui/SkillBadge";
 
 export default function MissingKeywords({ keywords }: { keywords: string[] }) {
   return (

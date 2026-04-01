@@ -1,36 +1,38 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
 interface ProgressBarProps {
   progress: number;
   label?: string;
   showPercentage?: boolean;
-  size?: 'sm' | 'md' | 'lg';
-  color?: 'primary' | 'success' | 'warning' | 'danger';
+  size?: "sm" | "md" | "lg";
+  color?: "primary" | "success" | "warning" | "danger";
   animated?: boolean;
 }
 
-const getColorClasses = (color: 'primary' | 'success' | 'warning' | 'danger') => {
+const getColorClasses = (
+  color: "primary" | "success" | "warning" | "danger",
+) => {
   switch (color) {
-    case 'success':
-      return 'bg-green-500';
-    case 'warning':
-      return 'bg-yellow-500';
-    case 'danger':
-      return 'bg-red-500';
+    case "success":
+      return "bg-green-500";
+    case "warning":
+      return "bg-yellow-500";
+    case "danger":
+      return "bg-red-500";
     default:
-      return 'bg-primary';
+      return "bg-primary";
   }
 };
 
-const getSizeClasses = (size: 'sm' | 'md' | 'lg') => {
+const getSizeClasses = (size: "sm" | "md" | "lg") => {
   switch (size) {
-    case 'sm':
-      return 'h-1';
-    case 'lg':
-      return 'h-4';
+    case "sm":
+      return "h-1";
+    case "lg":
+      return "h-4";
     default:
-      return 'h-2';
+      return "h-2";
   }
 };
 
@@ -38,9 +40,9 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   progress,
   label,
   showPercentage = false,
-  size = 'md',
-  color = 'primary',
-  animated = true
+  size = "md",
+  color = "primary",
+  animated = true,
 }) => {
   const clampedProgress = Math.min(100, Math.max(0, progress));
 
@@ -62,13 +64,13 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
       )}
       <div
         className={`w-full ${getSizeClasses(
-          size
+          size,
         )} bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden`}
       >
         <motion.div
           initial={animated ? { width: 0 } : { width: `${clampedProgress}%` }}
           animate={{ width: `${clampedProgress}%` }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className={`h-full ${getColorClasses(color)} rounded-full`}
         />
       </div>

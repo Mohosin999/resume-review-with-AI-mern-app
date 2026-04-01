@@ -11,7 +11,7 @@ interface ExperienceEditorProps {
   onRemove: (index: number) => void;
 }
 
-export default function ExperienceEditor({
+export default function ExperienceEditorAI({
   experience,
   onAdd,
   onUpdate,

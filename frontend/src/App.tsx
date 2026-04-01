@@ -1,21 +1,20 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from './store';
-import Landing from './pages/Landing';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-
-import Settings from './pages/Settings';
-import Builder from './pages/Builder';
-import Plans from './pages/Plans';
-import AtsScore from './pages/AtsScore';
-import JobMatch from './pages/JobMatch';
-import AtsScoreHistory from './pages/AtsScoreHistory';
-import JobMatchHistory from './pages/JobMatchHistory';
-import ResumeBuildHistory from './pages/ResumeBuildHistory';
-import { LoadingSpinner } from './components/ui';
-import GoToTop from './components/ui/GoToTop';
-import ThemeWrapper from './components/ThemeWrapper';
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
+import HomePage from "./pages/HomePage";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Settings from "./pages/Settings";
+import Builder from "./pages/Builder";
+import Plans from "./pages/Plans";
+import AtsScore from "./pages/AtsScore";
+import JobMatch from "./pages/JobMatch";
+import AtsScoreHistory from "./pages/AtsScoreHistory";
+import JobMatchHistory from "./pages/JobMatchHistory";
+import ResumeBuildHistory from "./pages/ResumeBuildHistory";
+import LoadingSpinner from "./components/ui/LoadingSpinner";
+import GoToTop from "./components/ui/GoToTop";
+import ThemeWrapper from "./components/ThemeWrapper";
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -43,7 +42,7 @@ function App() {
   return (
     <ThemeWrapper>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/login"
           element={

@@ -6,15 +6,13 @@ import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import { logoutUser } from "../store/slices/authSlice";
 import ConfirmModal from "./ui/ConfirmModal";
 import HistoryDropdown from "./ui/HistoryDropdown";
-import {
-  NavLinks,
-  UpgradeButton,
-  CreditsBadge,
-  ProfileMenu,
-  MobileMenuButton,
-  MobileMenu,
-  AuthButtons,
-} from "./shared";
+import NavLinks from "./NavLinks";
+import UpgradeButton from "./ui/UpgradeButton";
+import CreditsBadge from "./ui/CreditsBadge";
+import ProfileMenu from "./ProfileMenu";
+import MobileMenuButton from "./MobileMenuButton";
+import MobileMenu from "./MobileMenu";
+import AuthButtons from "./ui/AuthButtons";
 
 interface NavLink {
   path: string;

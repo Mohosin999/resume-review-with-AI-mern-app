@@ -6,7 +6,8 @@ import { toast } from "react-toastify";
 import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import { logoutUser, fetchUser } from "../store/slices/authSlice";
 import { userApi } from "../api/api";
-import { BackButton, ConfirmModal } from "../components/ui";
+import BackButton from "../components/ui/BackButton";
+import ConfirmModal from "../components/ui/ConfirmModal";
 
 export default function Settings() {
   const { user } = useAppSelector((state) => ({

@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { CheckCircle, XCircle, AlertCircle } from "lucide-react";
 
 interface SectionScoreCardProps {
   sectionName: string;
@@ -16,9 +16,10 @@ const SectionScoreCard: React.FC<SectionScoreCardProps> = ({
   hasContactInfo,
 }) => {
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-500 bg-green-50 dark:bg-green-900/20';
-    if (score >= 60) return 'text-yellow-500 bg-yellow-50 dark:bg-yellow-900/20';
-    return 'text-red-500 bg-red-50 dark:bg-red-900/20';
+    if (score >= 80) return "text-green-500 bg-green-50 dark:bg-green-900/20";
+    if (score >= 60)
+      return "text-yellow-500 bg-yellow-50 dark:bg-yellow-900/20";
+    return "text-red-500 bg-red-50 dark:bg-red-900/20";
   };
 
   const getIcon = () => {

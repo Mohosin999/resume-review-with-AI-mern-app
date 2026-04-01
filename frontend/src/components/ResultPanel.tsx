@@ -7,7 +7,9 @@ import { Analysis } from "../types";
 import ResultToggle, { ResultView } from "./ResultToggle";
 import ATSScoreBreakdown from "./ATSScoreBreakdown";
 import JobMatchBreakdownEnhanced from "./JobMatchBreakdownEnhanced";
-import { OverallFeedback, SkillsAnalysis, MissingKeywords } from "./shared";
+import OverallFeedback from "./OverallFeedback";
+import SkillsAnalysis from "./SkillsAnalysis";
+import MissingKeywords from "./MissingKeywords";
 
 interface ResultPanelProps {
   analysis: Analysis;

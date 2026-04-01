@@ -67,10 +67,7 @@ export default function HeroSection({ user, onLogout }: HeroSectionProps) {
               transition={{ duration: 0.8, delay: 0.7 }}
               className="mt-10 flex flex-col sm:flex-row gap-4"
             >
-              <Link
-                to="/login"
-                className="group gradient-btn-lg text-lg gap-2"
-              >
+              <Link to="/login" className="group gradient-btn-lg text-lg gap-2">
                 Start Free Analysis{" "}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>

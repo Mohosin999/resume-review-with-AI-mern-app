@@ -18,18 +18,16 @@ import { useAppSelector } from "../hooks/redux";
 import { useResumeBuilder, useResumeContent } from "../hooks/useResumeBuilder";
 import { Resume, ResumeContent } from "../types";
 import { exportToPdf } from "../utils/pdfExport";
-import { BackButton } from "../components/ui";
+import BackButton from "../components/ui/BackButton";
 import { resumeBuildHistoryApi } from "../api/api";
-import {
-  PersonalInfoEditor,
-  SummaryEditorAI,
-  ExperienceEditorAI,
-  ProjectsEditorAI,
-  AchievementsEditor,
-  EducationEditor,
-  SkillsEditorAI,
-} from "../components/shared";
-import { ResumePreview } from "@/components/builder-preview/ResumePreview";
+import PersonalInfoEditor from "../components/builder-editor/PersonalInfoEditor";
+import SummaryEditorAI from "../components/builder-editor/SummaryEditorAI";
+import ExperienceEditorAI from "../components/builder-editor/ExperienceEditorAI";
+import ProjectsEditorAI from "../components/builder-editor/ProjectsEditorAI";
+import AchievementsEditor from "../components/builder-editor/AchievementsEditor";
+import EducationEditor from "../components/builder-editor/EducationEditor";
+import SkillsEditorAI from "../components/builder-editor/SkillsEditorAI";
+import { ResumePreview } from "@/components/builder-live-preview/ResumePreview";
 
 const STORAGE_KEY = "resume_builder_state";
 

@@ -8,7 +8,8 @@ import { ArrowLeft, Trash2, Calendar, FileText, Pencil } from "lucide-react";
 import { toast } from "react-toastify";
 import { resumeBuildHistoryApi } from "../api/api";
 import { ResumeBuildHistory } from "../types";
-import { LoadingSpinner, Pagination } from "../components/ui";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
+import Pagination from "../components/ui/Pagination";
 import ConfirmModal from "../components/ui/ConfirmModal";
 
 export default function ResumeBuildHistoryPage() {

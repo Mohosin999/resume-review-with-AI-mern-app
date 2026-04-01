@@ -4,13 +4,11 @@ import { motion } from "framer-motion";
 import { FileText, Upload, CheckCircle, XCircle } from "lucide-react";
 import { toast } from "react-toastify";
 import { atsScoreApi, resumeParserApi } from "../api/api";
-import {
-  BackButton,
-  ScoreCard,
-  SectionScoreCard,
-  SuggestionList,
-  LoadingSpinner,
-} from "../components/ui";
+import BackButton from "../components/ui/BackButton";
+import ScoreCard from "../components/ui/ScoreCard";
+import SectionScoreCard from "../components/SectionScoreCard";
+import SuggestionList from "../components/SuggestionList";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 import { AtsScoreHistory, ResumeContent } from "../types";
 
 export default function AtsScorePage() {

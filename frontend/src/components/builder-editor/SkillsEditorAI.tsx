@@ -82,7 +82,6 @@ export default function SkillsEditorAI({
 
   return (
     <div className="space-y-6">
-      {/* Technical Skills Section */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <label className="text-sm font-medium text-gray-300">
@@ -148,7 +147,6 @@ export default function SkillsEditorAI({
         </p>
       </div>
 
-      {/* Soft Skills Section */}
       <div className="space-y-3">
         <label className="text-sm font-medium text-gray-300">Soft Skills</label>
         <div className="flex gap-2">

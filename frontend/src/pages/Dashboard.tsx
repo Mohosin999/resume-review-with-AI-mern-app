@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 import { useAppSelector } from "../hooks/redux";
 import { atsScoreApi, jobMatchApi, resumeBuildHistoryApi } from "../api/api";
-import { LoadingSpinner, BackButton } from "../components/ui";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
+import BackButton from "../components/ui/BackButton";
 
 export default function Dashboard() {
   const { user } = useAppSelector((state) => state.auth);

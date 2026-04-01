@@ -8,7 +8,8 @@ import { ArrowLeft, Trash2, Calendar, FileText } from "lucide-react";
 import { toast } from "react-toastify";
 import { atsScoreApi } from "../api/api";
 import { AtsScoreHistory } from "../types";
-import { LoadingSpinner, Pagination } from "../components/ui";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
+import Pagination from "../components/ui/Pagination";
 import ConfirmModal from "../components/ui/ConfirmModal";
 
 export default function AtsScoreHistoryPage() {

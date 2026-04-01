@@ -4,13 +4,11 @@ import { motion } from "framer-motion";
 import { FileText, Briefcase, CheckCircle, Upload } from "lucide-react";
 import { toast } from "react-toastify";
 import { jobMatchApi, resumeParserApi } from "../api/api";
-import {
-  BackButton,
-  ScoreCard,
-  MatchBreakdown,
-  SuggestionList,
-  LoadingSpinner,
-} from "../components/ui";
+import BackButton from "../components/ui/BackButton";
+import ScoreCard from "../components/ui/ScoreCard";
+import MatchBreakdown from "../components/MatchBreakdown";
+import SuggestionList from "../components/SuggestionList";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 import { JobMatchHistory, ResumeContent } from "../types";
 
 export default function JobMatchPage() {
