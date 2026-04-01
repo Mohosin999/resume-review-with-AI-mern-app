@@ -15,6 +15,7 @@ import ResumeBuildHistory from "./pages/ResumeBuildHistory";
 import LoadingSpinner from "./components/ui/LoadingSpinner";
 import GoToTop from "./components/ui/GoToTop";
 import ThemeWrapper from "./components/ThemeWrapper";
+import ScrollToTop from "./components/ui/ScrollToTop";
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -41,6 +42,7 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
 function App() {
   return (
     <ThemeWrapper>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
