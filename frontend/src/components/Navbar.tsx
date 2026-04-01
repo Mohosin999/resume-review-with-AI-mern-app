@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Flame, X, Menu } from "lucide-react";
+import { X, Menu } from "lucide-react";
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import { logoutUser } from "../store/slices/authSlice";
@@ -46,9 +46,7 @@ export default function Navbar() {
         <div className="section-container">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 rounded-xl flex items-center justify-center">
-                <Flame className="w-5 h-5 text-white" />
-              </div>
+              <img src="/favicon.svg" alt="CVCoach" className="w-8 h-8" />
               <span className="text-xl font-bold text-white">
                 CV<span className="text-primary">Coach</span>
               </span>
