@@ -2,6 +2,11 @@
   "name": "resumai-frontend",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "start": "vite preview"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
     "@stripe/stripe-js": "^9.0.1",
@@ -41,12 +46,5 @@
     "tailwindcss": "^3.4.0",
     "typescript": "^5.3.3",
     "vite": "^5.0.10"
-  },
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint src --ext ts,tsx",
-    "typecheck": "tsc --noEmit",
-    "preview": "vite preview"
   }
 }
