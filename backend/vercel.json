@@ -10,5 +10,10 @@
       "src": "/api/(.*)",
       "dest": "src/index.ts"
     }
-  ]
+  ],
+  "functions": {
+    "src/index.ts": {
+      "runtime": "nodejs18.x"
+    }
+  }
 }
