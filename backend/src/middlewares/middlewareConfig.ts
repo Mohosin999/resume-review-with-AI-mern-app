@@ -17,8 +17,11 @@ export const applyMiddleware = (app: Application): void => {
 
   app.use(
     cors({
-      // origin: env.frontendUrl || "http://localhost:3000",
-      origin: env.frontendUrl,
+      origin: [
+        env.frontendUrl,
+        "http://localhost:5173",
+        "http://localhost:4173",
+      ],
       credentials: true,
       methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
       allowedHeaders: ["Content-Type", "Authorization"],

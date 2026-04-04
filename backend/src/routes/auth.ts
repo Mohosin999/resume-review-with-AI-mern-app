@@ -49,7 +49,7 @@ router.get(
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
         secure: env.nodeEnv === "production",
-        sameSite: "lax",
+        sameSite: "none",
         path: "/",
         maxAge: 15 * 60 * 1000,
       });
@@ -57,7 +57,7 @@ router.get(
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: env.nodeEnv === "production",
-        sameSite: "lax",
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
