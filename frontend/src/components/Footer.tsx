@@ -10,8 +10,11 @@ const Footer = () => {
               <div className="w-12 h-12 bg-gradient-to-br from-green-500 via-emerald-500 to-green-600 rounded-xl flex items-center justify-center">
                 <Flame className="w-6 h-6 text-white" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-                CVCoach
+              <span className="text-2xl font-bold">
+                CV
+                <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                  Coach
+                </span>
               </span>
             </div>
             <p className="text-gray-300 leading-relaxed max-w-md">

@@ -16,7 +16,9 @@ interface TestimonialsSectionProps {
   testimonials: Testimonial[];
 }
 
-export default function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
+export default function TestimonialsSection({
+  testimonials,
+}: TestimonialsSectionProps) {
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -37,9 +39,14 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
             <Star className="w-4 h-4" /> Success Stories
           </motion.div>
           <h2 className="text-4xl sm:text-5xl font-bold text-white">
-            Loved by <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Thousands</span>
+            Loved by{" "}
+            <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+              Thousands
+            </span>
           </h2>
-          <p className="mt-4 text-xl text-gray-300">See what our users have to say</p>
+          <p className="mt-4 text-base md:text-lg text-gray-300">
+            See what our users have to say
+          </p>
         </motion.div>
         <motion.div
           variants={staggerContainer}
@@ -68,7 +75,9 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
                   </motion.div>
                 ))}
               </div>
-              <p className="text-gray-300 mb-6 leading-relaxed italic">"{testimonial.content}"</p>
+              <p className="text-gray-300 mb-6 leading-relaxed italic">
+                "{testimonial.content}"
+              </p>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center text-white font-bold">
                   {testimonial.name.charAt(0)}

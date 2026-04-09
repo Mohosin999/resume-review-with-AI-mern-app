@@ -36,10 +36,14 @@ export default function FeaturesSection({ features }: FeaturesSectionProps) {
             <Zap className="w-4 h-4" /> Powerful Features
           </motion.div>
           <h2 className="text-4xl sm:text-5xl font-bold text-white">
-            Why Choose <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">CVCoach?</span>
+            Why Choose CV
+            <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+              Coach?
+            </span>
           </h2>
-          <p className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto">
-            Everything you need to analyze, create, and optimize your resume for success
+          <p className="mt-4 text-base md:text-lg text-gray-300 max-w-2xl mx-auto">
+            Everything you need to analyze, create, and optimize your resume for
+            success
           </p>
         </motion.div>
         <motion.div
@@ -61,8 +65,12 @@ export default function FeaturesSection({ features }: FeaturesSectionProps) {
                 <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-green-500 via-emerald-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/30 group-hover:scale-110 transition-transform duration-300">
                   <feature.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 text-center">{feature.title}</h3>
-                <p className="text-gray-300 text-center leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-bold text-white mb-3 text-center">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-300 text-center leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
             </motion.div>
           ))}

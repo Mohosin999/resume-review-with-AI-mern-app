@@ -39,14 +39,12 @@ export default function CTASection() {
             <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
               Ready to Boost Your Career?
             </h2>
-            <p className="text-xl text-green-100 mb-10 max-w-2xl mx-auto">
-              Join thousands of job seekers who have transformed their resumes and landed their dream jobs with ResumeAI.
+            <p className="text-base md:text-lg text-green-100 mb-10 max-w-2xl mx-auto">
+              Join thousands of job seekers who have transformed their resumes
+              and landed their dream jobs with ResumeAI.
             </p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                to="/login"
-                className="group gradient-btn-lg gap-3"
-              >
+              <Link to="/login" className="group gradient-btn-lg gap-3">
                 Get Started for Free{" "}
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
               </Link>

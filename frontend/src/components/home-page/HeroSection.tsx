@@ -46,16 +46,16 @@ export default function HeroSection({ user, onLogout }: HeroSectionProps) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-5xl font-bold text-white leading-tight"
+              className="text-4xl md:text-5xl font-bold text-white leading-tight"
             >
-              Land Your First Job with{" "}
-              <span className="text-lime-500">AI-Optimized Resumes</span>
+              Turning Resume into{" "}
+              <span className="text-lime-400">Opportunities with AI</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-8 text-xl text-gray-300 max-w-xl"
+              className="mt-8 text-base md:text-lg text-gray-300 max-w-xl"
             >
               Analyze your resume against job descriptions and receive
               actionable feedback. Build a professionally formatted resume with
