@@ -2,12 +2,6 @@ import { ResumeContent } from "../types";
 
 let printWindow: Window | null = null;
 
-const isMobileDevice = (): boolean => {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  );
-};
-
 export const exportToPdf = async (content: ResumeContent): Promise<void> => {
   try {
     const printContent = generateHtmlContent(content);
@@ -28,19 +22,6 @@ export const exportToPdf = async (content: ResumeContent): Promise<void> => {
     printWindow.onafterprint = () => {
       printWindow?.close();
     };
-
-    printWindow.onload = () => {
-      setTimeout(() => {
-        if (!isMobileDevice()) {
-          printWindow?.print();
-        }
-      }, 500);
-    };
-
-    if (isMobileDevice()) {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      printWindow.focus();
-    }
   } catch (error) {
     console.error("PDF export error:", error);
     throw error;
@@ -418,10 +399,8 @@ function generateHtmlContent(content: ResumeContent): string {
   <script>
     window.onload = function() {
       setTimeout(function() {
-        if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-          window.print();
-        }
-      }, 500);
+        window.print();
+      }, 800);
     };
   </script>
 </body>
