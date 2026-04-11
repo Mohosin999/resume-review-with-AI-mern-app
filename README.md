@@ -6,7 +6,7 @@ CVCoach is a comprehensive full-stack web application that helps users analyze, 
 
 ![Project Screenshot](./frontend//public/cvcoach.png)
 
-## Table of Contents
+## 📋 Table of Contents
 
 - [Live Demo](#live-demo)
 - [Features](#features)
@@ -15,33 +15,69 @@ CVCoach is a comprehensive full-stack web application that helps users analyze, 
 - [Getting Started](#getting-started)
 - [API Endpoints](#api-endpoints)
 
-## Live Demo
+## 🚀 Live Demo
 
 [CVCoach App](https://cvcoach-client.vercel.app/) - Try the live application
 
-## Features
+## ✨ Features
 
-### Resume Analysis
+### ATS Score Analysis
 
-- **ATS Score Calculator** - Evaluate resume compatibility with Applicant Tracking Systems
-- **Job Match Analysis** - Compare resume against job descriptions
-- **Keyword Extraction** - Identify missing keywords and optimization opportunities
-- **AI-Powered Feedback** - Get intelligent suggestions to improve your resume
+- **ATS Compatibility Scoring** - Evaluate how well your resume performs against Applicant Tracking Systems
+- **Detailed Analysis Reports** - Get comprehensive breakdowns of your resume's strengths and weaknesses
+- **Missing Keyword Identification** - Discover critical keywords that your resume lacks
+- **ATS Score History** - Track your resume's ATS score improvements over time
+- **AI-Powered Recommendations** - Receive intelligent suggestions to optimize your resume for ATS
+
+### Job Match Analysis
+
+- **Resume-to-Job Matching** - Compare your resume against specific job descriptions
+- **Match Score Calculation** - Get a percentage score showing how well you fit the position
+- **Skills Gap Analysis** - Identify missing skills and qualifications for the target job
+- **Keyword Optimization** - Find relevant keywords to add for better job alignment
+- **Job Match History** - Review all your previous job match analyses
+- **Customizable Job Descriptions** - Paste any job description to get instant matching insights
 
 ### Resume Builder
 
-- **Drag-and-drop Interface** - Create professional resumes easily
-- **AI Content Generation** - Generate professional summaries, experience descriptions, and skills
-- **Live Preview** - See your resume in real-time as you edit
-- **Export Options** - Download as PDF, DOCX, or PNG
+- **Professional Resume Templates** - Choose from multiple ATS-friendly resume templates
+- **AI-Powered Content Generation** - Generate professional summaries, work experience descriptions, and skills automatically
+- **Real-Time Live Preview** - See your resume changes as you edit
+- **Multiple Export Formats** - Download your resume as PDF, DOCX, or PNG
+- **Resume Build History** - Access and manage all your previously created resumes
 
-### User Management
+### Resume Parser & Analysis
 
-- **Authentication** - Email/password and Google OAuth login
-- **Credit System** - Purchase credits for premium features
-- **History Tracking** - View past analysis and built resumes
+- **File Upload Support** - Upload resumes in PDF, DOCX, or TXT formats
+- **Automatic Content Extraction** - Parse and extract information from resume files
+- **AI-Generated Feedback** - Get intelligent suggestions to improve resume content
+- **Section-by-Section Analysis** - Detailed review of each resume section
 
-## Tech Stack
+### User Dashboard & Management
+
+- **Secure Authentication** - Email/password login with Google OAuth support
+- **Centralized Dashboard** - View all your resumes, analyses, and match scores in one place
+- **Settings Management** - Customize your profile and application preferences
+- **Activity History** - Track all your resume analyses, ATS scores, and job matches
+
+### Payment & Credits System
+
+- **Stripe Integration** - Secure and reliable payment processing
+- **Credit-Based System** - Purchase credits to unlock premium features
+- **Multiple Pricing Plans** - Choose from different subscription tiers
+- **Payment Verification** - Real-time payment status tracking
+- **Success & Cancel Pages** - Guided checkout experience
+
+### Technical Features
+
+- **Responsive Design** - Works seamlessly on desktop, tablet, and mobile devices
+- **Modern UI/UX** - Clean, intuitive interface with smooth animations
+- **Real-Time Updates** - Instant feedback and live preview capabilities
+- **Secure File Handling** - Safe upload and processing of resume documents
+- **API Rate Limiting** - Protected against abuse and excessive requests
+- **Comprehensive Error Handling** - Clear error messages and validation
+
+## 💻 Tech Stack
 
 ### Frontend
 
@@ -62,7 +98,7 @@ CVCoach is a comprehensive full-stack web application that helps users analyze, 
 - **Passport.js** for authentication
 - **Multer** for file uploads
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 app/
@@ -90,7 +126,7 @@ app/
     └── package.json
 ```
 
-## Getting Started
+## 🛠️ Getting Started
 
 ### Prerequisites
 
@@ -179,7 +215,7 @@ app/
    npm run start
    ```
 
-## API Endpoints
+## 📡 API Endpoints
 
 ### Authentication
 
@@ -207,18 +243,41 @@ app/
 ### ATS Score
 
 - `POST /api/ats-score` - Calculate ATS score
+- `GET /api/ats-score/history` - Get ATS score history
+- `GET /api/ats-score/history/:id` - Get single ATS score history
+- `DELETE /api/ats-score/history/:id` - Delete ATS score history
 
 ### Job Match
 
-- `POST /api/job-match` - Match resume to job
+- `POST /api/job-match` - Match resume to job description
+- `GET /api/job-match/history` - Get job match history
+- `GET /api/job-match/history/:id` - Get single job match history
+- `DELETE /api/job-match/history/:id` - Delete job match history
 
 ### Resume Builder
 
 - `POST /api/resume-builder` - Create resume from content
 - `GET /api/resume-builder/templates` - Get available templates
+- `GET /api/resume-builder/history` - Get resume build history
+- `GET /api/resume-builder/history/:id` - Get single build history
+- `DELETE /api/resume-builder/history/:id` - Delete build history
 
 ### Payment
 
 - `POST /api/payment/create-checkout-session` - Create Stripe checkout
 - `POST /api/payment/webhook` - Stripe webhook handler
 - `GET /api/payment/verify/:id` - Verify payment status
+
+### Jobs
+
+- `POST /api/jobs` - Create/save job
+- `GET /api/jobs` - Get all jobs
+- `GET /api/jobs/:id` - Get single job
+- `PUT /api/jobs/:id` - Update job
+- `DELETE /api/jobs/:id` - Delete job
+
+### Users
+
+- `GET /api/users/profile` - Get user profile
+- `PUT /api/users/profile` - Update user profile
+- `GET /api/users/credits` - Get user credits balance
