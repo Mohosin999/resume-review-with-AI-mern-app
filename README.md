@@ -15,11 +15,11 @@ CVCoach is a comprehensive full-stack web application that helps users analyze, 
 - [Getting Started](#getting-started)
 - [API Endpoints](#api-endpoints)
 
-## 🚀 Live Demo
+## Live Demo
 
 [CVCoach App](https://cvcoach-client.vercel.app/) - Try the live application
 
-## ✨ Features
+## Features
 
 ### ATS Score Analysis
 
@@ -77,7 +77,7 @@ CVCoach is a comprehensive full-stack web application that helps users analyze, 
 - **API Rate Limiting** - Protected against abuse and excessive requests
 - **Comprehensive Error Handling** - Clear error messages and validation
 
-## 💻 Tech Stack
+## Tech Stack
 
 ### Frontend
 
@@ -98,7 +98,7 @@ CVCoach is a comprehensive full-stack web application that helps users analyze, 
 - **Passport.js** for authentication
 - **Multer** for file uploads
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 app/
@@ -126,7 +126,7 @@ app/
     └── package.json
 ```
 
-## 🛠️ Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -215,7 +215,7 @@ app/
    npm run start
    ```
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Authentication
 
