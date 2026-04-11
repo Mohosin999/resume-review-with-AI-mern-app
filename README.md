@@ -14,6 +14,7 @@ CVCoach is a comprehensive full-stack web application that helps users analyze, 
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
 - [API Endpoints](#api-endpoints)
+- [Contributing](#contributing)
 
 ## Live Demo
 
@@ -281,3 +282,11 @@ app/
 - `GET /api/users/profile` - Get user profile
 - `PUT /api/users/profile` - Update user profile
 - `GET /api/users/credits` - Get user credits balance
+
+## Contributing
+
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/name`)
+3. Commit changes (`git commit -m 'Add feature'`)
+4. Push branch (`git push origin feature/name`)
+5. Open Pull Request
