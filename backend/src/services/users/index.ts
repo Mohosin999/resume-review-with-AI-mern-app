@@ -5,6 +5,9 @@ import { AtsScore } from "../../models/AtsScore";
 import { JobMatch } from "../../models/JobMatch";
 import { Analysis } from "../../models/Analysis";
 import { Payment } from "../../models/Payment";
+import { ResumeBuildHistory } from "../../models/ResumeBuildHistory";
+import { AtsScoreHistory } from "../../models/AtsScoreHistory";
+import { JobMatchHistory } from "../../models/JobMatchHistory";
 
 interface UpdateProfileData {
   name?: string;
@@ -37,6 +40,9 @@ export const deleteUserAccount = async (userId: string) => {
   await JobMatch.deleteMany({ userId: userObjectId });
   await Analysis.deleteMany({ userId: userObjectId });
   await Payment.deleteMany({ user: userObjectId });
+  await ResumeBuildHistory.deleteMany({ userId: userObjectId });
+  await AtsScoreHistory.deleteMany({ userId: userObjectId });
+  await JobMatchHistory.deleteMany({ userId: userObjectId });
 
   return User.findByIdAndDelete(userId);
 };
